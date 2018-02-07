@@ -3,10 +3,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const ToDo = (props) => {
-  const { todo, removeToDo } = props
+  const { todo, removeToDo, toggleToDo } = props
   return (
     <li>
-      <input type="checkbox" />
+      <input
+        type="checkbox"
+        checked={todo.checked}
+        onClick={() => { toggleToDo(todo.id) }}
+      />
       <span>
         {todo.text}
       </span>
@@ -21,7 +25,9 @@ const ToDo = (props) => {
 
 ToDo.propTypes = {
   todo: PropTypes.object,
-  removeToDo: PropTypes.func
+  removeToDo: PropTypes.func,
+  checked: PropTypes.bool,
+  toggleToDo: PropTypes.func
 }
 
 export default ToDo

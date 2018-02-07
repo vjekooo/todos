@@ -10,8 +10,9 @@ class App extends Component {
     this.state = {
       todos: [
         {
-          id: 0,
-          text: 'noice'
+          id: id,
+          text: 'noice',
+          checked: false
         }
       ]
     }
@@ -22,7 +23,7 @@ class App extends Component {
     this.setState({
       todos: [
         ...this.state.todos,
-        {id: id++, text}
+        {id: id += 1, text: text, checked: false}
       ]
     })
   }
@@ -35,14 +36,34 @@ class App extends Component {
     })
   }
 
+  toggleToDo = (id) => {
+    const { todos } = this.state
+    const updatedChecked = todos.map(todo => {
+      if (todo.id !== id) {
+        return todo
+      } else {
+        return {
+          id: todo.id,
+          text: todo.text,
+          checked: !todo.checked
+        }
+      }
+    })
+    this.setState({
+      todos: updatedChecked
+    })
+  }
+
   render () {
     const { todos } = this.state
+    console.log(this.state.todos)
     return (
       <div className="container">
         <ToDoList
           todos={todos}
           addToDo={this.addToDo}
           removeToDo={this.removeToDo}
+          toggleToDo={this.toggleToDo}
         />
       </div>
     )
