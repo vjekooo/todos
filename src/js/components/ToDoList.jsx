@@ -7,23 +7,27 @@ const ToDoList = (props) => {
   const { todos, addToDo, removeToDo, toggleToDo } = props
   return (
     <Fragment>
-      <button
-        onClick={addToDo}
-      >
-        add todo
-      </button>
+      <div>
+        <button
+          onClick={addToDo}
+        >
+          add todo
+        </button>
+      </div>
       <div className="todo">
-        {
-          todos
-            .map(todo =>
-              <ToDo
-                key={todo.text}
-                todo={todo}
-                removeToDo={removeToDo}
-                toggleToDo={toggleToDo}
-              />
-            )
-        }
+        <ul>
+          {
+            todos
+              .map(todo =>
+                <ToDo
+                  key={todo.text}
+                  todo={todo}
+                  removeToDo={removeToDo}
+                  toggleToDo={toggleToDo}
+                />
+              )
+          }
+        </ul>
       </div>
     </Fragment>
   )

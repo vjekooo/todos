@@ -12,7 +12,7 @@ class App extends Component {
       todos: [
         {
           id: id,
-          text: 'noice',
+          text: 'Learn React',
           checked: false
         }
       ]

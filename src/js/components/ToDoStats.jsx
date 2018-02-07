@@ -6,8 +6,10 @@ const ToDoStats = (props) => {
   const { todos } = props
   return (
     <Fragment>
-      <span>ToDos count: {todos.length}</span>
-      <span>Unchecked ToDos count: {todos.filter(todo => !todo.checked).length}</span>
+      <div className="todo-stats">
+        <span>ToDos count: {todos.length}</span>
+        <span>Unchecked ToDos count: {todos.filter(todo => !todo.checked).length}</span>
+      </div>
     </Fragment>
   )
 }
