@@ -2,12 +2,15 @@
 import React, { Component } from 'react'
 import ToDoList from './ToDoList'
 
+let id = 0
+
 class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
       todos: [
         {
+          id: 0,
           text: 'noice'
         }
       ]
@@ -19,8 +22,16 @@ class App extends Component {
     this.setState({
       todos: [
         ...this.state.todos,
-        {text}
+        {id: id++, text}
       ]
+    })
+  }
+
+  removeToDo = (id) => {
+    const { todos } = this.state
+    const updatedToDoState = todos.filter(todo => todo.id !== id)
+    this.setState({
+      todos: updatedToDoState
     })
   }
 
@@ -31,6 +42,7 @@ class App extends Component {
         <ToDoList
           todos={todos}
           addToDo={this.addToDo}
+          removeToDo={this.removeToDo}
         />
       </div>
     )
