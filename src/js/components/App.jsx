@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react'
 import ToDoList from './ToDoList'
+import ToDoStats from './ToDoStats'
 
 let id = 0
 
@@ -38,7 +39,7 @@ class App extends Component {
 
   toggleToDo = (id) => {
     const { todos } = this.state
-    const updatedChecked = todos.map(todo => {
+    const updatedToDoChecked = todos.map(todo => {
       if (todo.id !== id) {
         return todo
       } else {
@@ -50,15 +51,17 @@ class App extends Component {
       }
     })
     this.setState({
-      todos: updatedChecked
+      todos: updatedToDoChecked
     })
   }
 
   render () {
     const { todos } = this.state
-    console.log(this.state.todos)
     return (
       <div className="container">
+        <ToDoStats
+          todos={todos}
+        />
         <ToDoList
           todos={todos}
           addToDo={this.addToDo}
