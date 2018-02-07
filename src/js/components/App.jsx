@@ -13,11 +13,25 @@ class App extends Component {
       ]
     }
   }
+
+  addToDo = () => {
+    const text = prompt('Add some text')
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        {text}
+      ]
+    })
+  }
+
   render () {
     const { todos } = this.state
     return (
       <div className="container">
-        <ToDoList todos={todos} />
+        <ToDoList
+          todos={todos}
+          addToDo={this.addToDo}
+        />
       </div>
     )
   }
