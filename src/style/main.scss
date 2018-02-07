@@ -8,3 +8,13 @@
 body {
   background-color: salmon;
 }
+
+ul {
+  list-style-type: none;
+}
+
+.container {
+  display: grid;
+  width: 80%;
+  margin: 0 auto;
+}
