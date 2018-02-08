@@ -14,6 +14,16 @@ class App extends Component {
           id: uuid4(),
           text: 'Learn React',
           checked: false
+        },
+        {
+          id: uuid4(),
+          text: 'Finish this app',
+          checked: false
+        },
+        {
+          id: uuid4(),
+          text: 'Chill',
+          checked: false
         }
       ]
     }
@@ -21,12 +31,14 @@ class App extends Component {
 
   addToDo = () => {
     const text = prompt('Add some text')
-    this.setState({
-      todos: [
-        ...this.state.todos,
-        {id: uuid4(), text: text, checked: false}
-      ]
-    })
+    if (text) {
+      this.setState({
+        todos: [
+          ...this.state.todos,
+          {id: uuid4(), text: text, checked: false}
+        ]
+      })
+    }
   }
 
   removeToDo = (id) => {
