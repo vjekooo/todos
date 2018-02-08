@@ -81,9 +81,11 @@ class App extends Component {
         }
       }
     })
-    this.setState({
-      todos: updatedToDoRemove
-    })
+    if (text) {
+      this.setState({
+        todos: updatedToDoRemove
+      })
+    }
   }
 
   render () {
