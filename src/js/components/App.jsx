@@ -67,6 +67,25 @@ class App extends Component {
     })
   }
 
+  editToDo = (id) => {
+    const { todos } = this.state
+    const text = prompt('Edit text')
+    const updatedToDoRemove = todos.map(todo => {
+      if (todo.id !== id) {
+        return todo
+      } else {
+        return {
+          id: todo.id,
+          text: text,
+          checked: todo.checked
+        }
+      }
+    })
+    this.setState({
+      todos: updatedToDoRemove
+    })
+  }
+
   render () {
     const { todos } = this.state
     return (
@@ -81,6 +100,7 @@ class App extends Component {
           addToDo={this.addToDo}
           removeToDo={this.removeToDo}
           toggleToDo={this.toggleToDo}
+          editToDo={this.editToDo}
         />
       </div>
     )

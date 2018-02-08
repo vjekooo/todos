@@ -26,6 +26,7 @@ li {
 
 button {
   padding: 5px;
+  margin-left: 10px;
 }
 
 header {
@@ -55,6 +56,10 @@ header {
   display: grid;
   width: 80%;
   margin: 0 auto;
+}
+
+.icon {
+  margin-left: 15px;
 }
 
 .icon-plus {

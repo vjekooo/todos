@@ -4,13 +4,14 @@ import PropTypes from 'prop-types'
 import ToDo from './ToDo'
 
 const ToDoList = (props) => {
-  const { todos, removeToDo, toggleToDo } = props
+  const { todos, removeToDo, toggleToDo, editToDo } = props
   const toDos = todos.map(todo =>
     <ToDo
       key={todo.text}
       todo={todo}
       removeToDo={removeToDo}
       toggleToDo={toggleToDo}
+      editToDo={editToDo}
     />
   )
   return (
@@ -27,7 +28,8 @@ const ToDoList = (props) => {
 ToDoList.propTypes = {
   todos: PropTypes.array,
   removeToDo: PropTypes.func,
-  toggleToDo: PropTypes.func
+  toggleToDo: PropTypes.func,
+  editToDo: PropTypes.func
 }
 
 export default ToDoList
