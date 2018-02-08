@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 const ToDo = (props) => {
   const { todo, removeToDo, toggleToDo } = props
+  const isChecked = todo.checked ? 'checked' : 'unchecked'
   return (
     <li>
       <input
@@ -11,7 +12,7 @@ const ToDo = (props) => {
         checked={todo.checked}
         onClick={() => { toggleToDo(todo.id) }}
       />
-      <span className="todo-item">
+      <span className={isChecked}>
         {todo.text}
       </span>
       <span

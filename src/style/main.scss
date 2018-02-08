@@ -19,7 +19,7 @@ li {
   align-items: center;
   list-style-type: none;
   padding: 10px 10px 10px 0;
-  .todo-item {
+  span:nth-child(2) {
     padding: 5px;
   }
 }
@@ -46,6 +46,9 @@ header {
 
 .todo {
   background-color: azure;
+  .checked {
+    text-decoration-line: line-through;
+  }
 }
 
 .container {
