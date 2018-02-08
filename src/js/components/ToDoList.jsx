@@ -5,6 +5,14 @@ import ToDo from './ToDo'
 
 const ToDoList = (props) => {
   const { todos, addToDo, removeToDo, toggleToDo } = props
+  const toDos = todos.map(todo =>
+    <ToDo
+      key={todo.text}
+      todo={todo}
+      removeToDo={removeToDo}
+      toggleToDo={toggleToDo}
+    />
+  )
   return (
     <Fragment>
       <div>
@@ -16,17 +24,7 @@ const ToDoList = (props) => {
       </div>
       <div className="todo">
         <ul>
-          {
-            todos
-              .map(todo =>
-                <ToDo
-                  key={todo.text}
-                  todo={todo}
-                  removeToDo={removeToDo}
-                  toggleToDo={toggleToDo}
-                />
-              )
-          }
+          {toDos}
         </ul>
       </div>
     </Fragment>
