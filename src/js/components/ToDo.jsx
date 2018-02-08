@@ -11,14 +11,14 @@ const ToDo = (props) => {
         checked={todo.checked}
         onClick={() => { toggleToDo(todo.id) }}
       />
-      <span>
+      <span className="todo-item">
         {todo.text}
       </span>
-      <button
+      <span
+        className="icon-minus"
         onClick={() => { removeToDo(todo.id) }}
       >
-        delete
-      </button>
+      </span>
     </li>
   )
 }

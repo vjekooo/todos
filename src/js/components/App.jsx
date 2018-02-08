@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import ToDoList from './ToDoList'
 import ToDoStats from './ToDoStats'
+import Header from './Header'
 import uuid4 from '../helpers'
 
 class App extends Component {
@@ -56,11 +57,12 @@ class App extends Component {
 
   render () {
     const { todos } = this.state
-    console.log(this.state)
     return (
       <div className="container">
+        <Header />
         <ToDoStats
           todos={todos}
+          addToDo={this.addToDo}
         />
         <ToDoList
           todos={todos}

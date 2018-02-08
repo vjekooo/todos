@@ -9,16 +9,97 @@ body {
   background-color: salmon;
 }
 
+ul {
+  margin-left: 20px;
+}
+
 li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   list-style-type: none;
+  padding: 10px 10px 10px 0;
+  .todo-item {
+    padding: 5px;
+  }
 }
 
 button {
   padding: 5px;
 }
 
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: beige;
+  height: 50px;
+}
+
+.todo-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  height: 30px;
+}
+
+.todo {
+  background-color: azure;
+}
+
 .container {
   display: grid;
   width: 80%;
   margin: 0 auto;
+}
+
+.icon-plus {
+  background-color: #000;
+  border-radius:8px;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.icon-plus:after {
+  background-color: #fff;
+  width: 8px;
+  height: 2px;
+  border-radius: 1px;
+  position: absolute;
+  top: 7px;
+  left: 4px;
+  content: "";
+}
+.icon-plus:before {
+  background-color: #fff;
+  width: 2px;
+  height: 8px;
+  border-radius: 1px;
+  position: absolute;
+  top: 4px;
+  left: 7px;
+  content: "";
+}
+.icon-minus {
+  background-color: #000;
+  border-radius: 8px;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.icon-minus:after {
+  background-color: #fff;
+  width: 8px;
+  height: 2px;
+  border-radius: 1px;
+  position: absolute;
+  top: 7px;
+  left: 3.5px;
+  z-index: 4;
+  content: "";
 }
