@@ -2,8 +2,7 @@
 import React, { Component } from 'react'
 import ToDoList from './ToDoList'
 import ToDoStats from './ToDoStats'
-
-let id = 0
+import uuid4 from '../helpers'
 
 class App extends Component {
   constructor (props) {
@@ -11,7 +10,7 @@ class App extends Component {
     this.state = {
       todos: [
         {
-          id: id,
+          id: uuid4(),
           text: 'Learn React',
           checked: false
         }
@@ -24,7 +23,7 @@ class App extends Component {
     this.setState({
       todos: [
         ...this.state.todos,
-        {id: id += 1, text: text, checked: false}
+        {id: uuid4(), text: text, checked: false}
       ]
     })
   }
@@ -57,6 +56,7 @@ class App extends Component {
 
   render () {
     const { todos } = this.state
+    console.log(this.state)
     return (
       <div className="container">
         <ToDoStats

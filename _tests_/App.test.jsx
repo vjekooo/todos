@@ -1,3 +1,4 @@
+
 import App from '../src/js/components/App'
 
 describe('Addition', () => {
