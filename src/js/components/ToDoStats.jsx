@@ -12,7 +12,7 @@ const ToDoStats = (props) => {
         <span>ToDos count: {toDosLength}</span>
         <span>Unchecked ToDos count: {uncheckedLength}</span>
         <span
-          className="icon-plus"
+          className="icon add"
           onClick={addToDo}
         >
         </span>

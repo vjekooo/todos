@@ -21,7 +21,7 @@ const ToDo = (props) => {
         edit
       </button>
       <span
-        className="icon icon-minus"
+        className="icon remove"
         onClick={() => { removeToDo(todo.id) }}
       >
       </span>
