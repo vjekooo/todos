@@ -21,6 +21,17 @@ const ToDoList = (props) => {
           {toDos}
         </ul>
       </div>
+      <span className="icon add">
+
+      </span>
+      <div className="add-task hidden">
+        <form>
+          <input type="text" id="task" />
+          <label htmlFor="task">Add new task</label>
+          <input type="text" id="notes" />
+          <label htmlFor="notes">Add new note</label>
+        </form>
+      </div>
     </Fragment>
   )
 }

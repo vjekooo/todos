@@ -7,23 +7,27 @@ const ToDo = (props) => {
   const isChecked = todo.checked ? 'checked' : 'unchecked'
   return (
     <li>
-      <input
-        type="checkbox"
-        checked={todo.checked}
-        onClick={() => { toggleToDo(todo.id) }}
-      />
-      <span className={isChecked}>
-        {todo.text}
+      <span>
+        <input
+          type="checkbox"
+          checked={todo.checked}
+          onClick={() => { toggleToDo(todo.id) }}
+        />
+        <span className={isChecked}>
+          {todo.text}
+        </span>
       </span>
-      <button
-        onClick={() => { editToDo(todo.id) }}
-      >
-        edit
-      </button>
-      <span
-        className="icon remove"
-        onClick={() => { removeToDo(todo.id) }}
-      >
+      <span>
+        <button
+          onClick={() => { editToDo(todo.id) }}
+        >
+          edit
+        </button>
+        <span
+          className="icon remove"
+          onClick={() => { removeToDo(todo.id) }}
+        >
+        </span>
       </span>
     </li>
   )
