@@ -24,7 +24,8 @@ class App extends Component {
           text: 'Chill',
           checked: false
         }
-      ]
+      ],
+      overlay: true
     }
   }
 
@@ -87,17 +88,34 @@ class App extends Component {
     }
   }
 
+  overlayToggle = () => {
+    const { overlay } = this.state
+    if (!overlay) {
+      this.setState({
+        ...this.state.todos,
+        overlay: true
+      })
+    } else {
+      this.setState({
+        ...this.state.todos,
+        overlay: false
+      })
+    }
+  }
+
   render () {
-    const { todos } = this.state
+    const { todos, overlay } = this.state
     return (
       <div className="container">
         <Header />
         <ToDoList
           todos={todos}
+          overlay={overlay}
           addToDo={this.addToDo}
           removeToDo={this.removeToDo}
           toggleToDo={this.toggleToDo}
           editToDo={this.editToDo}
+          overlayToggle={this.overlayToggle}
         />
       </div>
     )

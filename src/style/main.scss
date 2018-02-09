@@ -13,6 +13,14 @@ body {
   text-transform: uppercase;
 }
 
+button {
+  padding: 5px;
+}
+
+.hidden {
+  display: none;
+}
+
 li {
   display: flex;
   justify-content: space-between;
@@ -42,9 +50,15 @@ form {
 }
 
 .add-task {
-  display: flex;
+  display: grid;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  top: 2rem;
+  left: 2rem;
+  right: 2rem;
   padding: 10px;
   background-color: rgb(73, 73, 73);
 }

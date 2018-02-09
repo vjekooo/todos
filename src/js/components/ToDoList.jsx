@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 import ToDo from './ToDo'
 
 const ToDoList = (props) => {
-  const { todos, removeToDo, toggleToDo, editToDo } = props
+  const { todos, removeToDo, toggleToDo, editToDo, overlay, overlayToggle } = props
+  const overlaySwitch = overlay ? 'add-task' : 'hidden'
   const toDos = todos.map(todo =>
     <ToDo
       key={todo.text}
@@ -21,15 +22,14 @@ const ToDoList = (props) => {
           {toDos}
         </ul>
       </div>
-      <span className="icon add">
-
+      <span className="icon add"
+        onClick={overlayToggle}
+      >
       </span>
-      <div className="add-task hidden">
+      <div className={overlaySwitch}>
         <form>
           <input type="text" id="task" />
           <label htmlFor="task">Add new task</label>
-          <input type="text" id="notes" />
-          <label htmlFor="notes">Add new note</label>
         </form>
       </div>
     </Fragment>
@@ -38,9 +38,11 @@ const ToDoList = (props) => {
 
 ToDoList.propTypes = {
   todos: PropTypes.array,
+  overlay: PropTypes.bool,
   removeToDo: PropTypes.func,
   toggleToDo: PropTypes.func,
-  editToDo: PropTypes.func
+  editToDo: PropTypes.func,
+  overlayToggle: PropTypes.func
 }
 
 export default ToDoList
