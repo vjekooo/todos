@@ -21,6 +21,10 @@ li {
   padding: 10px 10px 10px 25px;
   background-color: rgb(89, 193, 211);
   margin-bottom: 10px;
+  .checked {
+    text-decoration-line: line-through;
+    color: rgb(73, 73, 73);
+  }
   span:nth-child(2) {
     padding: 5px;
   }
