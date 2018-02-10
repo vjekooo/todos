@@ -47,13 +47,15 @@ class App extends Component {
   }
 
   addToDo = (text) => {
-    this.setState({
-      todos: [
-        ...this.state.todos,
-        {id: uuid4(), text: text, checked: false}
-      ],
-      overlay: false
-    })
+    if (text) {
+      this.setState({
+        todos: [
+          ...this.state.todos,
+          {id: uuid4(), text: text, checked: false}
+        ],
+        overlay: false
+      })
+    }
   }
 
   removeToDo = (id) => {
