@@ -25,20 +25,35 @@ class App extends Component {
           checked: false
         }
       ],
-      overlay: true
+      overlay: false,
+      input: ''
     }
   }
 
-  addToDo = () => {
-    const text = prompt('Add some text')
-    if (text) {
-      this.setState({
-        todos: [
-          ...this.state.todos,
-          {id: uuid4(), text: text, checked: false}
-        ]
-      })
-    }
+  handleChange = (event) => {
+    this.setState({
+      todos: [
+        ...this.state.todos
+      ],
+      overlay: true,
+      input: event.target.value
+    })
+  }
+
+  handleSubmit = (event) => {
+    const { input } = this.state
+    this.addToDo(input)
+    event.preventDefault()
+  }
+
+  addToDo = (text) => {
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        {id: uuid4(), text: text, checked: false}
+      ],
+      overlay: false
+    })
   }
 
   removeToDo = (id) => {
@@ -104,18 +119,21 @@ class App extends Component {
   }
 
   render () {
-    const { todos, overlay } = this.state
+    const { todos, overlay, input } = this.state
     return (
       <div className="container">
         <Header />
         <ToDoList
           todos={todos}
           overlay={overlay}
+          input={input}
           addToDo={this.addToDo}
           removeToDo={this.removeToDo}
           toggleToDo={this.toggleToDo}
           editToDo={this.editToDo}
           overlayToggle={this.overlayToggle}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
         />
       </div>
     )
