@@ -29,6 +29,15 @@ li {
   padding: 10px 10px 10px 10px;
   background-color: rgb(89, 193, 211);
   margin-bottom: 10px;
+  span {
+    display: flex;
+    align-items: center;
+  }
+  :first-child {
+    input {
+      margin-right: 10px;
+    }
+  }
   .checked {
     text-decoration-line: line-through;
     color: rgb(73, 73, 73);
@@ -43,9 +52,7 @@ form {
     height: 50px;
   }
   label {
-    position: relative;
-    top: -15px;
-    left: 5px;
+    font-size: 15px;
   }
 }
 
@@ -61,18 +68,21 @@ form {
   padding: 10px;
   z-index: 10;
   background-color: rgba(184, 158, 136, 0.9);
-  .remove {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
+  transition: transform 1s;
+  .add-task {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: skyblue;
   }
-}
-
-.add-task {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: skyblue;
+  .add-button {
+    width: 4rem;
+    height: 2rem;
+    padding: 5px;
+    margin-top: 10px;
+    border: 0;
+    text-align: center;
+  }
 }
 
 header {
@@ -99,17 +109,13 @@ header {
   margin: 0 auto;
 }
 
-.remove {
-  margin-left: 15px;
-} 
-
 .icon {
   position: relative;
   display: inline-block;
   overflow: hidden;
   &:hover {
     &::before, &::after {
-      background: salmon;
+      background: white;
     }
   }
   &::before, &::after {
@@ -131,6 +137,7 @@ header {
   &.remove {
     width: 20px;
     height: 20px;
+    margin-left: 15px;
     transform: rotate(45deg);
   }
   &.add {
@@ -139,8 +146,17 @@ header {
     right: 10%;
     width: 60px;
     height: 60px;
-    border: 0;
+    border: 10px solid skyblue;
     border-radius: 50%;
-    background-color: salmon;
+    background-color: skyblue;
+    z-index: 1000;
+  }
+  &.active {
+    transform: rotate(45deg);
+    transition: transform 0.3s;
+  }
+  &.non-active {
+    transform: rotate(0deg);
+    transition: transform 0.3s;
   }
 }

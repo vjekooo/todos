@@ -26,6 +26,7 @@ class App extends Component {
         }
       ],
       overlay: false,
+      active: null,
       input: ''
     }
   }
@@ -110,24 +111,27 @@ class App extends Component {
     if (!overlay) {
       this.setState({
         ...this.state.todos,
-        overlay: true
+        overlay: true,
+        active: true
       })
     } else {
       this.setState({
         ...this.state.todos,
-        overlay: false
+        overlay: false,
+        active: false
       })
     }
   }
 
   render () {
-    const { todos, overlay, input } = this.state
+    const { todos, overlay, active, input } = this.state
     return (
       <div className="container">
         <Header />
         <ToDoList
           todos={todos}
           overlay={overlay}
+          active={active}
           input={input}
           addToDo={this.addToDo}
           removeToDo={this.removeToDo}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ToDo from './ToDo'
 
 const ToDoList = (props) => {
-  const { todos, input, removeToDo, toggleToDo, editToDo, overlay, overlayToggle, handleSubmit, handleChange } = props
+  const { todos, active, input, removeToDo, toggleToDo, editToDo, overlay, overlayToggle, handleSubmit, handleChange } = props
   const overlaySwitch = overlay ? 'overlay' : 'hidden'
   const toDos = todos.map(todo =>
     <ToDo
@@ -15,7 +15,7 @@ const ToDoList = (props) => {
       editToDo={editToDo}
     />
   )
-
+  const activeClass = active ? 'icon add active' : 'icon add non-active'
   return (
     <Fragment>
       <div className="todo">
@@ -23,16 +23,11 @@ const ToDoList = (props) => {
           {toDos}
         </ul>
       </div>
-      <span className="icon add"
+      <span className={activeClass}
         onClick={overlayToggle}
       >
       </span>
       <div className={overlaySwitch}>
-        <span
-          className="icon remove"
-          onClick={overlayToggle}
-        >
-        </span>
         <div className="add-task">
           <form
             onSubmit={handleSubmit}
@@ -45,7 +40,7 @@ const ToDoList = (props) => {
                 onChange={handleChange}
               />
             </label>
-            <input type="submit" value="Submit"/>
+            <input className="add-button" type="submit" value="Add"/>
           </form>
         </div>
       </div>
@@ -56,6 +51,7 @@ const ToDoList = (props) => {
 ToDoList.propTypes = {
   todos: PropTypes.array,
   input: PropTypes.string,
+  active: PropTypes.bool,
   overlay: PropTypes.bool,
   addToDo: PropTypes.func,
   removeToDo: PropTypes.func,
