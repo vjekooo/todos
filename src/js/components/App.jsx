@@ -26,7 +26,7 @@ class App extends Component {
         }
       ],
       overlay: false,
-      active: null,
+      active: false,
       input: ''
     }
   }
@@ -57,6 +57,7 @@ class App extends Component {
         overlay: false
       })
     }
+    this.handleAddButtonClass()
   }
 
   removeToDo = (id) => {
@@ -111,13 +112,25 @@ class App extends Component {
     if (!overlay) {
       this.setState({
         ...this.state.todos,
-        overlay: true,
-        active: true
+        overlay: true
       })
     } else {
       this.setState({
         ...this.state.todos,
-        overlay: false,
+        overlay: false
+      })
+    }
+    this.handleAddButtonClass()
+  }
+
+  handleAddButtonClass = () => {
+    const { active } = this.state
+    if (!active) {
+      this.setState({
+        active: true
+      })
+    } else {
+      this.setState({
         active: false
       })
     }
