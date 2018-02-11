@@ -2,6 +2,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import ToDo from './ToDo'
+import Overlay from './Overlay'
 
 const ToDoList = (props) => {
   const {
@@ -38,23 +39,13 @@ const ToDoList = (props) => {
         onClick={overlayToggle}
       >
       </span>
-      <div className={overlayClass}>
-        <div className="add-task">
-          <form
-            onSubmit={handleSubmit}
-          >
-            <label>
-              Task:
-              <input
-                type="text"
-                value={input}
-                onChange={handleChange}
-              />
-            </label>
-            <input className="add-button" type="submit" value="Add"/>
-          </form>
-        </div>
-      </div>
+      <Overlay
+        input={input}
+        overlayClass={overlayClass}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      >
+      </Overlay>
     </Fragment>
   )
 }
