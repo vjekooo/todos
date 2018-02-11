@@ -26,7 +26,7 @@ const ToDoList = (props) => {
       editToDo={editToDo}
     />
   )
-  const overlayClass = overlay ? 'overlay' : 'hidden'
+  const overlayClass = overlay ? 'overlay visible' : ' overlay hidden'
   const activeClass = active ? 'icon add active' : 'icon add non-active'
   return (
     <Fragment>
