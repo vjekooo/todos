@@ -14,6 +14,7 @@ const ToDoList = (props) => {
     editToDo,
     overlay,
     overlayToggle,
+    callOverlayForEdit,
     handleSubmit,
     handleChange
   } = props
@@ -23,7 +24,7 @@ const ToDoList = (props) => {
       todo={todo}
       removeToDo={removeToDo}
       toggleToDo={toggleToDo}
-      editToDo={editToDo}
+      callOverlayForEdit={callOverlayForEdit}
     />
   )
   const overlayClass = overlay ? 'overlay visible' : ' overlay hidden'
@@ -42,6 +43,7 @@ const ToDoList = (props) => {
       <Overlay
         input={input}
         overlayClass={overlayClass}
+        editToDo={editToDo}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       >
@@ -60,6 +62,7 @@ ToDoList.propTypes = {
   toggleToDo: PropTypes.func,
   editToDo: PropTypes.func,
   overlayToggle: PropTypes.func,
+  callOverlayForEdit: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func
 }

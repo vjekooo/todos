@@ -86,33 +86,47 @@ class App extends Component {
     })
   }
 
-  editToDo = (id) => {
-    const { todos } = this.state
-    const text = prompt('Edit text')
-    const updatedToDoRemove = todos.map(todo => {
-      if (todo.id !== id) {
-        return todo
-      } else {
-        return {
-          id: todo.id,
-          text: text,
-          checked: todo.checked
-        }
-      }
-    })
-    if (text) {
-      this.setState({
-        todos: updatedToDoRemove
-      })
-    }
+  callOverlayForEdit = (id) => {
+    this.overlayToggle(id)
   }
 
-  overlayToggle = () => {
-    const { overlay } = this.state
+  editToDo = (id) => {
+    // const { todos } = this.state
+    // const updatedToDoRemove = todos.map(todo => {
+    //   if (todo.id !== id) {
+    //     return todo
+    //   } else {
+    //     return {
+    //       id: todo.id,
+    //       text: text,
+    //       checked: todo.checked
+    //     }
+    //   }
+    // })
+    // if (text) {
+    //   this.setState({
+    //     todos: updatedToDoRemove
+    //   })
+    // }
+  }
+
+  overlayToggle = (id) => {
+    const { todos, overlay } = this.state
+    const isItem = todos.filter(todo => {
+      return todo.id === id
+    })
+    // const input = id === 'string' ? isItem[0].text : ''
+    console.log('typeof: ', typeof id)
+    if (id === 'string') {
+      console.log('string')
+    } else {
+      console.log('drugo')
+    }
     if (!overlay) {
       this.setState({
         ...this.state.todos,
-        overlay: true
+        overlay: true,
+        input: isItem[0].text
       })
     } else {
       this.setState({
@@ -138,6 +152,7 @@ class App extends Component {
 
   render () {
     const { todos, overlay, active, input } = this.state
+    console.log('state input: ', input)
     return (
       <div className="container">
         <Header />
@@ -151,6 +166,7 @@ class App extends Component {
           toggleToDo={this.toggleToDo}
           editToDo={this.editToDo}
           overlayToggle={this.overlayToggle}
+          callOverlayForEdit={this.callOverlayForEdit}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />

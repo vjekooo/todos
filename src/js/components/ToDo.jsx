@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const ToDo = (props) => {
-  const { todo, removeToDo, toggleToDo, editToDo } = props
+  const { todo, callOverlayForEdit, toggleToDo, removeToDo } = props
   const isChecked = todo.checked ? 'checked' : 'unchecked'
   return (
     <li>
@@ -19,7 +19,7 @@ const ToDo = (props) => {
       </span>
       <span>
         <button
-          onClick={() => { editToDo(todo.id) }}
+          onClick={() => { callOverlayForEdit(todo.id) }}
         >
           edit
         </button>
@@ -38,7 +38,7 @@ ToDo.propTypes = {
   removeToDo: PropTypes.func,
   checked: PropTypes.bool,
   toggleToDo: PropTypes.func,
-  editToDo: PropTypes.func
+  callOverlayForEdit: PropTypes.func
 }
 
 export default ToDo

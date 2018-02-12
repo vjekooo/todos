@@ -14,6 +14,7 @@ const Overlay = (props) => {
             Task:
             <input
               type="text"
+              placeholder="add task"
               value={input}
               onChange={handleChange}
             />
