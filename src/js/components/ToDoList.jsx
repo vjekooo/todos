@@ -19,7 +19,7 @@ const ToDoList = (props) => {
     handleSubmit,
     handleChange
   } = props
-  const toDos = todos.map(todo =>
+  const toDo = todos.map(todo =>
     <ToDo
       key={todo.text}
       todo={todo}
@@ -28,13 +28,14 @@ const ToDoList = (props) => {
       callOverlayForEdit={callOverlayForEdit}
     />
   )
+  const renderToDo = todos.length !== 0 ? toDo : 'Such empty, do something'
   const overlayClass = overlay ? 'overlay visible' : ' overlay hidden'
   const activeClass = active ? 'icon add active' : 'icon add non-active'
   return (
     <Fragment>
       <div className="todo">
         <ul>
-          {toDos}
+          {renderToDo}
         </ul>
       </div>
       <span className={activeClass}
