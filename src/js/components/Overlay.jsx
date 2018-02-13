@@ -3,7 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const Overlay = (props) => {
-  const { input, handleChange, handleSubmit, overlayClass } = props
+  const { input, currentTodo, handleChange, handleSubmit, overlayClass } = props
+  const value = currentTodo ? 'Edit' : 'Add'
   return (
     <div className={overlayClass}>
       <div className="add-task">
@@ -19,7 +20,7 @@ const Overlay = (props) => {
               onChange={handleChange}
             />
           </label>
-          <input className="add-button" type="submit" value="Add"/>
+          <input className="add-button" type="submit" value={value} />
         </form>
       </div>
     </div>
@@ -30,6 +31,7 @@ Overlay.propTypes = {
   input: PropTypes.string,
   active: PropTypes.bool,
   overlay: PropTypes.bool,
+  currentTodo: PropTypes.string,
   overlayClass: PropTypes.string,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func

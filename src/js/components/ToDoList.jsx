@@ -9,6 +9,7 @@ const ToDoList = (props) => {
     todos,
     active,
     input,
+    currentTodo,
     removeToDo,
     toggleToDo,
     editToDo,
@@ -42,6 +43,7 @@ const ToDoList = (props) => {
       </span>
       <Overlay
         input={input}
+        currentTodo={currentTodo}
         overlayClass={overlayClass}
         editToDo={editToDo}
         handleChange={handleChange}
@@ -55,6 +57,7 @@ const ToDoList = (props) => {
 ToDoList.propTypes = {
   todos: PropTypes.array,
   input: PropTypes.string,
+  currentTodo: PropTypes.string,
   active: PropTypes.bool,
   overlay: PropTypes.bool,
   addToDo: PropTypes.func,
