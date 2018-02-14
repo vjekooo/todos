@@ -75,7 +75,6 @@ class App extends Component {
         overlay: false
       })
     }
-    this.handleToggleButtonClass()
   }
 
   removeToDo = (id) => {
@@ -165,21 +164,20 @@ class App extends Component {
   }
 
   handleToggleButtonClass = () => {
-    const { addButtonActive } = this.state
-    if (!addButtonActive) {
+    const { overlay } = this.state
+    if (overlay) {
       this.setState({
-        addButtonActive: true
+        addButtonActive: false
       })
     } else {
       this.setState({
-        addButtonActive: false
+        addButtonActive: true
       })
     }
   }
 
   render () {
     const { todos, overlay, addButtonActive, input, currentTodo } = this.state
-    console.log(todos[0].created)
     return (
       <div className="container">
         <Header />
