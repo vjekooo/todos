@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import ToDoList from './ToDoList'
 import Header from './Header'
-import uuid4 from '../helpers'
+import { uuidv4 } from '../helpers'
 
 class App extends Component {
   constructor (props) {
@@ -10,17 +10,17 @@ class App extends Component {
     this.state = {
       todos: [
         {
-          id: uuid4(),
+          id: uuidv4(),
           text: 'Learn React',
           checked: false
         },
         {
-          id: uuid4(),
+          id: uuidv4(),
           text: 'Finish this app',
           checked: false
         },
         {
-          id: uuid4(),
+          id: uuidv4(),
           text: 'Chill',
           checked: false
         }
@@ -57,7 +57,7 @@ class App extends Component {
     this.setState({
       todos: [
         ...this.state.todos,
-        {id: uuid4(), text: input, checked: false}
+        {id: uuidv4(), text: input, checked: false}
       ],
       overlay: false
     })
