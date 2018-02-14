@@ -12,7 +12,6 @@ const Overlay = (props) => {
           onSubmit={handleSubmit}
         >
           <label>
-            Task:
             <input
               type="text"
               placeholder="add task"
