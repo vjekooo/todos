@@ -1,14 +1,14 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { getRandColor } from '../helpers'
 
 const ToDo = (props) => {
   const { todo, overlayToggleEdit, toggleToDo, removeToDo } = props
   const isChecked = todo.checked ? 'checked' : 'unchecked'
   const color = {
-    backgroundColor: getRandColor(3)
+    backgroundColor: todo.color
   }
+
   return (
     <li style={color}>
       <span>

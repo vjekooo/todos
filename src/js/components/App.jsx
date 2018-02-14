@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import ToDoList from './ToDoList'
 import Header from './Header'
-import { uuidv4 } from '../helpers'
+import { uuidv4, getRandColor } from '../helpers'
 
 class App extends Component {
   constructor (props) {
@@ -12,17 +12,20 @@ class App extends Component {
         {
           id: uuidv4(),
           text: 'Learn React',
-          checked: false
+          checked: false,
+          color: getRandColor(3)
         },
         {
           id: uuidv4(),
           text: 'Finish this app',
-          checked: false
+          checked: false,
+          color: getRandColor(3)
         },
         {
           id: uuidv4(),
           text: 'Chill',
-          checked: false
+          checked: false,
+          color: getRandColor(3)
         }
       ],
       currentTodo: '',
@@ -57,7 +60,12 @@ class App extends Component {
     this.setState({
       todos: [
         ...this.state.todos,
-        {id: uuidv4(), text: input, checked: false}
+        {
+          id: uuidv4(),
+          text: input,
+          checked: false,
+          color: getRandColor(3)
+        }
       ],
       overlay: false
     })
@@ -81,24 +89,14 @@ class App extends Component {
         return {
           id: todo.id,
           text: todo.text,
-          checked: !todo.checked
+          checked: !todo.checked,
+          color: todo.color
         }
       }
     })
     this.setState({
       todos: updatedToDoChecked
     })
-  }
-
-  overlayToggleEdit = (id) => {
-    const { todos } = this.state
-    const currentTodo = todos.filter(todo => {
-      return todo.id === id
-    })
-    this.setState({
-      currentTodo: currentTodo[0].id
-    })
-    this.overlayToggleAdd(id)
   }
 
   editToDo = () => {
@@ -110,7 +108,8 @@ class App extends Component {
         return {
           id: todo.id,
           text: input,
-          checked: todo.checked
+          checked: todo.checked,
+          color: todo.color
         }
       }
     })
@@ -122,6 +121,17 @@ class App extends Component {
         active: false
       })
     }
+  }
+
+  overlayToggleEdit = (id) => {
+    const { todos } = this.state
+    const currentTodo = todos.filter(todo => {
+      return todo.id === id
+    })
+    this.setState({
+      currentTodo: currentTodo[0].id
+    })
+    this.overlayToggleAdd(id)
   }
 
   overlayToggleAdd = (id) => {
