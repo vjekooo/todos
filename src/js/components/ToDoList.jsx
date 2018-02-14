@@ -28,7 +28,7 @@ const ToDoList = (props) => {
       overlayToggleEdit={overlayToggleEdit}
     />
   )
-  const renderToDo = todos.length !== 0 ? toDo : 'Such empty, do something'
+  const renderToDo = todos.length !== 0 ? toDo : <h3 className="no-todo">Such empty, do something</h3>
   const overlayClass = overlay ? 'overlay visible' : ' overlay hidden'
   const activeClass = addButtonActive ? 'icon add active' : 'icon add non-active'
   return (

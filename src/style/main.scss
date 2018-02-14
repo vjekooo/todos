@@ -52,6 +52,14 @@ form {
   }
 }
 
+.todo {
+  text-align: center;
+  h3 {
+    position: relative;
+    top: 100px;
+  }
+}
+
 .overlay {
   position: absolute;
   top: 0;
@@ -100,7 +108,6 @@ header {
   background-color: rgb(83, 182, 221);
   color: white;
   height: 80px;
-  margin-bottom: 20px;
 }
 
 .todo-stats {

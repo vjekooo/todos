@@ -8,7 +8,6 @@ const ToDo = (props) => {
   const color = {
     backgroundColor: todo.color
   }
-
   return (
     <li style={color}>
       <span>
