@@ -144,10 +144,10 @@ class App extends Component {
         currentTodo: null
       })
     }
-    this.handleAddButtonClass()
+    this.handleToggleButtonClass()
   }
 
-  handleAddButtonClass = () => {
+  handleToggleButtonClass = () => {
     const { addButtonActive } = this.state
     if (!addButtonActive) {
       this.setState({

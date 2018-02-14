@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+@import "mq";
 
 * {
   padding: 0;
@@ -112,8 +113,10 @@ header {
 
 .container {
   display: grid;
-  width: 80%;
   margin: 0 auto;
+  @include desktop {
+    width: 60%;
+  }
 }
 
 .icon {
