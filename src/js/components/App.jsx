@@ -60,19 +60,21 @@ class App extends Component {
 
   addToDo = () => {
     const { input } = this.state
-    this.setState({
-      todos: [
-        ...this.state.todos,
-        {
-          id: uuidv4(),
-          created: getDate(),
-          text: input,
-          checked: false,
-          color: getRandColor(3)
-        }
-      ],
-      overlay: false
-    })
+    if (input) {
+      this.setState({
+        todos: [
+          ...this.state.todos,
+          {
+            id: uuidv4(),
+            created: getDate(),
+            text: input,
+            checked: false,
+            color: getRandColor(3)
+          }
+        ],
+        overlay: false
+      })
+    }
     this.handleToggleButtonClass()
   }
 
@@ -144,7 +146,7 @@ class App extends Component {
     const isItem = todos.filter(todo => {
       return todo.id === id
     })
-    const input = id.target ? '' : isItem[0].text
+    const input = Object.prototype.toString.call(id) === '[object Object]' ? '' : isItem[0].text
     if (!overlay) {
       this.setState({
         ...this.state.todos,
