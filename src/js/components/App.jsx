@@ -69,7 +69,7 @@ class App extends Component {
       ],
       overlay: false
     })
-    this.handleAddButtonClass()
+    this.handleToggleButtonClass()
   }
 
   removeToDo = (id) => {
