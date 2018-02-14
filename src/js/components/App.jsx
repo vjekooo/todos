@@ -27,7 +27,7 @@ class App extends Component {
       ],
       currentTodo: '',
       overlay: false,
-      active: false,
+      addButtonActive: false,
       input: ''
     }
   }
@@ -90,7 +90,7 @@ class App extends Component {
     })
   }
 
-  callOverlayForEdit = (id) => {
+  overlayToggleEdit = (id) => {
     const { todos } = this.state
     const currentTodo = todos.filter(todo => {
       return todo.id === id
@@ -98,7 +98,7 @@ class App extends Component {
     this.setState({
       currentTodo: currentTodo[0].id
     })
-    this.overlayToggle(id)
+    this.overlayToggleAdd(id)
   }
 
   editToDo = () => {
@@ -124,7 +124,7 @@ class App extends Component {
     }
   }
 
-  overlayToggle = (id) => {
+  overlayToggleAdd = (id) => {
     const { todos, overlay } = this.state
     const isItem = todos.filter(todo => {
       return todo.id === id
@@ -151,32 +151,32 @@ class App extends Component {
     const { active } = this.state
     if (!active) {
       this.setState({
-        active: true
+        addButtonActive: true
       })
     } else {
       this.setState({
-        active: false
+        addButtonActive: false
       })
     }
   }
 
   render () {
-    const { todos, overlay, active, input, currentTodo } = this.state
+    const { todos, overlay, addButtonActive, input, currentTodo } = this.state
     return (
       <div className="container">
         <Header />
         <ToDoList
           todos={todos}
           overlay={overlay}
-          active={active}
+          addButtonActive={addButtonActive}
           input={input}
           currentTodo={currentTodo}
           addToDo={this.addToDo}
           removeToDo={this.removeToDo}
           toggleToDo={this.toggleToDo}
           editToDo={this.editToDo}
-          overlayToggle={this.overlayToggle}
-          callOverlayForEdit={this.callOverlayForEdit}
+          overlayToggleAdd={this.overlayToggleAdd}
+          overlayToggleEdit={this.overlayToggleEdit}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />

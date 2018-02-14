@@ -7,15 +7,15 @@ import Overlay from './Overlay'
 const ToDoList = (props) => {
   const {
     todos,
-    active,
+    addButtonActive,
     input,
     currentTodo,
     removeToDo,
     toggleToDo,
     editToDo,
     overlay,
-    overlayToggle,
-    callOverlayForEdit,
+    overlayToggleAdd,
+    overlayToggleEdit,
     handleSubmit,
     handleChange
   } = props
@@ -25,12 +25,12 @@ const ToDoList = (props) => {
       todo={todo}
       removeToDo={removeToDo}
       toggleToDo={toggleToDo}
-      callOverlayForEdit={callOverlayForEdit}
+      overlayToggleEdit={overlayToggleEdit}
     />
   )
   const renderToDo = todos.length !== 0 ? toDo : 'Such empty, do something'
   const overlayClass = overlay ? 'overlay visible' : ' overlay hidden'
-  const activeClass = active ? 'icon add active' : 'icon add non-active'
+  const activeClass = addButtonActive ? 'icon add active' : 'icon add non-active'
   return (
     <Fragment>
       <div className="todo">
@@ -39,7 +39,7 @@ const ToDoList = (props) => {
         </ul>
       </div>
       <span className={activeClass}
-        onClick={overlayToggle}
+        onClick={overlayToggleAdd}
       >
       </span>
       <Overlay
@@ -59,14 +59,14 @@ ToDoList.propTypes = {
   todos: PropTypes.array,
   input: PropTypes.string,
   currentTodo: PropTypes.string,
-  active: PropTypes.bool,
+  addButtonActive: PropTypes.bool,
   overlay: PropTypes.bool,
   addToDo: PropTypes.func,
   removeToDo: PropTypes.func,
   toggleToDo: PropTypes.func,
   editToDo: PropTypes.func,
-  overlayToggle: PropTypes.func,
-  callOverlayForEdit: PropTypes.func,
+  overlayToggleAdd: PropTypes.func,
+  overlayToggleEdit: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func
 }

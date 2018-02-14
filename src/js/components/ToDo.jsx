@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { getRandColor } from '../helpers'
 
 const ToDo = (props) => {
-  const { todo, callOverlayForEdit, toggleToDo, removeToDo } = props
+  const { todo, overlayToggleEdit, toggleToDo, removeToDo } = props
   const isChecked = todo.checked ? 'checked' : 'unchecked'
   const color = {
     backgroundColor: getRandColor(3)
@@ -23,7 +23,7 @@ const ToDo = (props) => {
       </span>
       <span>
         <button
-          onClick={() => { callOverlayForEdit(todo.id) }}
+          onClick={() => { overlayToggleEdit(todo.id) }}
         >
           edit
         </button>
@@ -42,7 +42,7 @@ ToDo.propTypes = {
   removeToDo: PropTypes.func,
   checked: PropTypes.bool,
   toggleToDo: PropTypes.func,
-  callOverlayForEdit: PropTypes.func
+  overlayToggleEdit: PropTypes.func
 }
 
 export default ToDo
