@@ -148,8 +148,8 @@ class App extends Component {
   }
 
   handleAddButtonClass = () => {
-    const { active } = this.state
-    if (!active) {
+    const { addButtonActive } = this.state
+    if (!addButtonActive) {
       this.setState({
         addButtonActive: true
       })
