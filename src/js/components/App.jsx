@@ -118,7 +118,7 @@ class App extends Component {
         todos: updatedToDoRemove,
         currentTodo: '',
         overlay: false,
-        active: false
+        addButtonActive: false
       })
     }
   }
