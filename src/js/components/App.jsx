@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import ToDoList from './ToDoList'
 import Header from './Header'
-import { uuidv4, getRandColor } from '../helpers'
+import { uuidv4, getRandColor, getDate } from '../helpers'
 
 class App extends Component {
   constructor (props) {
@@ -11,18 +11,21 @@ class App extends Component {
       todos: [
         {
           id: uuidv4(),
+          created: getDate(),
           text: 'Learn React',
           checked: false,
           color: getRandColor(3)
         },
         {
           id: uuidv4(),
+          created: getDate(),
           text: 'Finish this app',
           checked: false,
           color: getRandColor(3)
         },
         {
           id: uuidv4(),
+          created: getDate(),
           text: 'Chill',
           checked: false,
           color: getRandColor(3)
@@ -62,6 +65,7 @@ class App extends Component {
         ...this.state.todos,
         {
           id: uuidv4(),
+          created: getDate(),
           text: input,
           checked: false,
           color: getRandColor(3)
@@ -107,6 +111,7 @@ class App extends Component {
       } else {
         return {
           id: todo.id,
+          created: todo.created,
           text: input,
           checked: todo.checked,
           color: todo.color
@@ -172,6 +177,7 @@ class App extends Component {
 
   render () {
     const { todos, overlay, addButtonActive, input, currentTodo } = this.state
+    console.log(todos[0].created)
     return (
       <div className="container">
         <Header />
