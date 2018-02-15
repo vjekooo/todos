@@ -130,28 +130,17 @@ class App extends Component {
     }
   }
 
-  overlayToggleEdit = (id) => {
-    const { todos } = this.state
-    const currentTodo = todos.filter(todo => {
-      return todo.id === id
-    })
-    this.setState({
-      currentTodo: currentTodo[0].id
-    })
-    this.overlayToggleAdd(id)
-  }
-
-  overlayToggleAdd = (id) => {
+  overlayToggle = (id) => {
     const { todos, overlay } = this.state
     const isItem = todos.filter(todo => {
       return todo.id === id
     })
-    const input = Object.prototype.toString.call(id) === '[object Object]' ? '' : isItem[0].text
+    const newInput = Object.prototype.toString.call(id) === '[object Object]' ? '' : isItem[0].text
     if (!overlay) {
       this.setState({
         ...this.state.todos,
         overlay: true,
-        input: input,
+        input: newInput,
         addButtonActive: true
       })
     } else {
@@ -181,8 +170,7 @@ class App extends Component {
           removeToDo={this.removeToDo}
           toggleToDo={this.toggleToDo}
           editToDo={this.editToDo}
-          overlayToggleAdd={this.overlayToggleAdd}
-          overlayToggleEdit={this.overlayToggleEdit}
+          overlayToggle={this.overlayToggle}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
