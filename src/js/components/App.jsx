@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import ToDoList from './ToDoList'
 import Header from './Header'
 import { uuidv4, getRandColor, getDate } from '../helpers'
+import { database } from '../database'
 
 class App extends Component {
   constructor (props) {
@@ -15,20 +16,6 @@ class App extends Component {
           text: 'Learn React',
           checked: false,
           color: getRandColor(3)
-        },
-        {
-          id: uuidv4(),
-          created: getDate(),
-          text: 'Finish this app',
-          checked: false,
-          color: getRandColor(3)
-        },
-        {
-          id: uuidv4(),
-          created: getDate(),
-          text: 'Chill',
-          checked: false,
-          color: getRandColor(3)
         }
       ],
       currentTodo: '',
@@ -36,6 +23,12 @@ class App extends Component {
       addButtonActive: false,
       input: ''
     }
+  }
+
+  componentDidMount () {
+    database.ref('/').on('value', (snapshot) => {
+      console.log('data changed', snapshot.val())
+    })
   }
 
   handleChange = (event) => {
