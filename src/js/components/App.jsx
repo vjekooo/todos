@@ -72,7 +72,8 @@ class App extends Component {
             color: getRandColor(3)
           }
         ],
-        overlay: false
+        overlay: false,
+        addButtonActive: false
       })
     }
   }
@@ -150,34 +151,23 @@ class App extends Component {
       this.setState({
         ...this.state.todos,
         overlay: true,
-        input: input
+        input: input,
+        addButtonActive: true
       })
     } else {
       this.setState({
         ...this.state.todos,
         overlay: false,
         input: '',
-        currentTodo: null
-      })
-    }
-    this.handleToggleButtonClass()
-  }
-
-  handleToggleButtonClass = () => {
-    const { overlay } = this.state
-    if (overlay) {
-      this.setState({
+        currentTodo: null,
         addButtonActive: false
-      })
-    } else {
-      this.setState({
-        addButtonActive: true
       })
     }
   }
 
   render () {
     const { todos, overlay, addButtonActive, input, currentTodo } = this.state
+    console.log(overlay, addButtonActive)
     return (
       <div className="container">
         <Header />
