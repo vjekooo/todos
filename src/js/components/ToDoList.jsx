@@ -14,18 +14,18 @@ const ToDoList = (props) => {
     toggleToDo,
     editToDo,
     overlay,
-    overlayToggleAdd,
-    overlayToggleEdit,
+    overlayToggle,
     handleSubmit,
     handleChange
   } = props
-  const toDo = todos.map(todo =>
+  const toDo = Object.keys(todos).map(todo =>
     <ToDo
-      key={todo.text}
-      todo={todo}
+      key={todo}
+      todoId={todo}
+      todos={todos}
       removeToDo={removeToDo}
       toggleToDo={toggleToDo}
-      overlayToggleEdit={overlayToggleEdit}
+      overlayToggle={overlayToggle}
     />
   )
   const renderToDo = todos.length !== 0 ? toDo : <h3 className="no-todo">Such empty, do something</h3>
@@ -39,7 +39,7 @@ const ToDoList = (props) => {
         </ul>
       </div>
       <span className={activeClass}
-        onClick={overlayToggleAdd}
+        onClick={overlayToggle}
       >
       </span>
       <Overlay
@@ -56,7 +56,7 @@ const ToDoList = (props) => {
 }
 
 ToDoList.propTypes = {
-  todos: PropTypes.array,
+  todos: PropTypes.object,
   input: PropTypes.string,
   currentTodo: PropTypes.string,
   addButtonActive: PropTypes.bool,
@@ -65,8 +65,7 @@ ToDoList.propTypes = {
   removeToDo: PropTypes.func,
   toggleToDo: PropTypes.func,
   editToDo: PropTypes.func,
-  overlayToggleAdd: PropTypes.func,
-  overlayToggleEdit: PropTypes.func,
+  overlayToggle: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func
 }

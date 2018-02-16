@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "firebase": "^4.9.1",
+    "re-base": "^3.2.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }

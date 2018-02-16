@@ -2,22 +2,20 @@
 import React, { Component } from 'react'
 import ToDoList from './ToDoList'
 import Header from './Header'
-import { uuidv4, getRandColor, getDate } from '../helpers'
+import { getDate, getRandColor } from '../helpers'
 import { database } from '../database'
 
 class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      todos: [
-        {
-          id: uuidv4(),
-          created: getDate(),
-          text: 'Learn React',
+      todos: {
+        'todo-123456': {
+          text: 'Learn react',
           checked: false,
           color: getRandColor(3)
         }
-      ],
+      },
       currentTodo: '',
       overlay: false,
       addButtonActive: false,
@@ -26,8 +24,8 @@ class App extends Component {
   }
 
   componentDidMount () {
-    database.ref('/').on('value', (snapshot) => {
-      console.log('data changed', snapshot.val())
+    database.ref('/').on('value', () => {
+      console.log('DATA CHANGED')
     })
   }
 
@@ -53,103 +51,86 @@ class App extends Component {
 
   addToDo = () => {
     const { input } = this.state
-    if (input) {
-      this.setState({
-        todos: [
-          ...this.state.todos,
-          {
-            id: uuidv4(),
-            created: getDate(),
-            text: input,
-            checked: false,
-            color: getRandColor(3)
-          }
-        ],
-        overlay: false,
-        addButtonActive: false
-      })
+    const todos = {...this.state.todos}
+    todos[`todo-${getDate()}`] = {
+      text: input,
+      checked: false,
+      color: getRandColor(3)
     }
-  }
-
-  removeToDo = (id) => {
-    const { todos } = this.state
-    const updatedToDoState = todos.filter(todo => todo.id !== id)
     this.setState({
-      todos: updatedToDoState
+      todos: todos,
+      overlay: false,
+      addButtonActive: false
     })
   }
 
-  toggleToDo = (id) => {
-    const { todos } = this.state
-    const updatedToDoChecked = todos.map(todo => {
-      if (todo.id !== id) {
-        return todo
-      } else {
-        return {
-          id: todo.id,
-          text: todo.text,
-          checked: !todo.checked,
-          color: todo.color
-        }
-      }
-    })
-    this.setState({
-      todos: updatedToDoChecked
-    })
-  }
+  // removeToDo = (id) => {
+  //   const { todos } = this.state
+  //   const updatedToDoState = todos.filter(todo => todo.id !== id)
+  //   this.setState({
+  //     todos: updatedToDoState
+  //   })
+  // }
 
-  editToDo = () => {
-    const { todos, input, currentTodo } = this.state
-    const updatedToDoRemove = todos.map(todo => {
-      if (todo.id !== currentTodo) {
-        return todo
-      } else {
-        return {
-          id: todo.id,
-          created: todo.created,
-          text: input,
-          checked: todo.checked,
-          color: todo.color
-        }
-      }
-    })
-    if (input) {
-      this.setState({
-        todos: updatedToDoRemove,
-        currentTodo: '',
-        overlay: false,
-        addButtonActive: false
-      })
-    }
-  }
+  // toggleToDo = (id) => {
+  //   const { todos } = this.state
+  //   const updatedToDoChecked = todos.map(todo => {
+  //     if (todo.id !== id) {
+  //       return todo
+  //     } else {
+  //       return {
+  //         id: todo.id,
+  //         text: todo.text,
+  //         checked: !todo.checked,
+  //         color: todo.color
+  //       }
+  //     }
+  //   })
+  //   this.setState({
+  //     todos: updatedToDoChecked
+  //   })
+  // }
 
-  overlayToggleEdit = (id) => {
-    const { todos } = this.state
-    const currentTodo = todos.filter(todo => {
-      return todo.id === id
-    })
-    this.setState({
-      currentTodo: currentTodo[0].id
-    })
-    this.overlayToggleAdd(id)
-  }
+  // editToDo = () => {
+  //   const { todos, input, currentTodo } = this.state
+  //   const updatedToDoRemove = todos.map(todo => {
+  //     if (todo.id !== currentTodo) {
+  //       return todo
+  //     } else {
+  //       return {
+  //         id: todo.id,
+  //         created: todo.created,
+  //         text: input,
+  //         checked: todo.checked,
+  //         color: todo.color
+  //       }
+  //     }
+  //   })
+  //   if (input) {
+  //     this.setState({
+  //       todos: updatedToDoRemove,
+  //       currentTodo: '',
+  //       overlay: false,
+  //       addButtonActive: false
+  //     })
+  //   }
+  // }
 
-  overlayToggleAdd = (id) => {
+  overlayToggle = (id) => {
     const { todos, overlay } = this.state
-    const isItem = todos.filter(todo => {
-      return todo.id === id
+    const isItem = Object.keys(todos).filter(todo => {
+      return todos[id]
     })
+    console.log(isItem)
     const input = Object.prototype.toString.call(id) === '[object Object]' ? '' : isItem[0].text
     if (!overlay) {
       this.setState({
-        ...this.state.todos,
         overlay: true,
         input: input,
         addButtonActive: true
       })
     } else {
       this.setState({
-        ...this.state.todos,
         overlay: false,
         input: '',
         currentTodo: null,
@@ -160,7 +141,7 @@ class App extends Component {
 
   render () {
     const { todos, overlay, addButtonActive, input, currentTodo } = this.state
-    console.log(overlay, addButtonActive)
+    // console.log(overlay, addButtonActive)
     return (
       <div className="container">
         <Header />
@@ -174,8 +155,7 @@ class App extends Component {
           removeToDo={this.removeToDo}
           toggleToDo={this.toggleToDo}
           editToDo={this.editToDo}
-          overlayToggleAdd={this.overlayToggleAdd}
-          overlayToggleEdit={this.overlayToggleEdit}
+          overlayToggle={this.overlayToggle}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />

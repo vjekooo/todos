@@ -14,7 +14,5 @@ export function getRandColor (brightness) {
 }
 // Get Date
 export function getDate () {
-  const date = new Date()
-  const milliseconds = date.getTime()
-  return milliseconds
+  return Date.now()
 }
