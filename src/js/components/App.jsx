@@ -10,8 +10,13 @@ class App extends Component {
     super(props)
     this.state = {
       todos: {
-        'todo-123456': {
+        'todo-1234567': {
           text: 'Learn react',
+          checked: false,
+          color: getRandColor(3)
+        },
+        'todo-1234789': {
+          text: 'Whoa',
           checked: false,
           color: getRandColor(3)
         }
@@ -31,9 +36,9 @@ class App extends Component {
 
   handleChange = (event) => {
     this.setState({
-      todos: [
+      todos: {
         ...this.state.todos
-      ],
+      },
       overlay: true,
       input: event.target.value
     })
@@ -64,13 +69,14 @@ class App extends Component {
     })
   }
 
-  // removeToDo = (id) => {
-  //   const { todos } = this.state
-  //   const updatedToDoState = todos.filter(todo => todo.id !== id)
-  //   this.setState({
-  //     todos: updatedToDoState
-  //   })
-  // }
+  removeToDo = (id) => {
+    const todos = {...this.state.todos}
+    const remove = Object.keys(todos).filter(todo => todo === id)
+    delete todos[remove]
+    this.setState({
+      todos
+    })
+  }
 
   // toggleToDo = (id) => {
   //   const { todos } = this.state
@@ -142,6 +148,7 @@ class App extends Component {
   render () {
     const { todos, overlay, addButtonActive, input, currentTodo } = this.state
     // console.log(overlay, addButtonActive)
+    console.log(todos)
     return (
       <div className="container">
         <Header />
