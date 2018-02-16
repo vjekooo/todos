@@ -119,10 +119,10 @@ class App extends Component {
   overlayToggle = (id) => {
     const { todos, overlay } = this.state
     const isItem = Object.keys(todos).filter(todo => {
-      return todos[id]
+      return todo
     })
-    console.log(isItem)
-    const input = Object.prototype.toString.call(id) === '[object Object]' ? '' : isItem[0].text
+    const currentItem = todos[isItem]
+    const input = Object.prototype.toString.call(id) === '[object Object]' ? '' : currentItem.text
     if (!overlay) {
       this.setState({
         overlay: true,
