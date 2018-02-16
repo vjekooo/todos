@@ -45,8 +45,8 @@ class App extends Component {
   }
 
   handleSubmit = (event) => {
-    const { currentTodo } = this.state
     event.preventDefault()
+    const { currentTodo } = this.state
     if (currentTodo) {
       this.editToDo()
     } else {
@@ -97,30 +97,34 @@ class App extends Component {
   //   })
   // }
 
-  // editToDo = () => {
-  //   const { todos, input, currentTodo } = this.state
-  //   const updatedToDoRemove = todos.map(todo => {
-  //     if (todo.id !== currentTodo) {
-  //       return todo
-  //     } else {
-  //       return {
-  //         id: todo.id,
-  //         created: todo.created,
-  //         text: input,
-  //         checked: todo.checked,
-  //         color: todo.color
-  //       }
-  //     }
-  //   })
-  //   if (input) {
-  //     this.setState({
-  //       todos: updatedToDoRemove,
-  //       currentTodo: '',
-  //       overlay: false,
-  //       addButtonActive: false
-  //     })
-  //   }
-  // }
+  editToDo = () => {
+    const { input, currentTodo } = this.state
+    const todos = {...this.state.todos}
+    const editThisToDo = Object.keys(todos).map(todo => {
+      if ()
+    })
+    const test = todos.map(todo => {
+      if (todo.id !== currentTodo) {
+        return todo
+      } else {
+        return {
+          id: todo.id,
+          created: todo.created,
+          text: input,
+          checked: todo.checked,
+          color: todo.color
+        }
+      }
+    })
+    if (input) {
+      this.setState({
+        todos: updatedToDoRemove,
+        currentTodo: '',
+        overlay: false,
+        addButtonActive: false
+      })
+    }
+  }
 
   overlayToggle = (id) => {
     const { todos, overlay } = this.state
