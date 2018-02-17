@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import ToDoList from './ToDoList'
 import Header from './Header'
 import { getDate, getRandColor } from '../helpers'
-import { database } from '../database'
 
 class App extends Component {
   constructor (props) {
@@ -26,12 +25,6 @@ class App extends Component {
       addButtonActive: false,
       input: ''
     }
-  }
-
-  componentDidMount () {
-    database.ref('/').on('value', () => {
-      console.log('DATA CHANGED')
-    })
   }
 
   handleChange = (event) => {
@@ -71,54 +64,24 @@ class App extends Component {
 
   removeToDo = (id) => {
     const todos = {...this.state.todos}
-    const remove = Object.keys(todos).filter(todo => todo === id)
-    delete todos[remove]
+    delete todos[id]
     this.setState({
       todos
     })
   }
 
-  // toggleToDo = (id) => {
-  //   const { todos } = this.state
-  //   const updatedToDoChecked = todos.map(todo => {
-  //     if (todo.id !== id) {
-  //       return todo
-  //     } else {
-  //       return {
-  //         id: todo.id,
-  //         text: todo.text,
-  //         checked: !todo.checked,
-  //         color: todo.color
-  //       }
-  //     }
-  //   })
-  //   this.setState({
-  //     todos: updatedToDoChecked
-  //   })
-  // }
-
   editToDo = () => {
     const { input, currentTodo } = this.state
     const todos = {...this.state.todos}
-    const editThisToDo = Object.keys(todos).map(todo => {
-      if ()
-    })
-    const test = todos.map(todo => {
-      if (todo.id !== currentTodo) {
-        return todo
-      } else {
-        return {
-          id: todo.id,
-          created: todo.created,
-          text: input,
-          checked: todo.checked,
-          color: todo.color
-        }
-      }
-    })
+    const currentItem = todos[currentTodo]
+    todos[currentTodo] = {
+      text: input,
+      checked: currentItem.checked,
+      color: currentItem.color
+    }
     if (input) {
       this.setState({
-        todos: updatedToDoRemove,
+        todos: todos,
         currentTodo: '',
         overlay: false,
         addButtonActive: false
@@ -126,15 +89,29 @@ class App extends Component {
     }
   }
 
+  toggleToDo = (id) => {
+    const todos = {...this.state.todos}
+    const currentItem = todos[id]
+    todos[id] = {
+      text: currentItem.text,
+      checked: !currentItem.checked,
+      color: currentItem.color
+    }
+    this.setState({
+      todos: todos
+    })
+  }
+
   overlayToggle = (id) => {
     const { todos, overlay } = this.state
     const isItem = Object.keys(todos).filter(todo => {
-      return todo
+      return todo === id
     })
     const currentItem = todos[isItem]
     const input = Object.prototype.toString.call(id) === '[object Object]' ? '' : currentItem.text
     if (!overlay) {
       this.setState({
+        currentTodo: id,
         overlay: true,
         input: input,
         addButtonActive: true
@@ -151,7 +128,6 @@ class App extends Component {
 
   render () {
     const { todos, overlay, addButtonActive, input, currentTodo } = this.state
-    // console.log(overlay, addButtonActive)
     console.log(todos)
     return (
       <div className="container">
