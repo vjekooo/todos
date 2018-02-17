@@ -9,6 +9,7 @@ const ToDo = (props) => {
   const color = {
     backgroundColor: todo.color
   }
+  console.log(todo.checked)
   return (
     <li style={color}>
       <span>

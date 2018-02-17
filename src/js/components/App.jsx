@@ -3,28 +3,26 @@ import React, { Component } from 'react'
 import ToDoList from './ToDoList'
 import Header from './Header'
 import { getDate, getRandColor } from '../helpers'
+import { database } from '../database'
 
 class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      todos: {
-        'todo-1234567': {
-          text: 'Learn react',
-          checked: false,
-          color: getRandColor(3)
-        },
-        'todo-1234789': {
-          text: 'Whoa',
-          checked: false,
-          color: getRandColor(3)
-        }
-      },
+      todos: {},
       currentTodo: '',
       overlay: false,
       addButtonActive: false,
       input: ''
     }
+  }
+
+  componentDidMount () {
+    database.ref().on('value', (snapshot) => {
+      this.setState({
+        todos: snapshot.val().todos
+      })
+    })
   }
 
   handleChange = (event) => {
@@ -55,8 +53,10 @@ class App extends Component {
       checked: false,
       color: getRandColor(3)
     }
+    database.ref().set({
+      todos
+    })
     this.setState({
-      todos: todos,
       overlay: false,
       addButtonActive: false
     })
@@ -80,8 +80,10 @@ class App extends Component {
       color: currentItem.color
     }
     if (input) {
+      database.ref().set({
+        todos
+      })
       this.setState({
-        todos: todos,
         currentTodo: '',
         overlay: false,
         addButtonActive: false
@@ -97,8 +99,8 @@ class App extends Component {
       checked: !currentItem.checked,
       color: currentItem.color
     }
-    this.setState({
-      todos: todos
+    database.ref().set({
+      todos
     })
   }
 
@@ -109,9 +111,10 @@ class App extends Component {
     })
     const currentItem = todos[isItem]
     const input = Object.prototype.toString.call(id) === '[object Object]' ? '' : currentItem.text
+    const currentTodo = Object.prototype.toString.call(id) === '[object Object]' ? null : id
     if (!overlay) {
       this.setState({
-        currentTodo: id,
+        currentTodo: currentTodo,
         overlay: true,
         input: input,
         addButtonActive: true
@@ -128,7 +131,6 @@ class App extends Component {
 
   render () {
     const { todos, overlay, addButtonActive, input, currentTodo } = this.state
-    console.log(todos)
     return (
       <div className="container">
         <Header />
