@@ -3,7 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const ToDo = (props) => {
-  const { todo, overlayToggle, toggleToDo, removeToDo } = props
+  const { todos, todoId, overlayToggle, toggleToDo, removeToDo } = props
+  const todo = todos[todoId]
   const isChecked = todo.checked ? 'checked' : 'unchecked'
   const color = {
     backgroundColor: todo.color
@@ -14,7 +15,7 @@ const ToDo = (props) => {
         <input
           type="checkbox"
           checked={todo.checked}
-          onClick={() => { toggleToDo(todo.id) }}
+          onClick={() => { toggleToDo(todoId) }}
         />
         <span className={isChecked}>
           {todo.text}
@@ -22,13 +23,13 @@ const ToDo = (props) => {
       </span>
       <span>
         <button
-          onClick={() => { overlayToggle(todo.id) }}
+          onClick={() => { overlayToggle(todoId) }}
         >
           edit
         </button>
         <span
           className="icon remove"
-          onClick={() => { removeToDo(todo.id) }}
+          onClick={() => { removeToDo(todoId) }}
         >
         </span>
       </span>
@@ -37,7 +38,8 @@ const ToDo = (props) => {
 }
 
 ToDo.propTypes = {
-  todo: PropTypes.object,
+  todos: PropTypes.object,
+  todoId: PropTypes.string,
   removeToDo: PropTypes.func,
   checked: PropTypes.bool,
   toggleToDo: PropTypes.func,

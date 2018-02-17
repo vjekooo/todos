@@ -18,10 +18,11 @@ const ToDoList = (props) => {
     handleSubmit,
     handleChange
   } = props
-  const toDo = todos.map(todo =>
+  const toDo = Object.keys(todos).map(todo =>
     <ToDo
-      key={todo.text}
-      todo={todo}
+      key={todo}
+      todoId={todo}
+      todos={todos}
       removeToDo={removeToDo}
       toggleToDo={toggleToDo}
       overlayToggle={overlayToggle}
@@ -55,7 +56,7 @@ const ToDoList = (props) => {
 }
 
 ToDoList.propTypes = {
-  todos: PropTypes.array,
+  todos: PropTypes.object,
   input: PropTypes.string,
   currentTodo: PropTypes.string,
   addButtonActive: PropTypes.bool,
