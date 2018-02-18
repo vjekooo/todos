@@ -1,5 +1,6 @@
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import SignIn from './SignIn'
 import CurrentUser from './CurrentUser'
 
@@ -16,6 +17,10 @@ const Header = (props) => {
       }
     </header>
   )
+}
+
+Header.propTypes = {
+  currentUser: PropTypes.object
 }
 
 export default Header

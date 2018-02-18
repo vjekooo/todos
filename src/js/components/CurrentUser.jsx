@@ -1,5 +1,6 @@
 
 import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { auth } from '../database'
 
 const CurrentUser = ({ currentUser }) => {
@@ -16,6 +17,10 @@ const CurrentUser = ({ currentUser }) => {
       </span>
     </Fragment>
   )
+}
+
+CurrentUser.propTypes = {
+  currentUser: PropTypes.object
 }
 
 export default CurrentUser
