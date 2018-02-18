@@ -11,7 +11,6 @@
 body {
   background-color: whitesmoke;
   font-family: 'Roboto', sans-serif;
-  text-transform: uppercase;
 }
 
 button {
@@ -102,12 +101,17 @@ form {
 }
 
 header {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
   align-items: center;
   background-color: rgb(83, 182, 221);
   color: white;
   height: 80px;
+  text-transform: uppercase;
+  .user {
+    text-transform: none;
+  }
 }
 
 .todo-stats {

@@ -7,6 +7,7 @@ import Overlay from './Overlay'
 const ToDoList = (props) => {
   const {
     todos,
+    currentUser,
     addButtonActive,
     input,
     currentTodo,
@@ -33,11 +34,12 @@ const ToDoList = (props) => {
     : <h3 className="no-todo">Such empty, do something</h3>
   const overlayClass = overlay ? 'overlay visible' : ' overlay hidden'
   const activeClass = addButtonActive ? 'icon add active' : 'icon add non-active'
+  const signedUser = currentUser ? renderToDo : <h3>Please sign in</h3>
   return (
     <Fragment>
       <div className="todo">
         <ul>
-          {renderToDo}
+          {signedUser}
         </ul>
       </div>
       <span className={activeClass}
@@ -59,6 +61,7 @@ const ToDoList = (props) => {
 
 ToDoList.propTypes = {
   todos: PropTypes.object,
+  currentUser: PropTypes.object,
   input: PropTypes.string,
   currentTodo: PropTypes.string,
   addButtonActive: PropTypes.bool,

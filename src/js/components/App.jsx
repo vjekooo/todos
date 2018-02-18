@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import ToDoList from './ToDoList'
 import Header from './Header'
 import { getDate, getRandColor } from '../helpers'
-import { database } from '../database'
+import { auth, database } from '../database'
 
 class App extends Component {
   constructor (props) {
@@ -11,6 +11,7 @@ class App extends Component {
     this.state = {
       todos: {},
       currentTodo: '',
+      currentUser: null,
       overlay: false,
       addButtonActive: false,
       input: ''
@@ -18,6 +19,12 @@ class App extends Component {
   }
 
   componentDidMount () {
+    auth.onAuthStateChanged(currentUser => {
+      console.log(currentUser)
+      this.setState({
+        currentUser: currentUser
+      })
+    })
     database.ref().on('value', (snapshot) => {
       this.setState({
         todos: snapshot.val().todos
@@ -130,12 +137,15 @@ class App extends Component {
   }
 
   render () {
-    const { todos, overlay, addButtonActive, input, currentTodo } = this.state
+    const { todos, overlay, currentUser, addButtonActive, input, currentTodo } = this.state
     return (
       <div className="container">
-        <Header />
+        <Header
+          currentUser={currentUser}
+        />
         <ToDoList
           todos={todos}
+          currentUser={currentUser}
           overlay={overlay}
           addButtonActive={addButtonActive}
           input={input}
