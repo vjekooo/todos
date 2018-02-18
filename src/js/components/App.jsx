@@ -8,6 +8,8 @@ import { auth, database } from '../database'
 class App extends Component {
   constructor (props) {
     super(props)
+    this.usersRef = null
+    this.userRef = null
     this.state = {
       todos: {},
       currentTodo: '',
@@ -20,14 +22,15 @@ class App extends Component {
 
   componentDidMount () {
     auth.onAuthStateChanged(currentUser => {
-      console.log(currentUser)
       this.setState({
         currentUser: currentUser
       })
-    })
-    database.ref().on('value', (snapshot) => {
-      this.setState({
-        todos: snapshot.val().todos
+      this.usersRef = database.ref('/users')
+      this.userRef = this.usersRef.child(currentUser.uid)
+      this.userRef.on('value', (snapshot) => {
+        this.setState({
+          todos: snapshot.val().todos
+        })
       })
     })
   }
@@ -60,7 +63,7 @@ class App extends Component {
       checked: false,
       color: getRandColor(3)
     }
-    database.ref().set({
+    this.userRef.set({
       todos
     })
     this.setState({
@@ -72,7 +75,7 @@ class App extends Component {
   removeToDo = (id) => {
     const todos = {...this.state.todos}
     delete todos[id]
-    database.ref().set({
+    this.userRef.set({
       todos
     })
   }
@@ -87,7 +90,7 @@ class App extends Component {
       color: currentItem.color
     }
     if (input) {
-      database.ref().set({
+      this.userRef.set({
         todos
       })
       this.setState({
@@ -106,7 +109,7 @@ class App extends Component {
       checked: !currentItem.checked,
       color: currentItem.color
     }
-    database.ref().set({
+    this.userRef.set({
       todos
     })
   }

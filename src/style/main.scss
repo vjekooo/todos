@@ -89,6 +89,8 @@ form {
     align-items: center;
     background-color: skyblue;
     height: 50%;
+    border: 0;
+    border-radius: 20px;
   }
   .add-button {
     width: 4rem;
@@ -96,7 +98,13 @@ form {
     padding: 5px;
     margin-top: 10px;
     border: 0;
+    border-radius: 2px;
     text-align: center;
+  }
+  input {
+    border: 0;
+    border-radius: 2px;
+    padding-left: 10px;
   }
 }
 
@@ -174,11 +182,11 @@ header {
     z-index: 1000;
   }
   &.active {
-    transform: rotate(45deg);
-    transition: transform 0.3s;
+    transform: rotate(134deg);
+    transition: transform 0.2s;
   }
   &.non-active {
     transform: rotate(0deg);
-    transition: transform 0.3s;
+    transition: transform 0.2s;
   }
 }
