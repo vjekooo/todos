@@ -138,6 +138,7 @@ class App extends Component {
 
   render () {
     const { todos, overlay, currentUser, addButtonActive, input, currentTodo } = this.state
+    console.log(todos)
     return (
       <div className="container">
         <Header

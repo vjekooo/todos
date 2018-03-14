@@ -19,16 +19,20 @@ const ToDoList = (props) => {
     handleSubmit,
     handleChange
   } = props
-  const toDo = Object.keys(todos).map(todo =>
-    <ToDo
-      key={todo}
-      todoId={todo}
-      todos={todos}
-      removeToDo={removeToDo}
-      toggleToDo={toggleToDo}
-      overlayToggle={overlayToggle}
-    />
-  )
+  console.log(todos)
+  const toDo = Object.keys(todos).map(todo => {
+    console.log(todo)
+    return (
+      <ToDo
+        key={todo}
+        todoId={todo}
+        todos={todos}
+        removeToDo={removeToDo}
+        toggleToDo={toggleToDo}
+        overlayToggle={overlayToggle}
+      />
+    )
+  })
   const renderToDo = Object.keys(todos).length !== 0
     ? toDo
     : <h3 className="no-todo">Such empty, do something</h3>

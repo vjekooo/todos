@@ -1,129 +1,45 @@
-const webpack = require('webpack')
-const path = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-// Constants
-const paths = {
-	DIST: path.resolve(__dirname, 'dist'),
-	SRC: path.resolve(__dirname, 'src'),
-	ASS: path.resolve(__dirname, 'assets'),
-	JS: path.resolve(__dirname, 'src/js'),
-	HOST: process.env.HOST || 'localhost',
-	PORT: process.env.PORT || 8080
-}
-const inProduction = (process.env.NODE_ENV === 'production')
+const buildValidations = require('./build-utils/build-validations')
+const commonConfig = require('./build-utils/webpack.common')
 
-// Main config
-module.exports = {
-	entry: {
-		vendor: ['react', 'react-dom'],
-		app: path.join(paths.SRC, 'index.jsx')
-	},
-	output: {
-		filename: inProduction? '[name].[chunkhash:8].js' : '[name].js',
-		path: paths.DIST
-	},
-	resolve: {
-    extensions: ['.js', '.jsx', '.json']
-  },
-	module: {
-		rules: [
-			{
-        test: /\.(js|jsx|mjs)$/,
-        enforce: 'pre',
-        loader: 'eslint-loader',
-        include: paths.SRC
-      },
-			{ 
-				test: /\.jsx?$/, 
-				include: paths.SRC, 
-				use: 'babel-loader'
-			},
-			{
-				test: /\.json$/,
-				use: 'json',
-				include: paths.SRC,
-			},
-			{
-				test:/\.(s*)css$/,
-				use: inProduction 
-					? ExtractTextPlugin.extract({
-							fallback: 'style-loader',
-							use: [
-								{
-									loader: 'css-loader',
-									options: {
-										minimize: true
-									}
-								}, 
-								{
-									loader: 'postcss-loader'
-								}, 
-								{
-									loader: 'sass-loader'
-								}
-							]
-						}) 
-					: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
-			},
-			{
-				test: /\.(png|jpe?g|gif)$/,
-				loaders: [
-					{
-						loader: 'file-loader',
-						options: {
-							name: 'assests/img/[name].[ext]'
-						}
-					},
-					'img-loader'
-				]
-			}
-		]
-	},
-	devtool: inProduction ? 'source-map' : 'eval',
-	devServer: {
-		contentBase: paths.SRC,
-		historyApiFallback: true,
-		open: true,
-		stats: 'minimal',
-		overlay: {
-      errors: true,
-      warnings: true,
-    },
-		host: paths.HOST,
-		port: paths.PORT
-	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			title: 'Noice',
-			template: path.join(paths.SRC, 'index.html')
-		})
-	]
+const webpackMerge = require('webpack-merge')
+
+// We can include Webpack plugins, through addons, that do
+// not need to run every time we are developing.
+// We will see an example when we set up 'Bundle Analyzer'
+const addons = (/* string | string[] */ addonsArg) => {
+  // Normalize array of addons (flatten)
+  let addons = [...[addonsArg]]
+    .filter(Boolean) // If addons is undefined, filter it out
+
+  return addons.map(addonName =>
+    require(`./build-utils/addons/webpack.${addonName}.js`)
+  )
 }
 
-if (!inProduction) {
-	module.exports.plugins.push(
-		new webpack.HotModuleReplacementPlugin()
-	)
-}
+// 'env' will contain the environment variable from 'scripts'
+// section in 'package.json'.
+// console.log(env); => { env: 'dev' }
+module.exports = env => {
+  // We use 'buildValidations' to check for the 'env' flag
+  if (!env) {
+    throw new Error(buildValidations.ERR_NO_ENV_FLAG)
+  }
 
-if (inProduction) {
-	module.exports.plugins.push(
-		new webpack.optimize.CommonsChunkPlugin({
-			name: 'vendor',
-		}),
-		new webpack.optimize.CommonsChunkPlugin({
-			name: "manifest",
-			minChunks: Infinity
-		}),
-		new webpack.optimize.UglifyJsPlugin({
-			sourceMap: true,
-			exclude: [/\.min\.js$/gi]
-		}),
-		new ExtractTextPlugin({
-			filename: '[name].[contenthash:8].css',
-			allChunks: true
-		})
-	)
+  // Select which Webpack configuration to use; development
+  // or production
+  // console.log(env.env); => dev
+  const envConfig = require(`./build-utils/webpack.${env.env}.js`)
+
+  // 'webpack-merge' will combine our shared configurations, the
+  // environment specific configurations and any addons we are
+  // including
+  const mergedConfig = webpackMerge(
+    commonConfig,
+    envConfig,
+    ...addons(env.addons)
+  )
+
+  // Then return the final configuration for Webpack
+  return mergedConfig
 }
