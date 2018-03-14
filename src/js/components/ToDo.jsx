@@ -5,33 +5,33 @@ import PropTypes from 'prop-types'
 const ToDo = (props) => {
   const { todos, todoId, overlayToggle, toggleToDo, removeToDo } = props
   const todo = todos[todoId]
-  const isChecked = todo.checked ? 'checked' : 'unchecked'
-  const color = {
-    backgroundColor: todo.color
-  }
+  const isChecked = todo.checked ? 'todo-text checked' : 'todo-text unchecked'
+  // const color = {
+  //   backgroundColor: todo.color
+  // }
   return (
-    <li style={color}>
-      <span>
+    <li>
+      <span className="round">
         <input
           type="checkbox"
+          id="main-checkbox"
           checked={todo.checked}
           onClick={() => { toggleToDo(todoId) }}
         />
-        <span className={isChecked}>
-          {todo.text}
-        </span>
+        <label htmlFor="main-checkbox"></label>
       </span>
-      <span>
-        <button
-          onClick={() => { overlayToggle(todoId) }}
-        >
-          edit
-        </button>
-        <span
-          className="icon remove"
-          onClick={() => { removeToDo(todoId) }}
-        >
-        </span>
+      <span className={isChecked}>
+        {todo.text}
+      </span>
+      <button
+        onClick={() => { overlayToggle(todoId) }}
+      >
+        edit
+      </button>
+      <span
+        className="icon remove"
+        onClick={() => { removeToDo(todoId) }}
+      >
       </span>
     </li>
   )

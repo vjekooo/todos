@@ -19,9 +19,7 @@ const ToDoList = (props) => {
     handleSubmit,
     handleChange
   } = props
-  console.log(todos)
   const toDo = Object.keys(todos).map(todo => {
-    console.log(todo)
     return (
       <ToDo
         key={todo}

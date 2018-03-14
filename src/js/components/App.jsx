@@ -102,6 +102,7 @@ class App extends Component {
   }
 
   toggleToDo = (id) => {
+    console.log(id)
     const todos = {...this.state.todos}
     const currentItem = todos[id]
     todos[id] = {
