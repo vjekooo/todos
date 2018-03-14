@@ -119,18 +119,14 @@ header {
   background-color: rgb(83, 182, 221);
   color: white;
   height: 80px;
+  padding: 1rem;
   text-transform: uppercase;
-  .user {
-    text-transform: none;
+  h2 {
+    grid-column: 2 / 3;
   }
-}
-
-.todo-stats {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  height: 30px;
+  button {
+    justify-self: flex-end;
+  }
 }
 
 .container {

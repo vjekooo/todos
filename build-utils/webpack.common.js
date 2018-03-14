@@ -77,7 +77,7 @@ const config = {
   },
 	plugins: [
 		new HtmlWebpackPlugin({
-			title: 'Noice',
+			title: 'Los Todos',
 			template: `public/index.html`,
       favicon: `public/favicon.ico`
 		})

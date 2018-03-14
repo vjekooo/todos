@@ -1,21 +1,15 @@
 
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { auth } from '../database'
 
 const CurrentUser = ({ currentUser }) => {
-  const firstName = currentUser.displayName.split(' ').slice(0, 1)
   return (
-    <Fragment>
-      <span>
-        <span className="user">{firstName}</span>
-        <button
-          onClick={() => auth.signOut()}
-        >
-          Sign Out
-        </button>
-      </span>
-    </Fragment>
+    <button
+      onClick={() => auth.signOut()}
+    >
+      Sign Out
+    </button>
   )
 }
 

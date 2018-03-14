@@ -6,15 +6,13 @@ import CurrentUser from './CurrentUser'
 
 const Header = (props) => {
   const { currentUser } = props
+  const showUserButton = !currentUser
+    ? <SignIn />
+    : <CurrentUser currentUser={currentUser} />
   return (
     <header>
-      <span></span>
       <h2>Los ToDos</h2>
-      {
-        !currentUser
-          ? <SignIn />
-          : <CurrentUser currentUser={currentUser} />
-      }
+      {showUserButton}
     </header>
   )
 }
