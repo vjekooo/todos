@@ -6,7 +6,6 @@ const ToDo = (props) => {
   const {
     todos,
     todoId,
-    checkbox,
     overlayToggle,
     toggleToDo,
     removeToDo
@@ -21,11 +20,11 @@ const ToDo = (props) => {
       <span className="round">
         <input
           type="checkbox"
-          id={checkbox}
+          id={todoId}
           checked={todo.checked}
           onClick={() => { toggleToDo(todoId) }}
         />
-        <label htmlFor={checkbox}></label>
+        <label htmlFor={todoId}></label>
       </span>
       <span className={`todo-text ${isChecked}`}>
         {todo.text}
@@ -47,7 +46,6 @@ const ToDo = (props) => {
 ToDo.propTypes = {
   todos: PropTypes.object,
   todoId: PropTypes.string,
-  checkbox: PropTypes.string,
   removeToDo: PropTypes.func,
   checked: PropTypes.bool,
   toggleToDo: PropTypes.func,

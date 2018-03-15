@@ -25,7 +25,6 @@ const ToDoList = (props) => {
         key={todo}
         todoId={todo}
         todos={todos}
-        checkbox={todo}
         removeToDo={removeToDo}
         toggleToDo={toggleToDo}
         overlayToggle={overlayToggle}
