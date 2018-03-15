@@ -16,3 +16,15 @@ export function getRandColor (brightness) {
 export function getDate () {
   return Date.now()
 }
+// Today
+export function getToday () {
+  const today = new Date()
+  const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+  const dayOfWeek = weekday[today.getDay()]
+  const dd = today.getDate()
+  const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  const mm = monthList[today.getMonth() + 1]
+  return (
+    `${dayOfWeek} ${dd} ${mm}`
+  )
+}
