@@ -3,7 +3,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // import SignIn from './SignIn'
 // import CurrentUser from './CurrentUser'
-import Menu from './Menu'
 import { getToday } from '../helpers'
 
 const Header = (props) => {
@@ -11,8 +10,12 @@ const Header = (props) => {
   return (
     <header>
       <h2>Los ToDos</h2>
-      <Menu toggleMenu={toggleMenu} />
-      <span>{getToday()}</span>
+      <span
+        className="circle"
+        onClick={() => toggleMenu()}
+      >
+      </span>
+      <span className="date">{getToday()}</span>
     </header>
   )
 }
