@@ -113,7 +113,7 @@ header {
   justify-items: center;
   align-items: center;
   color: white;
-  height: 25vh;
+  height: 30vh;
   padding: 1rem;
   text-transform: uppercase;
   background-image: url("../assets/images/fire.png");
@@ -127,7 +127,7 @@ header {
     right: 20px;
     width: 30px;
     height: 30px;
-    background: white;
+    background: orange;
     border-radius: 50px;
   }
 }
@@ -247,15 +247,20 @@ header {
   transition: 0.5s;
   .nav-head {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     align-items: flex-start;
-    height: 25vh;
+    height: 30vh;
     padding: 1rem;
   }
   button {
     padding: 0;
+    img {
+      width: 48px;
+      height: 48px;
+    }
   }
   .nav-arrow {
+    margin-top: 5px;
     grid-column: 4 / 5;
   }
   .nav-content {

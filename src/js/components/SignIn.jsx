@@ -1,12 +1,14 @@
 
 import React from 'react'
 import { auth, googleAuthProvider } from '../database'
+import user from '../../assets/images/user-50.png'
 
 const SignIn = () => {
   return (
     <button
       onClick={() => auth.signInWithPopup(googleAuthProvider)}
     >
+      <img src={user} />
       Sign In
     </button>
   )
