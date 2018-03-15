@@ -11,28 +11,32 @@ const Nav = (props) => {
     ? <SignIn />
     : <CurrentUser />
   const style = menuVisibility
-    ? { width: '60%' }
+    ? { width: '200px' }
     : { width: 0 }
   return (
     <div
       className="nav"
       style={style}
     >
-      <span
-        className="nav-arrow"
-        onClick={() => toggleMenu()}
-      >
-        <img src={arrow} />
-      </span>
-      <div className="nav-content">
-        {showUserButton}
-        <ul>
-          <li>Jedan</li>
-          <li>Dva</li>
-        </ul>
-        <button>
-          Add Item
-        </button>
+      <div className="nav-wrapper">
+        <div className="nav-head">
+          {showUserButton}
+          <span
+            className="nav-arrow"
+            onClick={() => toggleMenu()}
+          >
+            <img src={arrow} />
+          </span>
+        </div>
+        <div className="nav-content">
+          <ul>
+            <li>Jedan</li>
+            <li>Dva</li>
+          </ul>
+          <button className="nav-add-list">
+            New list
+          </button>
+        </div>
       </div>
     </div>
   )

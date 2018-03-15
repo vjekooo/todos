@@ -245,9 +245,18 @@ header {
   background-color: white;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
+  .nav-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: flex-start;
+    height: 25vh;
+    padding: 1rem;
+  }
+  button {
+    padding: 0;
+  }
   .nav-arrow {
-    position: relative;
+    grid-column: 4 / 5;
   }
   .nav-content {
     display: grid;
@@ -265,11 +274,7 @@ header {
       color: #f1f1f1;
     }
   }
-  .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+  .nav-add-list {
+    padding: 20px 10px 20px 10px;
   }
 }

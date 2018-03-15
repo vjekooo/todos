@@ -163,7 +163,7 @@ class App extends Component {
       menuVisibility
     } = this.state
     const style = menuVisibility
-      ? { left: '20%' }
+      ? { left: '200px' }
       : { left: 0 }
     return (
       <Fragment>
