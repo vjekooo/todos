@@ -4,13 +4,11 @@ import { auth, googleAuthProvider } from '../database'
 
 const SignIn = () => {
   return (
-    <div className="sign-in">
-      <button
-        onClick={() => auth.signInWithPopup(googleAuthProvider)}
-      >
-        Sign In
-      </button>
-    </div>
+    <button
+      onClick={() => auth.signInWithPopup(googleAuthProvider)}
+    >
+      Sign In
+    </button>
   )
 }
 

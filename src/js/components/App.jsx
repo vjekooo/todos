@@ -2,7 +2,7 @@
 import React, { Component, Fragment } from 'react'
 import ToDoList from './ToDoList'
 import Header from './Header'
-import Menu from './Menu'
+import Nav from './Nav'
 import { getDate, getRandColor } from '../helpers'
 import { auth, database } from '../database'
 
@@ -153,14 +153,29 @@ class App extends Component {
   }
 
   render () {
-    const { todos, overlay, currentUser, addButtonActive, input, currentTodo, menuVisibility } = this.state
-    console.log(todos)
+    const {
+      todos,
+      overlay,
+      currentUser,
+      addButtonActive,
+      input,
+      currentTodo,
+      menuVisibility
+    } = this.state
+    const style = menuVisibility
+      ? { left: '20%' }
+      : { left: 0 }
     return (
       <Fragment>
-        <Menu
+        <Nav
           menuVisibility={menuVisibility}
+          currentUser={currentUser}
+          toggleMenu={this.toggleMenu}
         />
-        <div className="container">
+        <div
+          className="container"
+          style={style}
+        >
           <Header
             currentUser={currentUser}
             toggleMenu={this.toggleMenu}
