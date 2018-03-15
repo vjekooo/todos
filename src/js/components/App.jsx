@@ -1,7 +1,8 @@
 
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import ToDoList from './ToDoList'
 import Header from './Header'
+import Menu from './Menu'
 import { getDate, getRandColor } from '../helpers'
 import { auth, database } from '../database'
 
@@ -16,7 +17,8 @@ class App extends Component {
       currentUser: null,
       overlay: false,
       addButtonActive: false,
-      input: ''
+      input: '',
+      menuVisibility: false
     }
   }
 
@@ -137,30 +139,49 @@ class App extends Component {
     }
   }
 
+  toggleMenu = () => {
+    const { menuVisibility } = this.state
+    if (menuVisibility) {
+      this.setState({
+        menuVisibility: false
+      })
+    } else {
+      this.setState({
+        menuVisibility: true
+      })
+    }
+  }
+
   render () {
-    const { todos, overlay, currentUser, addButtonActive, input, currentTodo } = this.state
+    const { todos, overlay, currentUser, addButtonActive, input, currentTodo, menuVisibility } = this.state
     console.log(todos)
     return (
-      <div className="container">
-        <Header
-          currentUser={currentUser}
+      <Fragment>
+        <Menu
+          menuVisibility={menuVisibility}
         />
-        <ToDoList
-          todos={todos}
-          currentUser={currentUser}
-          overlay={overlay}
-          addButtonActive={addButtonActive}
-          input={input}
-          currentTodo={currentTodo}
-          addToDo={this.addToDo}
-          removeToDo={this.removeToDo}
-          toggleToDo={this.toggleToDo}
-          editToDo={this.editToDo}
-          overlayToggle={this.overlayToggle}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
-      </div>
+        <div className="container">
+          <Header
+            currentUser={currentUser}
+            toggleMenu={this.toggleMenu}
+          />
+          <ToDoList
+            todos={todos}
+            currentUser={currentUser}
+            overlay={overlay}
+            addButtonActive={addButtonActive}
+            input={input}
+            currentTodo={currentTodo}
+            addToDo={this.addToDo}
+            removeToDo={this.removeToDo}
+            toggleToDo={this.toggleToDo}
+            editToDo={this.editToDo}
+            overlayToggle={this.overlayToggle}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+          />
+        </div>
+      </Fragment>
     )
   }
 }

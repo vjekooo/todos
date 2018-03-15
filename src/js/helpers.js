@@ -22,11 +22,11 @@ export function getToday () {
   const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
   const dayOfWeek = weekday[today.getDay()]
   const dd = today.getDate()
-  const monthList = [
+  const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ]
-  const mm = monthList[today.getMonth() + 1]
+  const mm = months[today.getMonth() + 1]
   return (
     `${dayOfWeek} ${dd} ${mm}`
   )
