@@ -71,19 +71,23 @@ header {
     justify-self: flex-start;
   }
   .circle {
-    position: fixed;
+    position: absolute;
     top: 20px;
-    right: 20px;
+    left: 20px;
     width: 30px;
     height: 30px;
     background: orange;
     border-radius: 50px;
+    transition: all 1s linear;
+    &.transition {
+      opacity: 0;
+    }
   }
 }
 
 .container {
   position: relative;
-  transition: left .5s;
+  transition: left .3s;
   @include desktop {
     width: 60%;
   }
@@ -141,11 +145,8 @@ header {
   }
 }
 
-.round {
+.input-checked {
   position: relative;
-}
-
-.round {
   label {
     background-color: #fff;
     border: 1px solid #ccc;
@@ -230,6 +231,20 @@ header {
   }
   .nav-add-list {
     padding: 20px 10px 20px 10px;
+  }
+  .circle {
+    justify-self: flex-end;
+    margin-top: 5px;
+    margin-right: 10px;
+    grid-column: 4 / 5;
+    width: 30px;
+    height: 30px;
+    background: white;
+    border-radius: 50px;
+    transition: all 1s linear;
+    &.transition {
+      background: orange;
+    }
   }
 }
 

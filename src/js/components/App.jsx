@@ -19,7 +19,8 @@ class App extends Component {
       overlay: false,
       addButtonActive: false,
       input: '',
-      menuVisibility: false
+      menuVisibility: false,
+      menuButtonVisibility: false
     }
   }
 
@@ -144,11 +145,13 @@ class App extends Component {
     const { menuVisibility } = this.state
     if (menuVisibility) {
       this.setState({
-        menuVisibility: false
+        menuVisibility: false,
+        menuButtonVisibility: false
       })
     } else {
       this.setState({
-        menuVisibility: true
+        menuVisibility: true,
+        menuButtonVisibility: true
       })
     }
   }
@@ -161,11 +164,12 @@ class App extends Component {
       addButtonActive,
       input,
       currentTodo,
-      menuVisibility
+      menuVisibility,
+      menuButtonVisibility
     } = this.state
     const overlayClass = overlay ? 'overlay visible' : ' overlay hidden'
     const style = menuVisibility
-      ? { left: '200px' }
+      ? { left: '300px' }
       : { left: 0 }
     return (
       <Fragment>
@@ -173,6 +177,7 @@ class App extends Component {
           menuVisibility={menuVisibility}
           currentUser={currentUser}
           toggleMenu={this.toggleMenu}
+          menuButtonVisibility={menuButtonVisibility}
         />
         <div
           className="container"
@@ -181,6 +186,7 @@ class App extends Component {
           <Header
             currentUser={currentUser}
             toggleMenu={this.toggleMenu}
+            menuButtonVisibility={menuButtonVisibility}
           />
           <ToDoList
             todos={todos}

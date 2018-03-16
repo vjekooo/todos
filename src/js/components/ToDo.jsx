@@ -17,7 +17,7 @@ const ToDo = (props) => {
   // }
   return (
     <li>
-      <span className="round">
+      <span className="input-checked">
         <input
           type="checkbox"
           id={todoId}

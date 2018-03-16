@@ -6,12 +6,15 @@ import PropTypes from 'prop-types'
 import { getToday } from '../helpers'
 
 const Header = (props) => {
-  const { toggleMenu } = props
+  const { toggleMenu, menuButtonVisibility } = props
+  const transitionClass = menuButtonVisibility
+    ? 'transition'
+    : ''
   return (
     <header>
       <h2>Los ToDos</h2>
       <span
-        className="circle"
+        className={`circle ${transitionClass}`}
         onClick={() => toggleMenu()}
       >
       </span>
@@ -21,7 +24,8 @@ const Header = (props) => {
 }
 
 Header.propTypes = {
-  toggleMenu: PropTypes.func
+  toggleMenu: PropTypes.func,
+  menuButtonVisibility: PropTypes.bool
 }
 
 export default Header

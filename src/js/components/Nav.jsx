@@ -3,16 +3,18 @@ import React from 'react'
 import CurrentUser from './CurrentUser'
 import SignIn from './SignIn'
 import PropTypes from 'prop-types'
-import arrow from '../../assets/images/arrow-64.svg'
 
 const Nav = (props) => {
-  const { menuVisibility, currentUser, toggleMenu } = props
+  const { menuVisibility, currentUser, toggleMenu, menuButtonVisibility } = props
   const showUserButton = !currentUser
     ? <SignIn />
     : <CurrentUser />
   const style = menuVisibility
-    ? { width: '200px' }
+    ? { width: '300px' }
     : { width: 0 }
+  const transitionClass = menuButtonVisibility
+    ? 'transition'
+    : ''
   return (
     <div
       className="nav"
@@ -22,10 +24,9 @@ const Nav = (props) => {
         <div className="nav-head">
           {showUserButton}
           <span
-            className="nav-arrow"
+            className={`circle ${transitionClass}`}
             onClick={() => toggleMenu()}
           >
-            <img src={arrow} />
           </span>
         </div>
         <div className="nav-content">
@@ -45,7 +46,8 @@ const Nav = (props) => {
 Nav.propTypes = {
   menuVisibility: PropTypes.bool,
   currentUser: PropTypes.object,
-  toggleMenu: PropTypes.func
+  toggleMenu: PropTypes.func,
+  menuButtonVisibility: PropTypes.bool
 }
 
 export default Nav
