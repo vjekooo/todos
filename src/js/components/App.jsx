@@ -1,5 +1,6 @@
 
 import React, { Component, Fragment } from 'react'
+import { hot } from 'react-hot-loader'
 import ToDoList from './ToDoList'
 import Header from './Header'
 import Nav from './Nav'
@@ -106,7 +107,6 @@ class App extends Component {
   }
 
   toggleToDo = (id) => {
-    console.log(id)
     const todos = {...this.state.todos}
     const currentItem = todos[id]
     todos[id] = {
@@ -218,4 +218,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default hot(module)(App)

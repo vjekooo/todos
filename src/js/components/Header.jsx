@@ -8,7 +8,7 @@ import { getToday } from '../helpers'
 const Header = (props) => {
   const { toggleMenu, menuButtonVisibility } = props
   const transitionClass = menuButtonVisibility
-    ? 'transition'
+    ? 'animate'
     : ''
   return (
     <header>

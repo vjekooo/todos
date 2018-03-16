@@ -78,9 +78,10 @@ header {
     height: 30px;
     background: orange;
     border-radius: 50px;
-    transition: all 1s linear;
-    &.transition {
-      opacity: 0;
+    transition: all .5s linear;
+    transform: scale(1);
+    &.animate {
+      transform: scale(0)
     }
   }
 }
@@ -239,11 +240,12 @@ header {
     grid-column: 4 / 5;
     width: 30px;
     height: 30px;
-    background: white;
+    background: orange;
     border-radius: 50px;
-    transition: all 1s linear;
-    &.transition {
-      background: orange;
+    transition: all .5s linear;
+    transform: scale(0.1);
+    &.animate {
+      transform: scale(1);
     }
   }
 }

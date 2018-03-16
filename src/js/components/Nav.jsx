@@ -13,7 +13,7 @@ const Nav = (props) => {
     ? { width: '300px' }
     : { width: 0 }
   const transitionClass = menuButtonVisibility
-    ? 'transition'
+    ? 'animate'
     : ''
   return (
     <div
