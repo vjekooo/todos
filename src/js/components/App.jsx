@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react'
 import ToDoList from './ToDoList'
 import Header from './Header'
 import Nav from './Nav'
+import Overlay from './Overlay'
 import { getDate, getRandColor } from '../helpers'
 import { auth, database } from '../database'
 
@@ -162,6 +163,7 @@ class App extends Component {
       currentTodo,
       menuVisibility
     } = this.state
+    const overlayClass = overlay ? 'overlay visible' : ' overlay hidden'
     const style = menuVisibility
       ? { left: '200px' }
       : { left: 0 }
@@ -196,6 +198,15 @@ class App extends Component {
             handleSubmit={this.handleSubmit}
           />
         </div>
+        <Overlay
+          input={input}
+          currentTodo={currentTodo}
+          overlayClass={overlayClass}
+          editToDo={this.editToDo}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        >
+        </Overlay>
       </Fragment>
     )
   }
