@@ -15,9 +15,12 @@ body {
 
 button {
   padding: 5px;
+  border: 0;
+  background-color: white;
 }
 
 li {
+  height: 12vh;
   display: grid;
   grid-template-columns: 1fr 6fr 1fr 1fr;
   grid-template-rows: auto;
@@ -49,10 +52,6 @@ form {
 
 .todo {
   text-align: center;
-  h3 {
-    position: relative;
-    top: 100px;
-  }
 }
 
 header {
@@ -106,7 +105,7 @@ header {
   &::before, &::after {
     content: '';
     position: absolute;
-    height: 2px;
+    height: 3px;
     width: 100%;
     top: 50%;
     left: 0;
@@ -216,9 +215,7 @@ header {
     justify-items: flex-start;
   }
   a {
-    padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 25px;
     color: #818181;
     display: block;
     transition: 0.3s;
@@ -227,7 +224,9 @@ header {
     }
   }
   .nav-add-list {
-    padding: 20px 10px 20px 10px;
+    font-size: 1rem;
+    color: black;
+    padding: 1rem;
   }
   .circle {
     position: absolute;

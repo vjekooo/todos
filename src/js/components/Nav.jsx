@@ -31,8 +31,8 @@ const Nav = (props) => {
         </div>
         <div className="nav-content">
           <ul>
-            <li>Jedan</li>
-            <li>Dva</li>
+            <li><a>ToDos</a></li>
+            <li><a>Terminado</a></li>
           </ul>
           <button className="nav-add-list">
             New list
