@@ -17,6 +17,7 @@ const config = {
 				test: /\.(s*)css$/,
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
+					publicPath: '../',
 					use: [
 						{
 							loader: 'css-loader',

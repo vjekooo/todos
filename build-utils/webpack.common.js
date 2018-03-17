@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = {
 	entry: {
-		vendor: ['react', 'react-dom']
+		vendor: ['react', 'react-dom', 'react-prop-types', 'firebase']
 	},
 	output: {
 		path: commonPaths.outputPath
