@@ -1,7 +1,7 @@
 
 const commonPaths = require('./common-paths')
-const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
 
 const config = {
 	mode: 'production',
@@ -51,6 +51,16 @@ const config = {
 		new ExtractTextPlugin({
 			filename: 'style/[name].[contenthash:8].css',
 			allChunks: true
+		}),
+		new CompressionPlugin({
+			asset: '[path].gz',
+			algorithm: 'gzip',
+			test: /\.(js|jsx)$/,
+			threshold: 10240,
+			minRatio: 0.8,
+			compress: {
+				warnings: false
+			}
 		})
 	]
 }
