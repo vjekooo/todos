@@ -2,6 +2,7 @@
 const commonPaths = require('./common-paths')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 const config = {
 	entry: {
@@ -88,6 +89,10 @@ const config = {
 			description: 'My awesome todo app!',
 			background_color: '#ffffff',
 			icons: []
+		}),
+		new WorkboxPlugin.GenerateSW({
+			clientsClaim: true,
+			skipWaiting: true
 		})
 	]
 }
