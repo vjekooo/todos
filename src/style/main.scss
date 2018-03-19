@@ -56,7 +56,7 @@ form {
 header {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: repeat(3, auto);
   justify-items: center;
   align-items: center;
   color: white;
@@ -65,13 +65,17 @@ header {
   text-transform: uppercase;
   background-image: url("../assets/images/fire.png");
   background-position: center top;
+  h2 {
+    display: block;
+  }
   .date {
-    justify-self: flex-start;
+    justify-self: flex-end;
+    align-self: flex-end;
+    color: whitesmoke;
   }
   .circle {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
+    justify-self: flex-start;
+    align-self: flex-start;
     width: 30px;
     height: 30px;
     background: orange;
