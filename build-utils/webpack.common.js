@@ -88,7 +88,16 @@ const config = {
 			short_name: 'LosTodos',
 			description: 'My awesome todo app!',
 			background_color: '#ffffff',
-			icons: []
+			icons: [
+				{
+					src: `${commonPaths.appEntry}/assets/images/ico_96.png`,
+					sizes: '96'
+				},
+				{
+					src: `${commonPaths.appEntry}/assets/images/ico_192.png`,
+					sizes: '192'
+				}
+			]
 		}),
 		new WorkboxPlugin.GenerateSW({
 			clientsClaim: true,
