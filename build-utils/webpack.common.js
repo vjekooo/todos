@@ -1,6 +1,8 @@
 
 const commonPaths = require('./common-paths')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WebpackPwaManifest = require('webpack-pwa-manifest')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 const config = {
 	entry: {
@@ -27,7 +29,7 @@ const config = {
 			},
 			{
 				test: /\.json$/,
-				use: 'json',
+				loader: 'json-loader',
 				include: commonPaths.appEntry
 			},
 			{
@@ -80,6 +82,17 @@ const config = {
 			title: 'Los Todos',
 			template: `public/index.html`,
       favicon: `public/favicon.ico`
+		}),
+		new WebpackPwaManifest({
+			name: 'Los Todos todo app',
+			short_name: 'LosTodos',
+			description: 'My awesome todo app!',
+			background_color: '#ffffff',
+			icons: []
+		}),
+		new WorkboxPlugin.GenerateSW({
+			clientsClaim: true,
+			skipWaiting: true
 		})
 	]
 }
