@@ -12,12 +12,12 @@ const Header = (props) => {
     : ''
   return (
     <header>
-      <h2>Los ToDos</h2>
       <span
         className={`circle ${transitionClass}`}
         onClick={() => toggleMenu()}
       >
       </span>
+      <h2>Los ToDos</h2>
       <span className="date">{getToday()}</span>
     </header>
   )
