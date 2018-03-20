@@ -89,10 +89,10 @@ header {
 }
 
 .container {
-  position: relative;
-  transition: left .3s;
+  width: 100%;
+  margin: 0 auto;
   @include desktop {
-    width: 60%;
+    width: 50%;
   }
 }
 
@@ -130,7 +130,7 @@ header {
   &.add {
     position: fixed;
     bottom: 2rem;
-    right: 10%;
+    right: 40%;
     width: 60px;
     height: 60px;
     border: 10px solid skyblue;

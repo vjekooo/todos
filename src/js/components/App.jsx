@@ -68,13 +68,15 @@ class App extends Component {
       checked: false,
       color: getRandColor(3)
     }
-    this.userRef.set({
-      todos
-    })
-    this.setState({
-      overlay: false,
-      addButtonActive: false
-    })
+    if (input) {
+      this.userRef.set({
+        todos
+      })
+      this.setState({
+        overlay: false,
+        addButtonActive: false
+      })
+    }
   }
 
   removeToDo = (id) => {
