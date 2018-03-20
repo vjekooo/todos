@@ -10,7 +10,7 @@ const Nav = (props) => {
     ? <SignIn />
     : <CurrentUser />
   const style = menuVisibility
-    ? { width: '300px' }
+    ? { width: '100%' }
     : { width: 0 }
   const transitionClass = menuButtonVisibility
     ? 'animate'
