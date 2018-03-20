@@ -94,6 +94,10 @@ const config = {
 					sizes: '96'
 				},
 				{
+					src: `${commonPaths.appEntry}/assets/images/ico_144.png`,
+					sizes: '144'
+				},
+				{
 					src: `${commonPaths.appEntry}/assets/images/ico_192.png`,
 					sizes: '192'
 				}
