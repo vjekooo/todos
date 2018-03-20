@@ -1,8 +1,6 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-// import SignIn from './SignIn'
-// import CurrentUser from './CurrentUser'
 import { getToday } from '../helpers'
 
 const Header = (props) => {
