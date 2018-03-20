@@ -31,3 +31,7 @@ export function getToday () {
     `${dayOfWeek} ${dd} ${mm}`
   )
 }
+// Split first name
+export function getFirstName (input) {
+  return input.split(' ').slice(0, 1).join('')
+}
