@@ -4,13 +4,12 @@ import PropTypes from 'prop-types'
 
 const ToDo = (props) => {
   const {
-    todos,
+    todo,
     todoId,
     overlayToggle,
     toggleToDo,
     removeToDo
   } = props
-  const todo = todos[todoId]
   const isChecked = todo.checked ? 'checked' : 'unchecked'
   // const color = {
   //   backgroundColor: todo.color
@@ -44,7 +43,7 @@ const ToDo = (props) => {
 }
 
 ToDo.propTypes = {
-  todos: PropTypes.object,
+  todo: PropTypes.object,
   todoId: PropTypes.string,
   removeToDo: PropTypes.func,
   checked: PropTypes.bool,

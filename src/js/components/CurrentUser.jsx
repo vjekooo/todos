@@ -10,7 +10,6 @@ const CurrentUser = (props) => {
   const firstName = !currentUser
     ? ''
     : getFirstName(currentUser.displayName)
-  console.log(firstName)
   return (
     <button
       onClick={() => auth.signOut()}

@@ -5,7 +5,7 @@ import ToDoList from './ToDoList'
 import Header from './Header'
 import Nav from './Nav'
 import Overlay from './Overlay'
-import { getDate, getRandColor } from '../helpers'
+import { getDate } from '../helpers'
 import { auth, database } from '../database'
 
 class App extends Component {
@@ -66,7 +66,7 @@ class App extends Component {
     todos[`todo-${getDate()}`] = {
       text: input,
       checked: false,
-      color: getRandColor(3)
+      timestamp: getDate()
     }
     if (input) {
       this.userRef.set({
