@@ -8,9 +8,9 @@ const Nav = (props) => {
   const { menuVisibility, currentUser, toggleMenu, menuButtonVisibility } = props
   const showUserButton = !currentUser
     ? <SignIn />
-    : <CurrentUser />
+    : <CurrentUser currentUser={currentUser} />
   const style = menuVisibility
-    ? { width: '300px' }
+    ? { width: '100%' }
     : { width: 0 }
   const transitionClass = menuButtonVisibility
     ? 'animate'

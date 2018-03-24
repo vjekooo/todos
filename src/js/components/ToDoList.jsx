@@ -17,12 +17,14 @@ const ToDoList = (props) => {
       <ToDo
         key={todo}
         todoId={todo}
-        todos={todos}
+        todo={todos[todo]}
         removeToDo={removeToDo}
         toggleToDo={toggleToDo}
         overlayToggle={overlayToggle}
       />
     )
+  }).sort((a, b) => {
+    return a.props.todo.checked > b.props.todo.checked
   })
   const renderToDo = Object.keys(todos).length !== 0
     ? toDo

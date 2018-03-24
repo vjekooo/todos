@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400');
 @import "mq";
 
 * {
@@ -59,14 +59,14 @@ header {
   grid-template-rows: repeat(3, auto);
   justify-items: center;
   align-items: center;
-  color: white;
+  color: whitesmoke;
   height: 30vh;
   padding: 1rem;
   text-transform: uppercase;
-  background-image: url("../assets/images/fire.png");
-  background-position: center top;
+  background-image: url("../assets/images/image_header.png");
+  background-position: 10% 25%;
   h2 {
-    display: block;
+    font: 100 2rem 'Roboto', Helvetica, sans-serif;
   }
   .date {
     justify-self: flex-end;
@@ -78,7 +78,7 @@ header {
     align-self: flex-start;
     width: 30px;
     height: 30px;
-    background: orange;
+    background: whitesmoke;
     border-radius: 50px;
     transition: all .5s linear;
     transform: scale(1);
@@ -89,10 +89,10 @@ header {
 }
 
 .container {
-  position: relative;
-  transition: left .3s;
+  width: 100%;
+  margin: 0 auto;
   @include desktop {
-    width: 60%;
+    width: 50%;
   }
 }
 
@@ -130,13 +130,13 @@ header {
   &.add {
     position: fixed;
     bottom: 2rem;
-    right: 10%;
-    width: 60px;
-    height: 60px;
-    border: 10px solid skyblue;
+    right: 40%;
+    width: 55px;
+    height: 55px;
+    border: 15px solid skyblue;
     border-radius: 50%;
     background-color: skyblue;
-    z-index: 1000;
+    z-index: 10;
   }
   &.active {
     transform: rotate(134deg);
@@ -192,7 +192,7 @@ header {
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   top: 0;
   left: 0;
   background-color: white;
@@ -206,6 +206,8 @@ header {
     padding: 1rem;
   }
   button {
+    display: flex;
+    flex-direction: column;
     padding: 0;
     img {
       width: 48px;
