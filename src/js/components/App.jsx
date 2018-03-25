@@ -94,7 +94,7 @@ class App extends Component {
     todos[currentTodo] = {
       text: input,
       checked: currentItem.checked,
-      color: currentItem.color
+      timestamp: currentItem.timestamp
     }
     if (input) {
       this.userRef.set({
@@ -114,7 +114,7 @@ class App extends Component {
     todos[id] = {
       text: currentItem.text,
       checked: !currentItem.checked,
-      color: currentItem.color
+      timestamp: currentItem.timestamp
     }
     this.userRef.set({
       todos
