@@ -1,6 +1,6 @@
 {
   "name": "todos",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Todo app",
   "main": "index.jsx",
   "scripts": {
@@ -15,12 +15,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vjekooo/webpack_react"
+    "url": "https://github.com/vjekooo/todos"
   },
-  "bugs": "https://github.com/vjekooo/webpack_react/issues",
+  "bugs": "https://github.com/vjekooo/todos/issues",
   "keywords": [
     "react",
-    "webpack"
+    "todo"
   ],
   "devDependencies": {
     "babel-cli": "^6.26.0",
