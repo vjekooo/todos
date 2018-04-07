@@ -9,14 +9,14 @@ const Header = (props) => {
     ? 'animate'
     : ''
   return (
-    <header>
+    <header className="header">
       <span
-        className={`circle ${transitionClass}`}
+        className={`header__circle ${transitionClass}`}
         onClick={() => toggleMenu()}
       >
       </span>
-      <h2>Los ToDos</h2>
-      <span className="date">{getToday()}</span>
+      <h2 className="header__app-name">Los ToDos</h2>
+      <span className="header__date">{getToday()}</span>
     </header>
   )
 }

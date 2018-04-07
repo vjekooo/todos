@@ -11,7 +11,7 @@ const CurrentUser = (props) => {
     ? ''
     : getFirstName(currentUser.displayName)
   return (
-    <button
+    <button className="current-user"
       onClick={() => auth.signOut()}
     >
       <img src={userIcon} />

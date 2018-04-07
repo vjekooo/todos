@@ -169,10 +169,6 @@ class App extends Component {
       menuVisibility,
       menuButtonVisibility
     } = this.state
-    const overlayClass = overlay ? 'overlay visible' : ' overlay hidden'
-    // const style = menuVisibility
-    //   ? { left: '300px' }
-    //   : { left: 0 }
     return (
       <Fragment>
         <Nav
@@ -183,7 +179,6 @@ class App extends Component {
         />
         <div
           className="container"
-          // style={style}
         >
           <Header
             currentUser={currentUser}
@@ -209,7 +204,7 @@ class App extends Component {
         <Overlay
           input={input}
           currentTodo={currentTodo}
-          overlayClass={overlayClass}
+          overlay={overlay}
           editToDo={this.editToDo}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}

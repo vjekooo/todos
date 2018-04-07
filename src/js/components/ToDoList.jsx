@@ -24,6 +24,8 @@ const ToDoList = (props) => {
       />
     )
   }).sort((a, b) => {
+    return a.props.todo.timestamp < b.props.todo.timestamp
+  }).sort((a, b) => {
     return a.props.todo.checked > b.props.todo.checked
   })
   const renderToDo = Object.keys(todos).length !== 0
