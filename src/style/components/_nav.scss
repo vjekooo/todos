@@ -1,0 +1,59 @@
+
+.navigation {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  transition: 0.3s;
+  &__head {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: flex-start;
+    height: 30vh;
+    padding: 1rem;
+  }
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: flex-start;
+  }
+  &__content-list {
+    margin-left: 1rem;
+    list-style: none;
+    li {
+      padding: .5rem 0;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    &:hover {
+      color: #f1f1f1;
+    }
+  }
+  &__add-list {
+    font-size: 1rem;
+    color: black;
+    padding: 1rem;
+  }
+  &__circle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 30px;
+    height: 30px;
+    background: orange;
+    border-radius: 50px;
+    transition: all .5s linear;
+    transform: scale(0.1);
+    &.animate {
+      transform: scale(1);
+    }
+  }
+}

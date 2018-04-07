@@ -5,7 +5,7 @@ import user from '../../assets/images/user-48.png'
 
 const SignIn = () => {
   return (
-    <button
+    <button className="sign-in"
       onClick={() => auth.signInWithPopup(googleAuthProvider)}
     >
       <img src={user} />

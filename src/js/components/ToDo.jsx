@@ -15,8 +15,8 @@ const ToDo = (props) => {
   //   backgroundColor: todo.color
   // }
   return (
-    <li>
-      <span className="input-checked">
+    <li className="todo__item">
+      <span className="todo__input--checked">
         <input
           type="checkbox"
           id={todoId}

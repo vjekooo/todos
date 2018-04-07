@@ -17,24 +17,24 @@ const Nav = (props) => {
     : ''
   return (
     <div
-      className="nav"
+      className="navigation"
       style={style}
     >
-      <div className="nav-wrapper">
-        <div className="nav-head">
+      <div className="navigation__wrapper">
+        <div className="navigation__head">
           {showUserButton}
           <span
-            className={`circle ${transitionClass}`}
+            className={`navigation__circle ${transitionClass}`}
             onClick={() => toggleMenu()}
           >
           </span>
         </div>
-        <div className="nav-content">
-          <ul>
+        <div className="navigation__content">
+          <ul className="navigation__content-list">
             <li><a>ToDos</a></li>
             <li><a>Terminado</a></li>
           </ul>
-          <button className="nav-add-list">
+          <button className="navigation__add-list">
             New list
           </button>
         </div>
