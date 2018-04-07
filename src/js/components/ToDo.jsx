@@ -29,6 +29,7 @@ const ToDo = (props) => {
         {todo.text}
       </span>
       <button
+        className="btn"
         onClick={() => { overlayToggle(todoId) }}
       >
         edit

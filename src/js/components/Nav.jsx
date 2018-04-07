@@ -34,7 +34,7 @@ const Nav = (props) => {
             <li><a>ToDos</a></li>
             <li><a>Terminado</a></li>
           </ul>
-          <button className="navigation__add-list">
+          <button className="navigation__add-list btn">
             New list
           </button>
         </div>

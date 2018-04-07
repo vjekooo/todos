@@ -25,6 +25,11 @@ body {
   }
 }
 
+.btn {
+  border: 0;
+  background-color: transparent;
+}
+
 .sing-in {
   display: flex;
   flex-direction: column;
