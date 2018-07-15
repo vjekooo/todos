@@ -1,52 +1,51 @@
 
-import React from 'react'
-import CurrentUser from './CurrentUser'
-import SignIn from './SignIn'
+import React, { Fragment } from 'react'
+// import CurrentUser from './CurrentUser'
+// import SignIn from './SignIn'
 import PropTypes from 'prop-types'
 
-const Nav = (props) => {
-	const { menuVisibility, currentUser, toggleMenu, menuButtonVisibility } = props
-	const showUserButton = !currentUser
-		? <SignIn />
-		: <CurrentUser currentUser={currentUser} />
-	const style = menuVisibility
-		? { width: '100%' }
-		: { width: 0 }
-	const transitionClass = menuButtonVisibility
-		? 'animate'
-		: ''
+const Nav = ({on, toggle, currentUser}) => {
+	console.log(on)
+	// const showUserButton = !currentUser
+	// 	? <SignIn />
+	// 	: <CurrentUser currentUser={currentUser} />
+	// const transitionClass = on
+	// 	? 'animate'
+	// 	: ''
 	return (
-		<div
-			className="navigation"
-			style={style}
-		>
-			<div className="navigation__wrapper">
-				<div className="navigation__head">
-					{showUserButton}
-					<span
-						className={`navigation__circle ${transitionClass}`}
-						onClick={() => toggleMenu()}
-					>
-					</span>
-				</div>
-				<div className="navigation__content">
-					<ul className="navigation__content-list">
-						<li><a>ToDos</a></li>
-						<li><a>Terminado</a></li>
-					</ul>
-					<button className="navigation__add-list btn">
-						New list
-					</button>
-				</div>
-			</div>
-		</div>
+		<Fragment>
+			{
+				on &&
+					<div className="navigation">
+						<div className="navigation__wrapper">
+							{/* <div className="navigation__head">
+								{showUserButton}
+								<span
+									className={`navigation__circle ${transitionClass}`}
+									onClick={toggle}
+								>
+								</span>
+							</div> */}
+							<div className="navigation__content">
+								<ul className="navigation__content-list">
+									<li><a>ToDos</a></li>
+									<li><a>Terminado</a></li>
+								</ul>
+								<button className="navigation__add-list btn">
+									New list
+								</button>
+							</div>
+						</div>
+					</div>
+			}
+		</Fragment>
 	)
 }
 
 Nav.propTypes = {
-	menuVisibility: PropTypes.bool,
+	on: PropTypes.bool,
 	currentUser: PropTypes.object,
-	toggleMenu: PropTypes.func,
+	toggle: PropTypes.func,
 	menuButtonVisibility: PropTypes.bool
 }
 

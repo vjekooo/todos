@@ -1,26 +1,34 @@
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Form from './Form'
 
-const Overlay = ({overlay}) => {
-	const overlayClass = overlay ? 'overlay visible' : 'overlay hidden'
+const Overlay = ({on, toggle, todo}) => {
+	console.log(on)
 	return (
-		<div className={overlayClass}>
-			<div className="overlay__add-task">
-				<Form />
-			</div>
-		</div>
+		<Fragment>
+			{
+				on &&
+					<div
+						className="overlay"
+						onClick={toggle}
+					>
+						<div
+							className="overlay__add-task"
+							onClick={(event) => event.stopPropagation()}
+						>
+							<Form on={on} toggle={toggle} todo={todo} />
+						</div>
+					</div>
+			}
+		</Fragment>
 	)
 }
 
 Overlay.propTypes = {
-	input: PropTypes.string,
-	active: PropTypes.bool,
-	overlay: PropTypes.bool,
-	currentTodo: PropTypes.string,
-	handleChange: PropTypes.func,
-	handleSubmit: PropTypes.func
+	on: PropTypes.bool,
+	todo: PropTypes.object,
+	toggle: PropTypes.func
 }
 
 export default Overlay

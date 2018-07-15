@@ -1,10 +1,8 @@
 
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import ToDoList from './ToDoList'
 import Header from './Header'
-import Nav from './Nav'
-import Overlay from './Overlay'
 import { getDate } from '../helpers'
 import { auth, database } from '../database'
 import StateContext from './AppContext'
@@ -16,13 +14,9 @@ class App extends Component {
 		this.userRef = null
 		this.state = {
 			todos: {},
-			currentTodo: '',
+			currentTodo: null,
 			currentUser: null,
-			overlay: false,
-			addButtonActive: false,
-			input: '',
-			menuVisibility: false,
-			menuButtonVisibility: false
+			input: ''
 		}
 	}
 
@@ -34,9 +28,11 @@ class App extends Component {
 			this.usersRef = database.ref('/users')
 			this.userRef = this.usersRef.child(currentUser.uid)
 			this.userRef.on('value', (snapshot) => {
-				this.setState({
-					todos: snapshot.val().todos
-				})
+				if (snapshot.val().todos) {
+					this.setState({
+						todos: snapshot.val().todos
+					})
+				}
 			})
 		})
 	}
@@ -46,7 +42,6 @@ class App extends Component {
 			todos: {
 				...this.state.todos
 			},
-			overlay: true,
 			input: event.target.value
 		})
 	}
@@ -55,7 +50,7 @@ class App extends Component {
 		event.preventDefault()
 		const { currentTodo } = this.state
 		if (currentTodo) {
-			this.editToDo()
+			this.editToDo(currentTodo)
 		} else {
 			this.addToDo()
 		}
@@ -73,10 +68,6 @@ class App extends Component {
 			this.userRef.set({
 				todos
 			})
-			this.setState({
-				overlay: false,
-				addButtonActive: false
-			})
 		}
 	}
 
@@ -88,23 +79,17 @@ class App extends Component {
 		})
 	}
 
-	editToDo = () => {
-		const { input, currentTodo } = this.state
+	editToDo = (todo) => {
+		const { input } = this.state
 		const todos = {...this.state.todos}
-		const currentItem = todos[currentTodo]
-		todos[currentTodo] = {
+		todos[todo] = {
 			text: input,
-			checked: currentItem.checked,
-			timestamp: currentItem.timestamp
+			checked: todo.checked,
+			timestamp: todo.timestamp
 		}
 		if (input) {
 			this.userRef.set({
 				todos
-			})
-			this.setState({
-				currentTodo: '',
-				overlay: false,
-				addButtonActive: false
 			})
 		}
 	}
@@ -122,42 +107,48 @@ class App extends Component {
 		})
 	}
 
-	overlayToggle = (id) => {
-		const { todos, overlay } = this.state
-		const currentItem = todos[id]
-		const input = Object.prototype.toString.call(id) === '[object Object]' ? '' : currentItem.text
-		const currentTodo = Object.prototype.toString.call(id) === '[object Object]' ? null : id
-		if (!overlay) {
-			this.setState({
-				currentTodo: currentTodo,
-				overlay: true,
-				input: input,
-				addButtonActive: true
-			})
-		} else {
-			this.setState({
-				overlay: false,
-				input: '',
-				currentTodo: null,
-				addButtonActive: false
-			})
-		}
+	setCurrentToDo = (todo) => {
+		this.setState({
+			currentTodo: todo
+		})
 	}
 
-	toggleMenu = () => {
-		const { menuVisibility } = this.state
-		if (menuVisibility) {
-			this.setState({
-				menuVisibility: false,
-				menuButtonVisibility: false
-			})
-		} else {
-			this.setState({
-				menuVisibility: true,
-				menuButtonVisibility: true
-			})
-		}
-	}
+	// overlayToggle = (id) => {
+	// 	const { todos, overlay } = this.state
+	// 	const currentItem = todos[id]
+	// 	const input = Object.prototype.toString.call(id) === '[object Object]' ? '' : currentItem.text
+	// 	const currentTodo = Object.prototype.toString.call(id) === '[object Object]' ? null : id
+	// 	if (!overlay) {
+	// 		this.setState({
+	// 			currentTodo: currentTodo,
+	// 			overlay: true,
+	// 			input: input,
+	// 			addButtonActive: true
+	// 		})
+	// 	} else {
+	// 		this.setState({
+	// 			overlay: false,
+	// 			input: '',
+	// 			currentTodo: null,
+	// 			addButtonActive: false
+	// 		})
+	// 	}
+	// }
+
+	// toggleMenu = () => {
+	// 	const { menuVisibility } = this.state
+	// 	if (menuVisibility) {
+	// 		this.setState({
+	// 			menuVisibility: false,
+	// 			menuButtonVisibility: false
+	// 		})
+	// 	} else {
+	// 		this.setState({
+	// 			menuVisibility: true,
+	// 			menuButtonVisibility: true
+	// 		})
+	// 	}
+	// }
 
 	render () {
 		const {
@@ -167,7 +158,6 @@ class App extends Component {
 			addButtonActive,
 			input,
 			currentTodo,
-			menuVisibility,
 			menuButtonVisibility
 		} = this.state
 		return (
@@ -176,50 +166,35 @@ class App extends Component {
 					input: this.state.input,
 					currentTodo: this.state.currentTodo,
 					handleSubmit: this.handleSubmit,
-					handleChange: this.handleChange
+					handleChange: this.handleChange,
+					setCurrentToDo: this.setCurrentToDo
 				}}
 			>
-				<Fragment>
-					<Nav
-						menuVisibility={menuVisibility}
+				<div
+					className="container"
+				>
+					<Header
 						currentUser={currentUser}
 						toggleMenu={this.toggleMenu}
 						menuButtonVisibility={menuButtonVisibility}
 					/>
-					<div
-						className="container"
-					>
-						<Header
-							currentUser={currentUser}
-							toggleMenu={this.toggleMenu}
-							menuButtonVisibility={menuButtonVisibility}
-						/>
-						<ToDoList
-							todos={todos}
-							currentUser={currentUser}
-							overlay={overlay}
-							addButtonActive={addButtonActive}
-							input={input}
-							currentTodo={currentTodo}
-							addToDo={this.addToDo}
-							removeToDo={this.removeToDo}
-							toggleToDo={this.toggleToDo}
-							editToDo={this.editToDo}
-							overlayToggle={this.overlayToggle}
-							handleChange={this.handleChange}
-							handleSubmit={this.handleSubmit}
-						/>
-					</div>
-					<Overlay
+					<ToDoList
+						todos={todos}
+						currentUser={currentUser}
+						overlay={overlay}
+						addButtonActive={addButtonActive}
 						input={input}
 						currentTodo={currentTodo}
-						overlay={overlay}
+						addToDo={this.addToDo}
+						removeToDo={this.removeToDo}
+						toggleToDo={this.toggleToDo}
 						editToDo={this.editToDo}
+						overlayToggle={this.overlayToggle}
 						handleChange={this.handleChange}
 						handleSubmit={this.handleSubmit}
-					>
-					</Overlay>
-				</Fragment>
+						setCurrentToDo={this.setCurrentToDo}
+					/>
+				</div>
 			</StateContext.Provider>
 		)
 	}

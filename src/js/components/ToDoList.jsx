@@ -2,16 +2,12 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import ToDo from './ToDo'
+import Toggle from './Toggle'
+import Overlay from './Overlay'
+import PlusButton from './PlusButton'
 
-const ToDoList = (props) => {
-	const {
-		todos,
-		currentUser,
-		addButtonActive,
-		removeToDo,
-		toggleToDo,
-		overlayToggle
-	} = props
+const ToDoList =
+({todos, currentUser, removeToDo, toggleToDo, overlayToggle, setCurrentToDo}) => {
 	const toDo = Object.keys(todos).map(todo => {
 		return (
 			<ToDo
@@ -21,6 +17,7 @@ const ToDoList = (props) => {
 				removeToDo={removeToDo}
 				toggleToDo={toggleToDo}
 				overlayToggle={overlayToggle}
+				setCurrentToDo={setCurrentToDo}
 			/>
 		)
 	}).sort((a, b) => {
@@ -31,7 +28,6 @@ const ToDoList = (props) => {
 	const renderToDo = Object.keys(todos).length !== 0
 		? toDo
 		: <h3 className="no-todo">Such empty, do something</h3>
-	const activeClass = addButtonActive ? 'icon add active' : 'icon add non-active'
 	const signedUser = currentUser ? renderToDo : <h3>Please sign in</h3>
 	return (
 		<Fragment>
@@ -40,10 +36,16 @@ const ToDoList = (props) => {
 					{signedUser}
 				</ul>
 			</div>
-			<span className={activeClass}
-				onClick={overlayToggle}
-			>
-			</span>
+			<Toggle>
+				{
+					({on, toggle}) => (
+						<Fragment>
+							<Overlay on={on} toggle={toggle} />
+							<PlusButton on={on} toggle={toggle} />
+						</Fragment>
+					)
+				}
+			</Toggle>
 		</Fragment>
 	)
 }
@@ -60,7 +62,8 @@ ToDoList.propTypes = {
 	editToDo: PropTypes.func,
 	overlayToggle: PropTypes.func,
 	handleChange: PropTypes.func,
-	handleSubmit: PropTypes.func
+	handleSubmit: PropTypes.func,
+	setCurrentToDo: PropTypes.func
 }
 
 export default ToDoList

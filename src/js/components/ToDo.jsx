@@ -1,15 +1,10 @@
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import Toggle from './Toggle'
+import Overlay from './Overlay'
 
-const ToDo = (props) => {
-	const {
-		todo,
-		todoId,
-		overlayToggle,
-		toggleToDo,
-		removeToDo
-	} = props
+const ToDo = ({todo, todoId, toggleToDo, removeToDo, setCurrentToDo}) => {
 	const isChecked = todo.checked ? 'checked' : 'unchecked'
 	return (
 		<li className="todo__item">
@@ -25,12 +20,21 @@ const ToDo = (props) => {
 			<span className={`todo-text ${isChecked}`}>
 				{todo.text}
 			</span>
-			<button
-				className="btn"
-				onClick={() => { overlayToggle(todoId) }}
-			>
-			edit
-			</button>
+			<Toggle>
+				{
+					({on, toggle}) => (
+						<Fragment>
+							<Overlay on={on} toggle={toggle} />
+							<button
+								className="btn"
+								onClick={toggle}
+							>
+								edit
+							</button>
+						</Fragment>
+					)
+				}
+			</Toggle>
 			<span
 				className="icon remove"
 				onClick={() => { removeToDo(todoId) }}
@@ -46,7 +50,8 @@ ToDo.propTypes = {
 	removeToDo: PropTypes.func,
 	checked: PropTypes.bool,
 	toggleToDo: PropTypes.func,
-	overlayToggle: PropTypes.func
+	overlayToggle: PropTypes.func,
+	setCurrentToDo: PropTypes.func
 }
 
 export default ToDo

@@ -9,6 +9,9 @@
   background-color: white;
   overflow-x: hidden;
   transition: 0.3s;
+  &--shown {
+    width: 100%
+  }
   &__head {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

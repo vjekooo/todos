@@ -1,8 +1,9 @@
 
 import React from 'react'
+import ProTypes from 'prop-types'
 import StateContext from './AppContext'
 
-const Form = () => {
+const Form = ({toggle, todo}) => {
 	return (
 		<StateContext.Consumer>
 			{(context) => (
@@ -23,7 +24,7 @@ const Form = () => {
 						className="overlay__add-button"
 						type="submit"
 						value={
-							context.currentTodo
+							todo
 								? 'Edit'
 								: 'Add'
 						}
@@ -32,6 +33,11 @@ const Form = () => {
 			)}
 		</StateContext.Consumer>
 	)
+}
+
+Form.propTypes = {
+	toggle: ProTypes.func,
+	todo: ProTypes.object
 }
 
 export default Form
