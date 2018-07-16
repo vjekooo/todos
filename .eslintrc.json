@@ -9,8 +9,7 @@
 	"sourceType": "module",
 	"ecmaFeatures": {
 		"jsx": true,
-		"experimentalObjectRestSpread": true,
-		"globalReturn": false
+		"experimentalObjectRestSpread": true
 	}
 	},
 	"env": {
@@ -18,8 +17,8 @@
 		"node": true
 	},
 	"rules": {
-		"react/jsx-uses-react": 1,
-		"react/jsx-uses-vars": 1,
+		"react/jsx-uses-react": "error",
+		"react/jsx-uses-vars": "error",
 		"indent": ["error", "tab"],
 		"no-tabs": 0
 	}

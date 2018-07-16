@@ -7,99 +7,99 @@
 @import "mq";
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
 
 body {
-  background-color: whitesmoke;
-  font-family: 'Roboto', sans-serif;
+	background-color: whitesmoke;
+	font-family: 'Roboto', sans-serif;
 }
 
 .container {
-  width: 100%;
-  margin: 0 auto;
-  @include desktop {
-    width: 50%;
-  }
+	width: 100%;
+	margin: 0 auto;
+	@include for-desktop-up {
+		width: 50%;
+	}
 }
 
 .btn {
-  border: 0;
-  background-color: transparent;
+	border: 0;
+	background-color: transparent;
 }
 
 .sing-in {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  img {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-  }
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+	img {
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+	}
 }
 
 .current-user {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  img {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-  }
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+	img {
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+	}
 }
 
 .icon {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  &:hover {
-    &::before, &::after {
-      background: white;
-    }
-  }
-  &::before, &::after {
-    content: '';
-    position: absolute;
-    height: 3px;
-    width: 100%;
-    top: 50%;
-    left: 0;
-    margin-top: -1px;
-    background: #000;
-  }
-  &::before {
-    transform: rotate();
-  }
-  &::after {
-    transform: rotate(-90deg);
-  }
-  &.remove {
-    width: 20px;
-    height: 20px;
-    margin-left: 15px;
-    transform: rotate(45deg);
-  }
-  &.add {
-    position: fixed;
-    bottom: 2rem;
-    right: 40%;
-    width: 55px;
-    height: 55px;
-    border: 15px solid skyblue;
-    border-radius: 50%;
-    background-color: skyblue;
-    z-index: 10;
-  }
-  &.active {
-    transform: rotate(134deg);
-    transition: transform 0.2s;
-  }
-  &.non-active {
-    transform: rotate(0deg);
-    transition: transform 0.2s;
-  }
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	&:hover {
+		&::before, &::after {
+			background: white;
+		}
+	}
+	&::before, &::after {
+		content: '';
+		position: absolute;
+		height: 3px;
+		width: 100%;
+		top: 50%;
+		left: 0;
+		margin-top: -1px;
+		background: #000;
+	}
+	&::before {
+		transform: rotate();
+	}
+	&::after {
+		transform: rotate(-90deg);
+	}
+	&.remove {
+		width: 20px;
+		height: 20px;
+		margin-left: 15px;
+		transform: rotate(45deg);
+	}
+	&.add {
+		position: fixed;
+		bottom: 2rem;
+		right: 40%;
+		width: 55px;
+		height: 55px;
+		border: 15px solid skyblue;
+		border-radius: 50%;
+		background-color: skyblue;
+		z-index: 10;
+	}
+	&.active {
+		transform: rotate(134deg);
+		transition: transform 0.2s;
+	}
+	&.non-active {
+		transform: rotate(0deg);
+		transition: transform 0.2s;
+	}
 }
