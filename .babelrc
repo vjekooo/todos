@@ -1,18 +1,19 @@
 {
-  "presets": [
-    ["env", {
-      "modules": false,
-      "targets": {
-        "browsers": [
-          "last 2 versions"
-        ]
-      }
-    }],
-    "react"
-  ],
-  "plugins": [
-    ["react-hot-loader/babel"],
-    ["transform-class-properties"],
-    ["transform-object-rest-spread"]
-  ]
+	"presets": [
+		[
+			"env",
+			{
+				"modules": false,
+				"targets": {
+					"browsers": ["last 2 versions"]
+				}
+			}
+		],
+		"react"
+	],
+	"plugins": [
+		["react-hot-loader/babel"],
+		["transform-class-properties"],
+		["transform-object-rest-spread"]
+	]
 }

@@ -1,31 +1,28 @@
-
 import React from 'react'
 import PropTypes from 'prop-types'
 
 export default class Toggle extends React.Component {
-  state = {
-    on: false
-  }
+	state = {
+		on: false
+	}
 
-  toggle = () => {
-    this.setState({
-      on: !this.state.on
-    })
-  }
+	toggle = () => {
+		this.setState({
+			on: !this.state.on
+		})
+	}
 
-  render () {
-    const { children } = this.props
-    return (
-      children({
-        on: this.state.on,
-        toggle: this.toggle
-      })
-    )
-  }
+	render () {
+		const { children } = this.props
+		return children({
+			on: this.state.on,
+			toggle: this.toggle
+		})
+	}
 }
 
 Toggle.propTypes = {
-  on: PropTypes.bool,
-  toggle: PropTypes.func,
-  children: PropTypes.func
+	on: PropTypes.bool,
+	toggle: PropTypes.func,
+	children: PropTypes.func
 }
