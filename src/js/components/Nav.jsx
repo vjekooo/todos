@@ -1,11 +1,23 @@
 
-import React from 'react'
+import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
+import NavLinks from './NavLinks'
 import CurrentUser from './CurrentUser'
 import SignIn from './SignIn'
 import PropTypes from 'prop-types'
+import Toggle from './Toggle'
 
-const Nav = (props) => {
-  const { menuVisibility, currentUser, toggleMenu, menuButtonVisibility } = props
+const Nav = (
+  {
+    menuVisibility,
+    currentUser,
+    toggleMenu,
+    menuButtonVisibility,
+    handleListChange,
+    handleListSubmit,
+    lists
+  }
+) => {
   const showUserButton = !currentUser
     ? <SignIn />
     : <CurrentUser currentUser={currentUser} />
@@ -15,6 +27,14 @@ const Nav = (props) => {
   const transitionClass = menuButtonVisibility
     ? 'animate'
     : ''
+
+  const renderLists = Object.keys(lists).map(
+    (list, index) =>
+      <NavLinks
+        key={index}
+        route={lists[list]}
+      />
+  )
   return (
     <div
       className="navigation"
@@ -31,12 +51,39 @@ const Nav = (props) => {
         </div>
         <div className="navigation__content">
           <ul className="navigation__content-list">
-            <li><a>ToDos</a></li>
-            <li><a>Terminado</a></li>
+            <li>
+              <Link to="/">All Todos</Link>
+            </li>
+            <li>
+              <Link to="/shoping">Shoping</Link>
+            </li>
+            {
+              renderLists
+            }
           </ul>
-          <button className="navigation__add-list btn">
-            New list
-          </button>
+          <Toggle>
+            {
+              ({on, toggle}) => (
+                <Fragment>
+                  <button
+                    className="navigation__add-list btn"
+                    onClick={toggle}
+                  >
+                    New list
+                  </button>
+                  {
+                    on &&
+                    <form action="submit" onSubmit={handleListSubmit}>
+                      <input
+                        onChange={handleListChange}
+                      />
+                      <button type="submit">Submit</button>
+                    </form>
+                  }
+                </Fragment>
+              )
+            }
+          </Toggle>
         </div>
       </div>
     </div>
@@ -47,7 +94,10 @@ Nav.propTypes = {
   menuVisibility: PropTypes.bool,
   currentUser: PropTypes.object,
   toggleMenu: PropTypes.func,
-  menuButtonVisibility: PropTypes.bool
+  menuButtonVisibility: PropTypes.bool,
+  handleListChange: PropTypes.func,
+  handleListSubmit: PropTypes.func,
+  lists: PropTypes.object
 }
 
 export default Nav

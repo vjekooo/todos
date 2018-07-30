@@ -1,25 +1,28 @@
 
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
+import { Route, Switch } from 'react-router-dom'
 import { hot } from 'react-hot-loader'
 import ToDoList from './ToDoList'
 import Header from './Header'
 import Nav from './Nav'
-import Overlay from './Overlay'
 import { getDate } from '../helpers'
 import { auth, database } from '../database'
 
-class App extends Component {
+class App extends React.Component {
   constructor (props) {
     super(props)
     this.usersRef = null
     this.userRef = null
     this.state = {
       todos: {},
+      lists: {},
       currentTodo: '',
       currentUser: null,
       overlay: false,
       addButtonActive: false,
       input: '',
+      listInput: '',
+      pathname: '',
       menuVisibility: false,
       menuButtonVisibility: false
     }
@@ -32,21 +35,37 @@ class App extends Component {
       })
       this.usersRef = database.ref('/users')
       this.userRef = this.usersRef.child(currentUser.uid)
-      this.userRef.on('value', (snapshot) => {
+      this.todosRef = this.userRef.child('todos')
+      this.listsRef = this.userRef.child('lists')
+      this.todosRef.on('value', (snapshot) => {
         this.setState({
           todos: snapshot.val().todos
+        })
+      })
+      this.listsRef.on('value', (snapshot) => {
+        this.setState({
+          lists: snapshot.val().lists
         })
       })
     })
   }
 
+  sendPathname = (data) => {
+    this.setState({
+      pathname: data
+    })
+  }
+
   handleChange = (event) => {
     this.setState({
-      todos: {
-        ...this.state.todos
-      },
       overlay: true,
       input: event.target.value
+    })
+  }
+
+  handleListChange = (event) => {
+    this.setState({
+      listInput: event.target.value
     })
   }
 
@@ -60,16 +79,38 @@ class App extends Component {
     }
   }
 
+  handleListSubmit = (event) => {
+    event.preventDefault()
+    this.addList()
+  }
+
+  addList = () => {
+    const { listInput } = this.state
+    const objKey = `list-${getDate()}`
+    const newList = {
+      [objKey]: {
+        route: listInput.toLocaleLowerCase()
+      }
+    }
+    const listsObj = {...this.state.lists, ...newList}
+    if (listInput) {
+      this.listsRef.set({
+        lists: listsObj
+      })
+    }
+  }
+
   addToDo = () => {
-    const { input } = this.state
+    const { input, pathname } = this.state
     const todos = {...this.state.todos}
     todos[`todo-${getDate()}`] = {
       text: input,
+      list: pathname,
       checked: false,
       timestamp: getDate()
     }
     if (input) {
-      this.userRef.set({
+      this.todosRef.set({
         todos
       })
       this.setState({
@@ -82,7 +123,7 @@ class App extends Component {
   removeToDo = (id) => {
     const todos = {...this.state.todos}
     delete todos[id]
-    this.userRef.set({
+    this.todosRef.set({
       todos
     })
   }
@@ -93,11 +134,12 @@ class App extends Component {
     const currentItem = todos[currentTodo]
     todos[currentTodo] = {
       text: input,
+      list: currentItem.list,
       checked: currentItem.checked,
       timestamp: currentItem.timestamp
     }
     if (input) {
-      this.userRef.set({
+      this.todosRef.set({
         todos
       })
       this.setState({
@@ -113,10 +155,11 @@ class App extends Component {
     const currentItem = todos[id]
     todos[id] = {
       text: currentItem.text,
+      list: currentItem.list,
       checked: !currentItem.checked,
       timestamp: currentItem.timestamp
     }
-    this.userRef.set({
+    this.todosRef.set({
       todos
     })
   }
@@ -167,7 +210,8 @@ class App extends Component {
       input,
       currentTodo,
       menuVisibility,
-      menuButtonVisibility
+      menuButtonVisibility,
+      lists
     } = this.state
     return (
       <Fragment>
@@ -176,6 +220,10 @@ class App extends Component {
           currentUser={currentUser}
           toggleMenu={this.toggleMenu}
           menuButtonVisibility={menuButtonVisibility}
+          overlayToggle={this.overlayToggle}
+          handleListChange={this.handleListChange}
+          handleListSubmit={this.handleListSubmit}
+          lists={lists}
         />
         <div
           className="container"
@@ -185,31 +233,53 @@ class App extends Component {
             toggleMenu={this.toggleMenu}
             menuButtonVisibility={menuButtonVisibility}
           />
-          <ToDoList
-            todos={todos}
-            currentUser={currentUser}
-            overlay={overlay}
-            addButtonActive={addButtonActive}
-            input={input}
-            currentTodo={currentTodo}
-            addToDo={this.addToDo}
-            removeToDo={this.removeToDo}
-            toggleToDo={this.toggleToDo}
-            editToDo={this.editToDo}
-            overlayToggle={this.overlayToggle}
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-          />
+          <Switch>
+            <Route
+              path="/"
+              render={(props) =>
+                <
+                  ToDoList
+                  {...props}
+                  todos={todos}
+                  currentUser={currentUser}
+                  overlay={overlay}
+                  addButtonActive={addButtonActive}
+                  input={input}
+                  currentTodo={currentTodo}
+                  removeToDo={this.removeToDo}
+                  toggleToDo={this.toggleToDo}
+                  editToDo={this.editToDo}
+                  overlayToggle={this.overlayToggle}
+                  handleChange={this.handleChange}
+                  handleSubmit={this.handleSubmit}
+                  sendPathname={this.sendPathname}
+                />
+              }
+            />
+            <Route
+              path="/shoping"
+              render={(props) =>
+                <
+                  ToDoList
+                  {...props}
+                  todos={todos}
+                  currentUser={currentUser}
+                  overlay={overlay}
+                  addButtonActive={addButtonActive}
+                  input={input}
+                  currentTodo={currentTodo}
+                  removeToDo={this.removeToDo}
+                  toggleToDo={this.toggleToDo}
+                  editToDo={this.editToDo}
+                  overlayToggle={this.overlayToggle}
+                  handleChange={this.handleChange}
+                  handleSubmit={this.handleSubmit}
+                  sendPathname={this.sendPathname}
+                />
+              }
+            />
+          </Switch>
         </div>
-        <Overlay
-          input={input}
-          currentTodo={currentTodo}
-          overlay={overlay}
-          editToDo={this.editToDo}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        >
-        </Overlay>
       </Fragment>
     )
   }

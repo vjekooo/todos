@@ -1,29 +1,22 @@
 
 import React from 'react'
+import Form from './Form'
 import PropTypes from 'prop-types'
 
-const Overlay = (props) => {
-  const { input, currentTodo, handleChange, handleSubmit, overlay } = props
+const Overlay = (
+  {input, currentTodo, handleChange, handleSubmit, overlay}
+) => {
   const overlayClass = overlay ? 'overlay visible' : 'overlay hidden'
   const value = currentTodo ? 'Edit' : 'Add'
   return (
     <div className={overlayClass}>
       <div className="overlay__add-task">
-        <form
-          className="overlay__form"
-          onSubmit={handleSubmit}
-        >
-          <label>
-            <input
-              className="overlay__input"
-              type="text"
-              placeholder="add task"
-              value={input}
-              onChange={handleChange}
-            />
-          </label>
-          <input className="overlay__add-button" type="submit" value={value} />
-        </form>
+        <Form
+          input={input}
+          value={value}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        />
       </div>
     </div>
   )
