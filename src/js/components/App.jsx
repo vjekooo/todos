@@ -50,7 +50,7 @@ class App extends React.Component {
 		})
 	}
 
-	sendPathname = (data) => {
+	setPathname = (data) => {
 		this.setState({
 			pathname: data
 		})
@@ -252,7 +252,8 @@ class App extends React.Component {
 									overlayToggle={this.overlayToggle}
 									handleChange={this.handleChange}
 									handleSubmit={this.handleSubmit}
-									sendPathname={this.sendPathname}
+									setPathname={this.setPathname}
+									toggleMenu={this.toggleMenu}
 								/>
 							}
 						/>
@@ -274,7 +275,8 @@ class App extends React.Component {
 									overlayToggle={this.overlayToggle}
 									handleChange={this.handleChange}
 									handleSubmit={this.handleSubmit}
-									sendPathname={this.sendPathname}
+									setPathname={this.setPathname}
+									toggleMenu={this.toggleMenu}
 								/>
 							}
 						/>

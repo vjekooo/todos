@@ -15,7 +15,7 @@ class ToDoList extends React.Component {
 		this.setState({
 			pathname: this.props.location.pathname
 		})
-		this.props.sendPathname(this.props.location.pathname)
+		this.props.setPathname(this.props.location.pathname)
 	}
 
 	componentWillReceiveProps (nextProps) {
@@ -23,7 +23,8 @@ class ToDoList extends React.Component {
 			this.setState({
 				pathname: nextProps.location.pathname
 			})
-			this.props.sendPathname(nextProps.location.pathname)
+			this.props.setPathname(nextProps.location.pathname)
+			this.props.toggleMenu()
 		}
 	}
 
@@ -49,7 +50,14 @@ class ToDoList extends React.Component {
 			return a.props.todo.checked > b.props.todo.checked
 		})
 
-		const filteredTodos = toDo.filter(item => item.props.todo.list === this.state.pathname)
+		const filteredTodos = toDo.filter(item => {
+			if (this.state.pathname === '/') {
+				return item
+			}
+			if (item.props.todo.list === this.state.pathname) {
+				return item
+			}
+		})
 
 		const renderToDo = Object.keys(todos).length !== 0
 			? filteredTodos
@@ -100,11 +108,12 @@ ToDoList.propTypes = {
 	addToDo: PropTypes.func,
 	removeToDo: PropTypes.func,
 	toggleToDo: PropTypes.func,
+	toggleMenu: PropTypes.func,
 	editToDo: PropTypes.func,
 	overlayToggle: PropTypes.func,
 	handleChange: PropTypes.func,
 	handleSubmit: PropTypes.func,
-	sendPathname: PropTypes.func
+	setPathname: PropTypes.func
 }
 
 export default ToDoList
