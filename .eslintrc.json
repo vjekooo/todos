@@ -19,6 +19,7 @@
 	"rules": {
 		"react/jsx-uses-react": "error",
 		"react/jsx-uses-vars": "error",
+		"react/no-deprecated": 0,
 		"indent": ["error", "tab"],
 		"no-tabs": 0
 	}

@@ -1,19 +1,22 @@
 {
 	"presets": [
 		[
-			"env",
-			{
+			"env", {
 				"modules": false,
 				"targets": {
-					"browsers": ["last 2 versions"]
+					"browsers": [
+						"last 2 versions",
+						"ie >= 11"
+					]
 				}
 			}
 		],
-		"react"
+		"react",
+		"stage-3"
 	],
 	"plugins": [
 		["react-hot-loader/babel"],
-		["transform-class-properties"],
-		["transform-object-rest-spread"]
+    	["transform-class-properties"],
+    	["transform-object-rest-spread"]
 	]
 }
