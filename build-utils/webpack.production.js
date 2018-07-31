@@ -16,30 +16,21 @@ module.exports = env => ({
 				test: /\.(s*)css$/,
 				use: [
 					{
-						loader: 'file-loader',
+						loader: MiniCssExtractPlugin.loader,
 						options: {
-							name: 'assets/images/[hash:8]-[name].[ext]'
+							publicPath: '../'
 						}
 					},
 					{
-						loader: 'image-webpack-loader',
+						loader: 'css-loader',
 						options: {
-							mozjpeg: {
-								progressive: true,
-								quality: 70
-							},
-							optipng: {
-								optimizationLevel: 7
-							},
-							pngquant: {
-								quality: '65-90',
-								speed: 4
-							},
-							gifsicle: {
-								interlaced: false
+							minimize: {
+								safe: true
 							}
 						}
-					}
+					},
+					'postcss-loader',
+					'sass-loader'
 				]
 			}
 		]
