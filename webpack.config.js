@@ -5,13 +5,15 @@ const webpackMerge = require('webpack-merge')
 const modeConfig = env => require(`./build-utils/webpack.${env}`)(env)
 const presetConfig = require('./build-utils/loadPresets')
 const commonPaths = require('./build-utils/common-paths')
+const WebpackPwaManifest = require('webpack-pwa-manifest')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 module.exports = ({ mode, presets } = { mode: 'production', presets: [] }) => {
 	return webpackMerge(
 		{
 			mode,
 			entry: {
-				vendor: ['react', 'react-dom']
+				vendor: ['react', 'react-dom', 'react-prop-types', 'firebase']
 			},
 			output: {
 				path: commonPaths.outputPath
@@ -84,11 +86,35 @@ module.exports = ({ mode, presets } = { mode: 'production', presets: [] }) => {
 			},
 			plugins: [
 				new HtmlWebpackPlugin({
-					title: 'Noice',
+					title: 'Los Todos',
 					template: `public/index.html`,
 					favicon: `public/favicon.ico`
 				}),
-				new webpack.ProgressPlugin()
+				new webpack.ProgressPlugin(),
+				new WebpackPwaManifest({
+					name: 'Los Todos todo app',
+					short_name: 'LosTodos',
+					description: 'My awesome todo app!',
+					background_color: '#ffffff',
+					icons: [
+						{
+							src: `${commonPaths.appEntry}/assets/images/ico_96.png`,
+							sizes: '96'
+						},
+						{
+							src: `${commonPaths.appEntry}/assets/images/ico_144.png`,
+							sizes: '144'
+						},
+						{
+							src: `${commonPaths.appEntry}/assets/images/ico_192.png`,
+							sizes: '192'
+						}
+					]
+				}),
+				new WorkboxPlugin.GenerateSW({
+					clientsClaim: true,
+					skipWaiting: true
+				})
 			]
 		},
 		modeConfig(mode),
