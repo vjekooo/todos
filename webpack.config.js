@@ -94,7 +94,7 @@ module.exports = ({ mode, presets } = { mode: 'production', presets: [] }) => {
 				new WebpackPwaManifest({
 					name: 'Los Todos todo app',
 					short_name: 'LosTodos',
-					description: 'My awesome todo app!',
+					description: 'PWA Todo app',
 					background_color: '#ffffff',
 					icons: [
 						{
