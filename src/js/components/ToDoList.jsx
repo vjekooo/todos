@@ -30,7 +30,7 @@ class ToDoList extends React.Component {
 
 	render () {
 		const {
-			input, todos, overlay, currentUser, currentTodo, addButtonActive,
+			input, todos, isTodosEmpty, overlay, currentUser, currentTodo, addButtonActive,
 			removeToDo, toggleToDo, overlayToggle, editToDo, handleChange, handleSubmit
 		} = this.props
 		const toDo = Object.keys(todos).map(todo => {
@@ -59,7 +59,7 @@ class ToDoList extends React.Component {
 			}
 		})
 
-		const renderToDo = Object.keys(todos).length !== 0
+		const renderToDo = !isTodosEmpty
 			? filteredTodos
 			: <h3 className="no-todo">Such empty, do something</h3>
 
@@ -98,6 +98,7 @@ class ToDoList extends React.Component {
 
 ToDoList.propTypes = {
 	todos: PropTypes.object,
+	isTodosEmpty: PropTypes.bool,
 	currentUser: PropTypes.object,
 	input: PropTypes.string,
 	filter: PropTypes.string,

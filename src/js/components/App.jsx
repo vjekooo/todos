@@ -15,6 +15,7 @@ class App extends React.Component {
 		this.userRef = null
 		this.state = {
 			todos: {},
+			isTodosEmpty: false,
 			lists: {},
 			currentTodo: '',
 			currentUser: null,
@@ -38,14 +39,22 @@ class App extends React.Component {
 			this.todosRef = this.userRef.child('todos')
 			this.listsRef = this.userRef.child('lists')
 			this.todosRef.on('value', (snapshot) => {
-				this.setState({
-					todos: snapshot.val().todos
-				})
+				if (snapshot.child('todos').exists()) {
+					this.setState({
+						todos: snapshot.val().todos
+					})
+				} else {
+					this.setState({
+						isTodosEmpty: true
+					})
+				}
 			})
 			this.listsRef.on('value', (snapshot) => {
-				this.setState({
-					lists: snapshot.val().lists
-				})
+				if (snapshot.child('lists').exists()) {
+					this.setState({
+						lists: snapshot.val().lists
+					})
+				}
 			})
 		})
 	}
@@ -121,10 +130,18 @@ class App extends React.Component {
 	}
 
 	removeToDo = (id) => {
-		const todos = { ...this.state.todos }
+		const todos = {...this.state.todos}
 		delete todos[id]
 		this.todosRef.set({
 			todos
+		})
+	}
+
+	removeList = (id) => {
+		const lists = {...this.state.lists}
+		delete lists[id]
+		this.listsRef.set({
+			lists
 		})
 	}
 
@@ -211,8 +228,39 @@ class App extends React.Component {
 			currentTodo,
 			menuVisibility,
 			menuButtonVisibility,
-			lists
+			lists,
+			isTodosEmpty,
+			pathname
 		} = this.state
+
+		const ToDoListComponent =
+			(props) =>
+				<ToDoList
+					{...props}
+					todos={todos}
+					isTodosEmpty={isTodosEmpty}
+					currentUser={currentUser}
+					overlay={overlay}
+					addButtonActive={addButtonActive}
+					input={input}
+					currentTodo={currentTodo}
+					removeToDo={this.removeToDo}
+					toggleToDo={this.toggleToDo}
+					editToDo={this.editToDo}
+					overlayToggle={this.overlayToggle}
+					handleChange={this.handleChange}
+					handleSubmit={this.handleSubmit}
+					setPathname={this.setPathname}
+					toggleMenu={this.toggleMenu}
+				/>
+
+		const renderLists = Object.keys(lists).map(list => (
+			<Route
+				key={list}
+				path={`/${lists[list].route}`}
+				render={ToDoListComponent}
+			/>
+		))
 		return (
 			<Fragment>
 				<Nav
@@ -224,62 +272,29 @@ class App extends React.Component {
 					handleListChange={this.handleListChange}
 					handleListSubmit={this.handleListSubmit}
 					lists={lists}
+					removeList={this.removeList}
 				/>
 				<div
 					className="container"
 				>
 					<Header
 						currentUser={currentUser}
-						toggleMenu={this.toggleMenu}
+						pathname={pathname}
 						menuButtonVisibility={menuButtonVisibility}
+						toggleMenu={this.toggleMenu}
 					/>
 					<Switch>
 						<Route
 							path="/"
-							render={(props) =>
-								<
-									ToDoList
-									{...props}
-									todos={todos}
-									currentUser={currentUser}
-									overlay={overlay}
-									addButtonActive={addButtonActive}
-									input={input}
-									currentTodo={currentTodo}
-									removeToDo={this.removeToDo}
-									toggleToDo={this.toggleToDo}
-									editToDo={this.editToDo}
-									overlayToggle={this.overlayToggle}
-									handleChange={this.handleChange}
-									handleSubmit={this.handleSubmit}
-									setPathname={this.setPathname}
-									toggleMenu={this.toggleMenu}
-								/>
-							}
+							render={ToDoListComponent}
 						/>
 						<Route
 							path="/shoping"
-							render={(props) =>
-								<
-									ToDoList
-									{...props}
-									todos={todos}
-									currentUser={currentUser}
-									overlay={overlay}
-									addButtonActive={addButtonActive}
-									input={input}
-									currentTodo={currentTodo}
-									removeToDo={this.removeToDo}
-									toggleToDo={this.toggleToDo}
-									editToDo={this.editToDo}
-									overlayToggle={this.overlayToggle}
-									handleChange={this.handleChange}
-									handleSubmit={this.handleSubmit}
-									setPathname={this.setPathname}
-									toggleMenu={this.toggleMenu}
-								/>
-							}
+							render={ToDoListComponent}
 						/>
+						{
+							renderLists
+						}
 					</Switch>
 				</div>
 			</Fragment>

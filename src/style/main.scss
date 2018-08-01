@@ -4,6 +4,7 @@
 @import "/components/nav";
 @import "/components/overlay";
 @import "/components/main_content";
+@import "custom_layout";
 @import "mq";
 
 * {
@@ -78,8 +79,8 @@ body {
     transform: rotate(-90deg);
   }
   &.remove {
-    width: 20px;
-    height: 20px;
+    width: 13px;
+    height: 15px;
     margin-left: 15px;
     transform: rotate(45deg);
   }

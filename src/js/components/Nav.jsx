@@ -8,15 +8,8 @@ import PropTypes from 'prop-types'
 import Toggle from './Toggle'
 
 const Nav = (
-	{
-		menuVisibility,
-		currentUser,
-		toggleMenu,
-		menuButtonVisibility,
-		handleListChange,
-		handleListSubmit,
-		lists
-	}
+	{menuVisibility, currentUser, toggleMenu, menuButtonVisibility,
+		handleListChange, handleListSubmit, lists, removeList}
 ) => {
 	const showUserButton = !currentUser
 		? <SignIn />
@@ -33,6 +26,8 @@ const Nav = (
 			<NavLinks
 				key={index}
 				route={lists[list]}
+				listId={list}
+				removeList={removeList}
 			/>
 	)
 	return (
@@ -97,7 +92,8 @@ Nav.propTypes = {
 	menuButtonVisibility: PropTypes.bool,
 	handleListChange: PropTypes.func,
 	handleListSubmit: PropTypes.func,
-	lists: PropTypes.object
+	lists: PropTypes.object,
+	removeList: PropTypes.func
 }
 
 export default Nav

@@ -18,7 +18,11 @@ const ToDo = ({ todo, todoId, overlayToggle, toggleToDo, removeToDo }) => {
 				/>
 				<label htmlFor={todoId} />
 			</span>
-			<span className={`todo-text ${isChecked}`}>{todo.text}</span>
+			<span
+				className={`todo-text ${isChecked}`}
+			>
+				{todo.text}
+			</span>
 			<button
 				className="btn"
 				onClick={() => {
@@ -32,7 +36,8 @@ const ToDo = ({ todo, todoId, overlayToggle, toggleToDo, removeToDo }) => {
 				onClick={() => {
 					removeToDo(todoId)
 				}}
-			/>
+			>
+			</span>
 		</li>
 	)
 }
