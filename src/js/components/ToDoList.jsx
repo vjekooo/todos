@@ -1,8 +1,8 @@
 
 import React, { Fragment } from 'react'
-import Overlay from './Overlay'
 import PropTypes from 'prop-types'
 import ToDo from './ToDo'
+import ToDoDetails from './ToDoDetails'
 
 class ToDoList extends React.Component {
 	constructor (props) {
@@ -31,7 +31,8 @@ class ToDoList extends React.Component {
 	render () {
 		const {
 			input, todos, isTodosEmpty, overlay, currentUser, currentTodo, addButtonActive,
-			removeToDo, toggleToDo, overlayToggle, editToDo, handleChange, handleSubmit
+			removeToDo, toggleToDo, overlayToggle, editToDo, handleChange, handleSubmit,
+			todoDetailsToggle, details, pathname
 		} = this.props
 		const toDo = Object.keys(todos).map(todo => {
 			return (
@@ -39,9 +40,8 @@ class ToDoList extends React.Component {
 					key={todo}
 					todoId={todo}
 					todo={todos[todo]}
-					removeToDo={removeToDo}
 					toggleToDo={toggleToDo}
-					overlayToggle={overlayToggle}
+					todoDetailsToggle={todoDetailsToggle}
 				/>
 			)
 		}).sort((a, b) => {
@@ -82,15 +82,19 @@ class ToDoList extends React.Component {
 					onClick={overlayToggle}
 				>
 				</span>
-				<Overlay
+				<ToDoDetails
 					input={input}
 					currentTodo={currentTodo}
 					overlay={overlay}
+					details={details}
+					pathname={pathname}
 					editToDo={editToDo}
 					handleChange={handleChange}
 					handleSubmit={handleSubmit}
+					removeToDo={removeToDo}
+					todoDetailsToggle={todoDetailsToggle}
 				>
-				</Overlay>
+				</ToDoDetails>
 			</Fragment>
 		)
 	}
@@ -103,6 +107,8 @@ ToDoList.propTypes = {
 	input: PropTypes.string,
 	filter: PropTypes.string,
 	overlay: PropTypes.bool,
+	details: PropTypes.bool,
+	pathname: PropTypes.string,
 	location: PropTypes.object,
 	currentTodo: PropTypes.string,
 	addButtonActive: PropTypes.bool,
@@ -114,7 +120,8 @@ ToDoList.propTypes = {
 	overlayToggle: PropTypes.func,
 	handleChange: PropTypes.func,
 	handleSubmit: PropTypes.func,
-	setPathname: PropTypes.func
+	setPathname: PropTypes.func,
+	todoDetailsToggle: PropTypes.func
 }
 
 export default ToDoList

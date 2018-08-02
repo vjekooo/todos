@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Form = ({ input, value, handleChange, handleSubmit }) => {
+const Form = ({ input, handleChange, handleSubmit }) => {
 	return (
 		<form className="overlay__form" onSubmit={handleSubmit}>
 			<label>
@@ -16,7 +16,7 @@ const Form = ({ input, value, handleChange, handleSubmit }) => {
 			<input
 				className="overlay__add-button"
 				type="submit"
-				value={value}
+				value="Add"
 			/>
 		</form>
 	)
@@ -24,7 +24,6 @@ const Form = ({ input, value, handleChange, handleSubmit }) => {
 
 Form.propTypes = {
 	input: PropTypes.string,
-	value: PropTypes.string,
 	handleChange: PropTypes.func,
 	handleSubmit: PropTypes.func
 }

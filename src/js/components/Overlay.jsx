@@ -4,16 +4,14 @@ import Form from './Form'
 import PropTypes from 'prop-types'
 
 const Overlay = (
-	{ input, currentTodo, handleChange, handleSubmit, overlay }
+	{ input, handleChange, handleSubmit, overlay }
 ) => {
 	const overlayClass = overlay ? 'overlay visible' : 'overlay hidden'
-	const value = currentTodo ? 'Edit' : 'Add'
 	return (
 		<div className={overlayClass}>
 			<div className="overlay__add-task">
 				<Form
 					input={input}
-					value={value}
 					handleChange={handleChange}
 					handleSubmit={handleSubmit}
 				/>

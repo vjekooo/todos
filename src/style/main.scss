@@ -4,6 +4,7 @@
 @import "/components/nav";
 @import "/components/overlay";
 @import "/components/main_content";
+@import "/components/todo_details";
 @import "custom_layout";
 @import "mq";
 
@@ -11,6 +12,14 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+*:focus {
+  outline:none;
+}
+
+input[type="submit"]:focus {
+  outline:none;
 }
 
 body {

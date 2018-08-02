@@ -5,6 +5,7 @@ import { hot } from 'react-hot-loader'
 import ToDoList from './ToDoList'
 import Header from './Header'
 import Nav from './Nav'
+import Overlay from './Overlay'
 import { getDate } from '../helpers'
 import { auth, database } from '../database'
 
@@ -20,6 +21,7 @@ class App extends React.Component {
 			currentTodo: '',
 			currentUser: null,
 			overlay: false,
+			details: false,
 			addButtonActive: false,
 			input: '',
 			listInput: '',
@@ -81,10 +83,10 @@ class App extends React.Component {
 	handleSubmit = (event) => {
 		event.preventDefault()
 		const { currentTodo } = this.state
-		if (currentTodo) {
-			this.editToDo()
-		} else {
+		if (!currentTodo) {
 			this.addToDo()
+		} else {
+			this.editToDo()
 		}
 	}
 
@@ -129,9 +131,14 @@ class App extends React.Component {
 		}
 	}
 
-	removeToDo = (id) => {
+	removeToDo = () => {
 		const todos = {...this.state.todos}
-		delete todos[id]
+		const { currentTodo } = this.state
+		delete todos[currentTodo]
+		this.setState({
+			details: !this.state.details,
+			input: ''
+		})
 		this.todosRef.set({
 			todos
 		})
@@ -160,7 +167,7 @@ class App extends React.Component {
 				todos
 			})
 			this.setState({
-				currentTodo: '',
+				currentTodo: {},
 				overlay: false,
 				addButtonActive: false
 			})
@@ -181,24 +188,27 @@ class App extends React.Component {
 		})
 	}
 
-	overlayToggle = (id) => {
-		const { todos, overlay } = this.state
-		const currentItem = todos[id]
-		const input = Object.prototype.toString.call(id) === '[object Object]' ? '' : currentItem.text
-		const currentTodo = Object.prototype.toString.call(id) === '[object Object]' ? null : id
-		if (!overlay) {
+	overlayToggle = () => {
+		this.setState({
+			overlay: !this.state.overlay,
+			addButtonActive: !this.state.addButtonActive
+		})
+	}
+
+	todoDetailsToggle = (id) => {
+		const { todos } = this.state
+		this.setState({
+			details: !this.state.details
+		})
+		if (id) {
 			this.setState({
-				currentTodo: currentTodo,
-				overlay: true,
-				input: input,
-				addButtonActive: true
+				input: todos[id].text,
+				currentTodo: id
 			})
 		} else {
 			this.setState({
-				overlay: false,
 				input: '',
-				currentTodo: null,
-				addButtonActive: false
+				currentTodo: ''
 			})
 		}
 	}
@@ -230,7 +240,8 @@ class App extends React.Component {
 			menuButtonVisibility,
 			lists,
 			isTodosEmpty,
-			pathname
+			pathname,
+			details
 		} = this.state
 
 		const ToDoListComponent =
@@ -241,6 +252,8 @@ class App extends React.Component {
 					isTodosEmpty={isTodosEmpty}
 					currentUser={currentUser}
 					overlay={overlay}
+					details={details}
+					pathname={pathname}
 					addButtonActive={addButtonActive}
 					input={input}
 					currentTodo={currentTodo}
@@ -252,6 +265,7 @@ class App extends React.Component {
 					handleSubmit={this.handleSubmit}
 					setPathname={this.setPathname}
 					toggleMenu={this.toggleMenu}
+					todoDetailsToggle={this.todoDetailsToggle}
 				/>
 
 		const renderLists = Object.keys(lists).map(list => (
@@ -297,6 +311,15 @@ class App extends React.Component {
 						}
 					</Switch>
 				</div>
+				<Overlay
+					input={input}
+					currentTodo={currentTodo}
+					overlay={overlay}
+					editToDo={this.editToDo}
+					handleChange={this.handleChange}
+					handleSubmit={this.handleSubmit}
+				>
+				</Overlay>
 			</Fragment>
 		)
 	}

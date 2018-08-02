@@ -1,12 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ToDo = ({ todo, todoId, overlayToggle, toggleToDo, removeToDo }) => {
+const ToDo = ({ todo, todoId, todoDetailsToggle, toggleToDo }) => {
 	const isChecked = todo.checked
 		? 'checked'
 		: 'unchecked'
 	return (
-		<li className="todo__item">
+		<li
+			className="todo__item"
+			onClick={() => {
+				todoDetailsToggle(todoId)
+			}}
+		>
 			<span className="todo__input--checked">
 				<input
 					type="checkbox"
@@ -23,21 +28,6 @@ const ToDo = ({ todo, todoId, overlayToggle, toggleToDo, removeToDo }) => {
 			>
 				{todo.text}
 			</span>
-			<button
-				className="btn"
-				onClick={() => {
-					overlayToggle(todoId)
-				}}
-			>
-				edit
-			</button>
-			<span
-				className="icon remove"
-				onClick={() => {
-					removeToDo(todoId)
-				}}
-			>
-			</span>
 		</li>
 	)
 }
@@ -48,7 +38,7 @@ ToDo.propTypes = {
 	removeToDo: PropTypes.func,
 	checked: PropTypes.bool,
 	toggleToDo: PropTypes.func,
-	overlayToggle: PropTypes.func
+	todoDetailsToggle: PropTypes.func
 }
 
 export default ToDo
