@@ -69,7 +69,6 @@ class App extends React.Component {
 
 	handleChange = (event) => {
 		this.setState({
-			overlay: true,
 			input: event.target.value
 		})
 	}
