@@ -2,13 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class Form extends React.Component {
-	constructor (props) {
-		super(props)
-		this.focusInput = React.createRef()
-	}
-	componentDidUpdate () {
-		this.focusInput.current.focus()
-	}
 	render () {
 		const { input, handleChange, handleSubmit } = this.props
 		return (
@@ -19,7 +12,6 @@ class Form extends React.Component {
 					placeholder="add task"
 					value={input}
 					onChange={handleChange}
-					ref={this.focusInput}
 				/>
 				<button
 					className="overlay__add-button"
