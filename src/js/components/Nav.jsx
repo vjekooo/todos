@@ -6,6 +6,11 @@ import CurrentUser from './CurrentUser'
 import SignIn from './SignIn'
 import PropTypes from 'prop-types'
 import Toggle from './Toggle'
+import ListForm from './ListForm'
+
+import AddListIcon from '../../assets/images/bx-plus.svg'
+import AllTodosIcon from '../../assets/images/bx-task.svg'
+import ShopingIcon from '../../assets/images/bx-shopping-bag-alt.svg'
 
 const Nav = (
 	{menuVisibility, currentUser, toggleMenu, menuButtonVisibility,
@@ -47,19 +52,26 @@ const Nav = (
 				<div className="navigation__content">
 					<ul className="navigation__content-list">
 						<li>
+							<img src={AllTodosIcon} alt="All todos"/>
 							<Link to="/">All Todos</Link>
 						</li>
 						<li>
+							<img src={ShopingIcon} alt="All todos"/>
 							<Link to="/shoping">Shoping</Link>
 						</li>
+					</ul>
+					<ul className="navigation__content-user-list">
 						{
 							renderLists
 						}
 					</ul>
+				</div>
+				<div className="navigation__footer">
 					<Toggle>
 						{
 							({ on, toggle }) => (
 								<Fragment>
+									<img src={AddListIcon} alt="Add list icon"/>
 									<button
 										className="navigation__add-list btn"
 										onClick={toggle}
@@ -68,12 +80,10 @@ const Nav = (
 									</button>
 									{
 										on &&
-										<form action="submit" onSubmit={handleListSubmit}>
-											<input
-												onChange={handleListChange}
-											/>
-											<button type="submit">Submit</button>
-										</form>
+										<ListForm
+											handleListChange={handleListChange}
+											handleListSubmit={handleListSubmit}
+										/>
 									}
 								</Fragment>
 							)

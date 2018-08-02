@@ -5,68 +5,58 @@ import backarrowIcon from '../../assets/images/bx-arrow-back.svg'
 import saveIcon from '../../assets/images/bx-save.svg'
 import deleteIcon from '../../assets/images/bx-trash.svg'
 
-class ToDoDetails extends React.Component {
-	constructor (props) {
-		super(props)
-		this.inputRef = React.createRef()
-	}
-	componentDidUpdate () {
-		this.inputRef.current.focus()
-	}
-	render () {
-		const {
-			currentTodo, details, pathname, input, handleChange,
-			handleSubmit, removeToDo, todoDetailsToggle
-		} = this.props
-		const overlayClass = details ? 'visible' : 'hidden'
-		const backRoute = pathname === '/'
-			? 'ALL TODOS'
-			: pathname.slice(1).toLocaleUpperCase()
+const ToDoDetails = (
+	{currentTodo, details, pathname, input, handleChange,
+		handleSubmit, removeToDo, todoDetailsToggle}
+) => {
+	const overlayClass = details ? 'visible' : 'hidden'
+	const backRoute = pathname === '/'
+		? 'ALL TODOS'
+		: pathname.slice(1).toLocaleUpperCase()
 
-		return (
-			<div className={`todo-details ${overlayClass}`}>
-				<div className="todo-details__head">
-					<img
-						onClick={() => {
-							todoDetailsToggle()
-						}}
-						src={backarrowIcon}
-					/>
-					<div>
-						{backRoute}
-					</div>
-				</div>
-				<div className="todo-details__todo-edit">
-					<div>
-						<form className="todo-details__form" onSubmit={handleSubmit}>
-							<label>
-								<input
-									className="todo-details__input"
-									type="text"
-									value={input}
-									onChange={handleChange}
-									ref={this.inputRef}
-								/>
-							</label>
-							<div className="todo-details__icons">
-								<input
-									type="image"
-									src={saveIcon}
-								/>
-								<img
-									src={deleteIcon}
-									alt="Delete icon"
-									onClick={() => {
-										removeToDo(currentTodo)
-									}}
-								/>
-							</div>
-						</form>
-					</div>
+	return (
+		<div className={`todo-details ${overlayClass}`}>
+			<div className="todo-details__head">
+				<img
+					onClick={() => {
+						todoDetailsToggle()
+					}}
+					src={backarrowIcon}
+				/>
+				<div>
+					{backRoute}
 				</div>
 			</div>
-		)
-	}
+			<div className="todo-details__todo-edit">
+				<div>
+					<form className="todo-details__form" onSubmit={handleSubmit}>
+						<label>
+							<input
+								className="todo-details__input"
+								type="text"
+								placeholder="add task"
+								value={input}
+								onChange={handleChange}
+							/>
+						</label>
+						<div className="todo-details__icons">
+							<input
+								type="image"
+								src={saveIcon}
+							/>
+							<img
+								src={deleteIcon}
+								alt="Delete icon"
+								onClick={() => {
+									removeToDo(currentTodo)
+								}}
+							/>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	)
 }
 
 ToDoDetails.propTypes = {
