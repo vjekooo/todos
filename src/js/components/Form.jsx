@@ -2,6 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class Form extends React.Component {
+	constructor (props) {
+		super(props)
+		this.inputRef = React.createRef()
+	}
+
+	componentWillUpdate () {
+		this.inputRef.current.focus()
+	}
+
 	render () {
 		const { input, handleChange, handleSubmit, modalToggle } = this.props
 		return (
@@ -14,6 +23,7 @@ class Form extends React.Component {
 					type="text"
 					value={input}
 					onChange={handleChange}
+					ref={this.inputRef}
 				/>
 				<div className="form__action">
 					<button

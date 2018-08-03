@@ -13,7 +13,7 @@ const Header = ({toggleMenu, menuButtonVisibility, pathname}) => {
 				className={`header__circle ${transitionClass}`}
 				onClick={() => toggleMenu()}
 			/>
-			<h2 className="header__app-name">Los ToDos</h2>
+			<h2 className="header__app-name">El ToDos</h2>
 			<div className="header__info">
 				<span>{listName}</span>
 				<span className="header__date">{getToday()}</span>
