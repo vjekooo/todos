@@ -134,12 +134,13 @@ class App extends React.Component {
 		const todos = {...this.state.todos}
 		const { currentTodo } = this.state
 		delete todos[currentTodo]
-		this.setState({
-			details: !this.state.details,
-			input: ''
-		})
 		this.todosRef.set({
 			todos
+		})
+		this.setState({
+			details: !this.state.details,
+			input: '',
+			currentTodo: ''
 		})
 	}
 

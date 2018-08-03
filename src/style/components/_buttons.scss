@@ -2,9 +2,11 @@
 .button {
     border: none;
     font-size: 1rem;
+    padding: .5rem;
     &--cancel {
         color: gainsboro;
         margin-right: 1rem;
+        background-color: white;
     }
     &--add {
         color: orange;

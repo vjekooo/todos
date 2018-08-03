@@ -15,13 +15,6 @@ const NavLinks = ({ route, listId, removeList }) => {
 			>
 				{string[0].toUpperCase() + string.slice(1).toLowerCase()}
 			</NavLink>
-			<span
-				className="icon remove"
-				onClick={() => {
-					removeList(listId)
-				}}
-			>
-			</span>
 		</li>
 	)
 }

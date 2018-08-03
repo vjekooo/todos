@@ -33,6 +33,7 @@
 		border-radius: 50px;
 		transition: all .5s linear;
 		transform: scale(1);
+		z-index: 1;
 		&.animate {
 			transform: scale(0)
 		}

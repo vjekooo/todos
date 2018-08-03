@@ -9,8 +9,8 @@ const ToDoModal = (
 	const modalClass = overlay ? 'visible' : 'hidden'
 	return (
 		<div className={`todo-modal ${modalClass}`}>
-			<div className="modal">
-				<h3 className="modal__title">
+			<div className="todo-modal__content">
+				<h3 className="todo-modal__title">
 					New Todo
 				</h3>
 				<Form
