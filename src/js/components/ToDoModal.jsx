@@ -6,10 +6,10 @@ import PropTypes from 'prop-types'
 class ToDoModal extends React.Component {
 	constructor (props) {
 		super(props)
-		this.textInput = React.createRef()
+		this.inputRef = React.createRef()
 	}
-	componentDidMount () {
-		this.textInput.current.focusTextInput()
+	componentDidUpdate () {
+		this.inputRef.current.focusTextInput()
 	}
 	render () {
 		const { input, handleChange, handleSubmit, overlay, modalToggle } = this.props
@@ -25,7 +25,7 @@ class ToDoModal extends React.Component {
 						handleChange={handleChange}
 						handleSubmit={handleSubmit}
 						modalToggle={modalToggle}
-						ref={this.textInput}
+						ref={this.inputRef}
 					/>
 				</div>
 			</div>
