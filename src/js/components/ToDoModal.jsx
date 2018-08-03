@@ -8,8 +8,10 @@ class ToDoModal extends React.Component {
 		super(props)
 		this.inputRef = React.createRef()
 	}
-	componentDidUpdate () {
-		this.inputRef.current.focusTextInput()
+	componentWillReceiveProps (nextProps) {
+		if (this.props.input === nextProps.input) {
+			this.inputRef.current.focusTextInput()
+		}
 	}
 	render () {
 		const { input, handleChange, handleSubmit, overlay, modalToggle } = this.props
