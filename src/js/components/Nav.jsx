@@ -1,12 +1,12 @@
 
 import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import NavLinks from './NavLinks'
 import CurrentUser from './CurrentUser'
 import SignIn from './SignIn'
 import PropTypes from 'prop-types'
 import Toggle from './Toggle'
-import ListForm from './ListForm'
+import Modal from './Modal'
 
 import AddListIcon from '../../assets/images/bx-plus.svg'
 import AllTodosIcon from '../../assets/images/bx-task.svg'
@@ -53,11 +53,22 @@ const Nav = (
 					<ul className="navigation__content-list">
 						<li>
 							<img src={AllTodosIcon} alt="All todos"/>
-							<Link to="/">All Todos</Link>
+							<NavLink
+								exact={true}
+								to="/"
+								activeClassName="active"
+							>
+								All Todos
+							</NavLink>
 						</li>
 						<li>
 							<img src={ShopingIcon} alt="All todos"/>
-							<Link to="/shoping">Shoping</Link>
+							<NavLink
+								to="/shoping"
+								activeClassName="active"
+							>
+								Shoping
+							</NavLink>
 						</li>
 					</ul>
 					<ul className="navigation__content-user-list">
@@ -80,7 +91,7 @@ const Nav = (
 									</button>
 									{
 										on &&
-										<ListForm
+										<Modal
 											handleListChange={handleListChange}
 											handleListSubmit={handleListSubmit}
 										/>

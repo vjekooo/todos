@@ -5,7 +5,7 @@ import { hot } from 'react-hot-loader'
 import ToDoList from './ToDoList'
 import Header from './Header'
 import Nav from './Nav'
-import Overlay from './Overlay'
+import ToDoModal from './ToDoModal'
 import { getDate } from '../helpers'
 import { auth, database } from '../database'
 
@@ -187,7 +187,7 @@ class App extends React.Component {
 		})
 	}
 
-	overlayToggle = () => {
+	modalToggle = () => {
 		this.setState({
 			overlay: !this.state.overlay,
 			addButtonActive: !this.state.addButtonActive
@@ -259,7 +259,7 @@ class App extends React.Component {
 					removeToDo={this.removeToDo}
 					toggleToDo={this.toggleToDo}
 					editToDo={this.editToDo}
-					overlayToggle={this.overlayToggle}
+					modalToggle={this.modalToggle}
 					handleChange={this.handleChange}
 					handleSubmit={this.handleSubmit}
 					setPathname={this.setPathname}
@@ -281,7 +281,6 @@ class App extends React.Component {
 					currentUser={currentUser}
 					toggleMenu={this.toggleMenu}
 					menuButtonVisibility={menuButtonVisibility}
-					overlayToggle={this.overlayToggle}
 					handleListChange={this.handleListChange}
 					handleListSubmit={this.handleListSubmit}
 					lists={lists}
@@ -310,15 +309,16 @@ class App extends React.Component {
 						}
 					</Switch>
 				</div>
-				<Overlay
+				<ToDoModal
 					input={input}
 					currentTodo={currentTodo}
 					overlay={overlay}
 					editToDo={this.editToDo}
 					handleChange={this.handleChange}
 					handleSubmit={this.handleSubmit}
+					modalToggle={this.modalToggle}
 				>
-				</Overlay>
+				</ToDoModal>
 			</Fragment>
 		)
 	}

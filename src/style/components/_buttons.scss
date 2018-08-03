@@ -1,0 +1,12 @@
+
+.button {
+    border: none;
+    font-size: 1rem;
+    &--cancel {
+        color: gainsboro;
+        margin-right: 1rem;
+    }
+    &--add {
+        color: orange;
+    }
+}

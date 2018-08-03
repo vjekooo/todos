@@ -20,7 +20,7 @@
 		display: grid;
 		grid-template-columns: 1fr;
 		justify-items: flex-start;
-		margin-bottom: 2rem;
+		margin-bottom: 5rem;
 	}
 	&__content-list {
 		margin-left: 1rem;
@@ -64,10 +64,14 @@
 		&:hover {
 			color: #aca8a8;
 		}
+		&.active {
+			color: bisque;
+		}
 	}
 	&__add-list {
 		font-size: 1rem;
 		color: black;
+		z-index: 2000;
 	}
 	&__circle {
 		position: absolute;

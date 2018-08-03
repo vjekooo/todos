@@ -31,7 +31,7 @@ class ToDoList extends React.Component {
 	render () {
 		const {
 			input, todos, isTodosEmpty, overlay, currentUser, currentTodo, addButtonActive,
-			removeToDo, toggleToDo, overlayToggle, editToDo, handleChange, handleSubmit,
+			removeToDo, toggleToDo, modalToggle, editToDo, handleChange, handleSubmit,
 			todoDetailsToggle, details, pathname
 		} = this.props
 		const toDo = Object.keys(todos).map(todo => {
@@ -79,7 +79,7 @@ class ToDoList extends React.Component {
 					</ul>
 				</div>
 				<span className={`icon add ${activeClass}`}
-					onClick={overlayToggle}
+					onClick={modalToggle}
 				>
 				</span>
 				<ToDoDetails
@@ -117,7 +117,7 @@ ToDoList.propTypes = {
 	toggleToDo: PropTypes.func,
 	toggleMenu: PropTypes.func,
 	editToDo: PropTypes.func,
-	overlayToggle: PropTypes.func,
+	modalToggle: PropTypes.func,
 	handleChange: PropTypes.func,
 	handleSubmit: PropTypes.func,
 	setPathname: PropTypes.func,

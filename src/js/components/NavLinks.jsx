@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import UserListIcon from '../../assets/images/bx-list-plus.svg'
 
@@ -9,9 +9,12 @@ const NavLinks = ({ route, listId, removeList }) => {
 	return (
 		<li className="flex-row flex-row--center">
 			<img src={UserListIcon} alt="User created list icon"/>
-			<Link to={`/${route.route}`}>
+			<NavLink
+				to={`/${route.route}`}
+				activeClassName="active"
+			>
 				{string[0].toUpperCase() + string.slice(1).toLowerCase()}
-			</Link>
+			</NavLink>
 			<span
 				className="icon remove"
 				onClick={() => {

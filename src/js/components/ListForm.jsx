@@ -6,11 +6,29 @@ class ListForm extends React.Component {
 	render () {
 		const { handleListChange, handleListSubmit } = this.props
 		return (
-			<form action="submit" onSubmit={handleListSubmit}>
+			<form
+				action="submit"
+				onSubmit={handleListSubmit}
+				className="form"
+			>
 				<input
+					className="form__input"
+					type="text"
 					onChange={handleListChange}
 				/>
-				<button type="submit">Submit</button>
+				<div className="form__action">
+					<button
+						className="button button--cancel"
+					>
+						CANCEL
+					</button>
+					<button
+						type="submit"
+						className="button button--add"
+					>
+						ADD
+					</button>
+				</div>
 			</form>
 		)
 	}

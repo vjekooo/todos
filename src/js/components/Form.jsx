@@ -3,22 +3,33 @@ import PropTypes from 'prop-types'
 
 class Form extends React.Component {
 	render () {
-		const { input, handleChange, handleSubmit } = this.props
+		const { input, handleChange, handleSubmit, modalToggle } = this.props
 		return (
-			<form className="overlay__form" onSubmit={handleSubmit}>
+			<form
+				className="form"
+				onSubmit={handleSubmit}
+			>
 				<input
-					className="overlay__input"
+					className="form__input"
 					type="text"
-					placeholder="add task"
 					value={input}
 					onChange={handleChange}
 				/>
-				<button
-					className="overlay__add-button"
-					type="submit"
-				>
-					Add
-				</button>
+				<div className="form__action">
+					<button
+						className="button button--cancel"
+						type="button"
+						onClick={() => modalToggle()}
+					>
+						CANCEL
+					</button>
+					<button
+						type="submit"
+						className="button button--add"
+					>
+						ADD
+					</button>
+				</div>
 			</form>
 		)
 	}
@@ -27,7 +38,8 @@ class Form extends React.Component {
 Form.propTypes = {
 	input: PropTypes.string,
 	handleChange: PropTypes.func,
-	handleSubmit: PropTypes.func
+	handleSubmit: PropTypes.func,
+	modalToggle: PropTypes.func
 }
 
 export default Form
