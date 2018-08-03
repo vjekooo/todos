@@ -3,25 +3,34 @@ import React from 'react'
 import Form from './Form'
 import PropTypes from 'prop-types'
 
-const ToDoModal = (
-	{ input, handleChange, handleSubmit, overlay, modalToggle }
-) => {
-	const modalClass = overlay ? 'visible' : 'hidden'
-	return (
-		<div className={`todo-modal ${modalClass}`}>
-			<div className="todo-modal__content">
-				<h3 className="todo-modal__title">
-					New Todo
-				</h3>
-				<Form
-					input={input}
-					handleChange={handleChange}
-					handleSubmit={handleSubmit}
-					modalToggle={modalToggle}
-				/>
+class ToDoModal extends React.Component {
+	constructor (props) {
+		super(props)
+		this.textInput = React.createRef()
+	}
+	componentDidMount () {
+		this.textInput.current.focusTextInput()
+	}
+	render () {
+		const { input, handleChange, handleSubmit, overlay, modalToggle } = this.props
+		const modalClass = overlay ? 'visible' : 'hidden'
+		return (
+			<div className={`todo-modal ${modalClass}`}>
+				<div className="todo-modal__content">
+					<h3 className="todo-modal__title">
+						New Todo
+					</h3>
+					<Form
+						input={input}
+						handleChange={handleChange}
+						handleSubmit={handleSubmit}
+						modalToggle={modalToggle}
+						ref={this.textInput}
+					/>
+				</div>
 			</div>
-		</div>
-	)
+		)
+	}
 }
 
 ToDoModal.propTypes = {

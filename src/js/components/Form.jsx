@@ -7,7 +7,7 @@ class Form extends React.Component {
 		this.inputRef = React.createRef()
 	}
 
-	componentWillUpdate () {
+	focusTextInput= () => {
 		this.inputRef.current.focus()
 	}
 
@@ -40,6 +40,10 @@ class Form extends React.Component {
 						ADD
 					</button>
 				</div>
+				<input
+					type="hidden"
+					onClick={this.focusTextInput}
+				/>
 			</form>
 		)
 	}
