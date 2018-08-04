@@ -4,15 +4,6 @@ import Form from './Form'
 import PropTypes from 'prop-types'
 
 class ToDoModal extends React.Component {
-	constructor (props) {
-		super(props)
-		this.inputRef = React.createRef()
-	}
-	componentWillReceiveProps (nextProps) {
-		if (this.props.input === nextProps.input) {
-			this.inputRef.current.focusTextInput()
-		}
-	}
 	render () {
 		const { input, handleChange, handleSubmit, overlay, modalToggle } = this.props
 		const modalClass = overlay ? 'visible' : 'hidden'
@@ -27,7 +18,6 @@ class ToDoModal extends React.Component {
 						handleChange={handleChange}
 						handleSubmit={handleSubmit}
 						modalToggle={modalToggle}
-						ref={this.inputRef}
 					/>
 				</div>
 			</div>

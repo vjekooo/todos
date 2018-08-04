@@ -125,7 +125,8 @@ class App extends React.Component {
 			})
 			this.setState({
 				overlay: false,
-				addButtonActive: false
+				addButtonActive: false,
+				input: ''
 			})
 		}
 	}
@@ -176,12 +177,11 @@ class App extends React.Component {
 
 	toggleToDo = (id) => {
 		const todos = { ...this.state.todos }
-		const currentItem = todos[id]
 		todos[id] = {
-			text: currentItem.text,
-			list: currentItem.list,
-			checked: !currentItem.checked,
-			timestamp: currentItem.timestamp
+			text: todos[id].text,
+			list: todos[id].list,
+			checked: !todos[id].checked,
+			timestamp: todos[id].timestamp
 		}
 		this.todosRef.set({
 			todos

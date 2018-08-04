@@ -3,6 +3,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class ListForm extends React.Component {
+	constructor (props) {
+		super(props)
+		this.inputRef = React.createRef()
+	}
+
+	componentDidMount () {
+		this.inputRef.current.focus()
+	}
+
 	render () {
 		const { handleListChange, handleListSubmit } = this.props
 		return (
@@ -15,6 +24,7 @@ class ListForm extends React.Component {
 					className="form__input"
 					type="text"
 					onChange={handleListChange}
+					ref={this.inputRef}
 				/>
 				<div className="form__action">
 					<button
