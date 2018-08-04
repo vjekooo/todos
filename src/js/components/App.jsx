@@ -304,7 +304,7 @@ class App extends React.Component {
 					{
 						({ on, toggle }) => (
 							<Fragment>
-								<span className={`icon add`}
+								<span className={`icon add ${on ? 'active' : 'non-active'}`}
 									onClick={toggle}
 								>
 								</span>
