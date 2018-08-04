@@ -92,8 +92,11 @@ const Nav = (
 									{
 										on &&
 										<Modal
-											handleListChange={handleListChange}
-											handleListSubmit={handleListSubmit}
+											handleChange={handleListChange}
+											handleSubmit={handleListSubmit}
+											form="list"
+											on={on}
+											toggle={toggle}
 										/>
 									}
 								</Fragment>

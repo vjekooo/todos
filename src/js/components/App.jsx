@@ -5,7 +5,9 @@ import { hot } from 'react-hot-loader'
 import ToDoList from './ToDoList'
 import Header from './Header'
 import Nav from './Nav'
-import ToDoModal from './ToDoModal'
+// import ToDoModal from './ToDoModal'
+import Toggle from './Toggle'
+import Modal from './Modal'
 import { getDate } from '../helpers'
 import { auth, database } from '../database'
 
@@ -18,10 +20,9 @@ class App extends React.Component {
 			todos: {},
 			isTodosEmpty: false,
 			lists: {},
+			details: false,
 			currentTodo: '',
 			currentUser: null,
-			overlay: false,
-			details: false,
 			addButtonActive: false,
 			input: '',
 			listInput: '',
@@ -124,8 +125,6 @@ class App extends React.Component {
 				todos
 			})
 			this.setState({
-				overlay: false,
-				addButtonActive: false,
 				input: ''
 			})
 		}
@@ -168,9 +167,7 @@ class App extends React.Component {
 				todos
 			})
 			this.setState({
-				currentTodo: {},
-				overlay: false,
-				addButtonActive: false
+				currentTodo: ''
 			})
 		}
 	}
@@ -185,13 +182,6 @@ class App extends React.Component {
 		}
 		this.todosRef.set({
 			todos
-		})
-	}
-
-	modalToggle = () => {
-		this.setState({
-			overlay: !this.state.overlay,
-			addButtonActive: !this.state.addButtonActive
 		})
 	}
 
@@ -310,16 +300,28 @@ class App extends React.Component {
 						}
 					</Switch>
 				</div>
-				<ToDoModal
-					input={input}
-					currentTodo={currentTodo}
-					overlay={overlay}
-					editToDo={this.editToDo}
-					handleChange={this.handleChange}
-					handleSubmit={this.handleSubmit}
-					modalToggle={this.modalToggle}
-				>
-				</ToDoModal>
+				<Toggle>
+					{
+						({ on, toggle }) => (
+							<Fragment>
+								<span className={`icon add`}
+									onClick={toggle}
+								>
+								</span>
+								{
+									on &&
+									<Modal
+										handleChange={this.handleChange}
+										handleSubmit={this.handleSubmit}
+										form="todo"
+										on={on}
+										toggle={toggle}
+									/>
+								}
+							</Fragment>
+						)
+					}
+				</Toggle>
 			</Fragment>
 		)
 	}

@@ -30,8 +30,8 @@ class ToDoList extends React.Component {
 
 	render () {
 		const {
-			input, todos, isTodosEmpty, overlay, currentUser, currentTodo, addButtonActive,
-			removeToDo, toggleToDo, modalToggle, editToDo, handleChange, handleSubmit,
+			input, todos, isTodosEmpty, overlay, currentUser, currentTodo,
+			removeToDo, toggleToDo, editToDo, handleChange, handleSubmit,
 			todoDetailsToggle, details, pathname
 		} = this.props
 		const toDo = Object.keys(todos).map(todo => {
@@ -63,10 +63,6 @@ class ToDoList extends React.Component {
 			? filteredTodos
 			: <h3 className="no-todo">Such empty, do something</h3>
 
-		const activeClass = addButtonActive
-			? 'active'
-			: 'non-active'
-
 		const signedUser = currentUser
 			? renderToDo
 			: <h3>Please sign in</h3>
@@ -78,10 +74,6 @@ class ToDoList extends React.Component {
 						{signedUser}
 					</ul>
 				</div>
-				<span className={`icon add ${activeClass}`}
-					onClick={modalToggle}
-				>
-				</span>
 				<ToDoDetails
 					input={input}
 					currentTodo={currentTodo}

@@ -1,18 +1,29 @@
 
 import React from 'react'
-import ListForm from './ListForm'
+import Form from './Form'
 import PropTypes from 'prop-types'
 
-const Modal = ({handleListChange, handleListSubmit}) => {
+const Modal = ({handleChange, handleSubmit, on, toggle, form}) => {
 	return (
-		<div className="modal-background">
-			<div className="modal">
+		<div
+			className="modal-background"
+			onClick={toggle}
+		>
+			<div
+				className="modal"
+				onClick={(event) => event.stopPropagation()}
+			>
 				<h3 className="modal__title">
-					New List
+					{
+						`New ${form}`
+					}
 				</h3>
-				<ListForm
-					handleListChange={handleListChange}
-					handleListSubmit={handleListSubmit}
+				<Form
+					handleChange={handleChange}
+					handleSubmit={handleSubmit}
+					on={on}
+					toggle={toggle}
+					form={form}
 				/>
 			</div>
 		</div>
@@ -20,8 +31,11 @@ const Modal = ({handleListChange, handleListSubmit}) => {
 }
 
 Modal.propTypes = {
-	handleListChange: PropTypes.func,
-	handleListSubmit: PropTypes.func
+	handleChange: PropTypes.func,
+	handleSubmit: PropTypes.func,
+	on: PropTypes.bool,
+	toggle: PropTypes.func,
+	form: PropTypes.string
 }
 
 export default Modal
