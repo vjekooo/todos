@@ -6,7 +6,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 10px;
+    padding: 0 15px 0 15px;
     background-color: white;
     &__head {
         display: flex;
@@ -31,38 +31,38 @@
         font-size: 1rem;
     }
     &.visible {
-      display: block;
-      height: 100%;
-      opacity: 1;
-      z-index: 10000;
-      transition: height 0s, opacity 300ms ease-in-out;
+		display: block;
+		height: 100%;
+		opacity: 1;
+		z-index: 10000;
+		transition: height 0s, opacity 300ms ease-in-out;
     }
     &.hidden {
-      display: block;
-      overflow: hidden;
-      height: 0;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      transition: height 0s 500ms, opacity 300ms ease-in-out;
+		display: block;
+		overflow: hidden;
+		height: 0;
+		top: 0;
+		left: 0;
+		opacity: 0;
+		transition: height 0s 500ms, opacity 300ms ease-in-out;
     }
     &__add-task {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      top: 30%;
-      background-color: skyblue;
-      height: 50%;
-      border: 0;
-      border-radius: 20px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		top: 30%;
+		background-color: skyblue;
+		height: 50%;
+		border: 0;
+		border-radius: 20px;
     }
     &__form {
-      font-size: 10px;
-      width: 100%;
-      label {
-        font-size: 15px;
-      }
+		font-size: 10px;
+		width: 100%;
+		label {
+			font-size: 15px;
+		}
     }
     &__input {
         border-bottom: 1px solid whitesmoke;
@@ -70,15 +70,14 @@
         height: 50px;
         border: 0;
         border-radius: 2px;
-        padding-left: 10px;
     }
     &__add-button {
-      width: 100%;
-      height: 3rem;
-      padding: 5px;
-      margin-top: 10px;
-      border: 0;
-      border-radius: 2px;
-      text-align: center;
+		width: 100%;
+		height: 3rem;
+		padding: 5px;
+		margin-top: 10px;
+		border: 0;
+		border-radius: 2px;
+		text-align: center;
     }
   }

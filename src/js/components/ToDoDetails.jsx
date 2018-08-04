@@ -1,9 +1,8 @@
 
 import React from 'react'
+import EditForm from './EditForm'
 import PropTypes from 'prop-types'
 import backarrowIcon from '../../assets/images/bx-arrow-back.svg'
-import saveIcon from '../../assets/images/bx-save.svg'
-import deleteIcon from '../../assets/images/bx-trash.svg'
 
 const ToDoDetails = (
 	{currentTodo, details, pathname, input, handleChange,
@@ -28,32 +27,13 @@ const ToDoDetails = (
 				</div>
 			</div>
 			<div className="todo-details__todo-edit">
-				<div>
-					<form className="todo-details__form" onSubmit={handleSubmit}>
-						<label>
-							<input
-								className="todo-details__input"
-								type="text"
-								placeholder="add task"
-								value={input}
-								onChange={handleChange}
-							/>
-						</label>
-						<div className="todo-details__icons">
-							<input
-								type="image"
-								src={saveIcon}
-							/>
-							<img
-								src={deleteIcon}
-								alt="Delete icon"
-								onClick={() => {
-									removeToDo(currentTodo)
-								}}
-							/>
-						</div>
-					</form>
-				</div>
+				<EditForm
+					input={input}
+					handleChange={handleChange}
+					handleSubmit={handleSubmit}
+					removeToDo={removeToDo}
+					currentTodo={currentTodo}
+				/>
 			</div>
 		</div>
 	)

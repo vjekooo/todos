@@ -5,7 +5,6 @@ import { hot } from 'react-hot-loader'
 import ToDoList from './ToDoList'
 import Header from './Header'
 import Nav from './Nav'
-// import ToDoModal from './ToDoModal'
 import Toggle from './Toggle'
 import Modal from './Modal'
 import { getDate } from '../helpers'
@@ -304,10 +303,13 @@ class App extends React.Component {
 					{
 						({ on, toggle }) => (
 							<Fragment>
-								<span className={`icon add ${on ? 'active' : 'non-active'}`}
-									onClick={toggle}
-								>
-								</span>
+								{
+									!on &&
+									<span className="icon add"
+										onClick={toggle}
+									>
+									</span>
+								}
 								{
 									on &&
 									<Modal
