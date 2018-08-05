@@ -41,9 +41,9 @@ class App extends React.Component {
 			this.todosRef = this.userRef.child('todos')
 			this.listsRef = this.userRef.child('lists')
 			this.todosRef.on('value', (snapshot) => {
-				if (snapshot.child('todos').exists()) {
+				if (snapshot.exists()) {
 					this.setState({
-						todos: snapshot.val().todos
+						todos: snapshot.val()
 					})
 				} else {
 					this.setState({
@@ -52,9 +52,9 @@ class App extends React.Component {
 				}
 			})
 			this.listsRef.on('value', (snapshot) => {
-				if (snapshot.child('lists').exists()) {
+				if (snapshot.exists()) {
 					this.setState({
-						lists: snapshot.val().lists
+						lists: snapshot.val()
 					})
 				}
 			})
@@ -96,32 +96,24 @@ class App extends React.Component {
 
 	addList = () => {
 		const { listInput } = this.state
-		const objKey = `list-${getDate()}`
-		const newList = {
-			[objKey]: {
-				route: listInput.toLocaleLowerCase()
-			}
-		}
-		const listsObj = { ...this.state.lists, ...newList }
 		if (listInput) {
-			this.listsRef.set({
-				lists: listsObj
+			this.listsRef.push({
+				route: listInput.toLocaleLowerCase()
+			})
+			this.setState({
+				listInput: ''
 			})
 		}
 	}
 
 	addToDo = () => {
 		const { input, pathname } = this.state
-		const todos = { ...this.state.todos }
-		todos[`todo-${getDate()}`] = {
-			text: input,
-			list: pathname,
-			checked: false,
-			timestamp: getDate()
-		}
 		if (input) {
-			this.todosRef.set({
-				todos
+			this.todosRef.push({
+				text: input,
+				list: pathname,
+				checked: false,
+				timestamp: getDate()
 			})
 			this.setState({
 				input: ''
@@ -129,13 +121,8 @@ class App extends React.Component {
 		}
 	}
 
-	removeToDo = () => {
-		const todos = {...this.state.todos}
-		const { currentTodo } = this.state
-		delete todos[currentTodo]
-		this.todosRef.set({
-			todos
-		})
+	removeToDo = (todoId) => {
+		this.todosRef.child(todoId).remove()
 		this.setState({
 			details: !this.state.details,
 			input: '',
@@ -143,11 +130,10 @@ class App extends React.Component {
 		})
 	}
 
-	removeList = (id) => {
-		const lists = {...this.state.lists}
-		delete lists[id]
-		this.listsRef.set({
-			lists
+	removeList = (listId) => {
+		this.listsRef.child(listId).remove()
+		this.setState({
+			input: ''
 		})
 	}
 
@@ -155,15 +141,12 @@ class App extends React.Component {
 		const { input, currentTodo } = this.state
 		const todos = { ...this.state.todos }
 		const currentItem = todos[currentTodo]
-		todos[currentTodo] = {
-			text: input,
-			list: currentItem.list,
-			checked: currentItem.checked,
-			timestamp: currentItem.timestamp
-		}
 		if (input) {
-			this.todosRef.set({
-				todos
+			this.todosRef.child(currentTodo).update({
+				text: input,
+				list: currentItem.list,
+				checked: currentItem.checked,
+				timestamp: currentItem.timestamp
 			})
 			this.setState({
 				currentTodo: ''
@@ -171,16 +154,13 @@ class App extends React.Component {
 		}
 	}
 
-	toggleToDo = (id) => {
+	toggleToDo = (todoId) => {
 		const todos = { ...this.state.todos }
-		todos[id] = {
-			text: todos[id].text,
-			list: todos[id].list,
-			checked: !todos[id].checked,
-			timestamp: todos[id].timestamp
-		}
-		this.todosRef.set({
-			todos
+		this.todosRef.child(todoId).update({
+			text: todos[todoId].text,
+			list: todos[todoId].list,
+			checked: !todos[todoId].checked,
+			timestamp: todos[todoId].timestamp
 		})
 	}
 

@@ -1,6 +1,6 @@
 {
 	"name": "todos",
-	"version": "2.2.9",
+	"version": "2.2.10",
 	"description": "Todo app",
 	"main": "index.jsx",
 	"scripts": {
