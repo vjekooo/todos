@@ -44,7 +44,8 @@ const ListSettings = ({toggle, removeList, lists, currentList}) => {
 					<li
 						className="list-settings__list"
 						onClick={() => {
-							removeList(currentList)
+							window.confirm('Are you sure?') &&
+								removeList(currentList)
 							toggle()
 						}}
 					>
