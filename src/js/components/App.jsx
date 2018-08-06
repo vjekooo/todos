@@ -21,6 +21,7 @@ class App extends React.Component {
 			lists: {},
 			details: false,
 			currentTodo: '',
+			currentList: '',
 			currentUser: null,
 			addButtonActive: false,
 			input: '',
@@ -61,9 +62,16 @@ class App extends React.Component {
 		})
 	}
 
-	setPathname = (data) => {
+	setPathname = (pathname, listId) => {
 		this.setState({
-			pathname: data
+			pathname: pathname,
+			currentList: listId
+		})
+	}
+
+	setCurrentList = (value) => {
+		this.setState({
+			currentList: value
 		})
 	}
 
@@ -133,7 +141,7 @@ class App extends React.Component {
 	removeList = (listId) => {
 		this.listsRef.child(listId).remove()
 		this.setState({
-			input: ''
+			listInput: ''
 		})
 	}
 
@@ -210,7 +218,8 @@ class App extends React.Component {
 			lists,
 			isTodosEmpty,
 			pathname,
-			details
+			details,
+			currentList
 		} = this.state
 
 		const ToDoListComponent =
@@ -255,6 +264,8 @@ class App extends React.Component {
 					handleListSubmit={this.handleListSubmit}
 					lists={lists}
 					removeList={this.removeList}
+					setPathname={this.setPathname}
+					setCurrentList={this.setCurrentList}
 				/>
 				<div
 					className="container"
@@ -264,6 +275,9 @@ class App extends React.Component {
 						pathname={pathname}
 						menuButtonVisibility={menuButtonVisibility}
 						toggleMenu={this.toggleMenu}
+						removeList={this.removeList}
+						lists={lists}
+						currentList={currentList}
 					/>
 					<Switch>
 						<Route
@@ -271,7 +285,7 @@ class App extends React.Component {
 							render={ToDoListComponent}
 						/>
 						<Route
-							path="/shoping"
+							path="/shopping"
 							render={ToDoListComponent}
 						/>
 						{
@@ -281,7 +295,7 @@ class App extends React.Component {
 				</div>
 				<Toggle>
 					{
-						({ on, toggle }) => (
+						({on, toggle}) => (
 							<Fragment>
 								{
 									!on &&

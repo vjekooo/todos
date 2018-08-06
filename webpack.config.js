@@ -86,14 +86,14 @@ module.exports = ({ mode, presets } = { mode: 'production', presets: [] }) => {
 			},
 			plugins: [
 				new HtmlWebpackPlugin({
-					title: 'El Todos',
+					title: 'Los Todos',
 					template: `public/index.html`,
 					favicon: `public/favicon.ico`
 				}),
 				new webpack.ProgressPlugin(),
 				new WebpackPwaManifest({
-					name: 'El Todos todo app',
-					short_name: 'ElTodos',
+					name: 'Los Todos todo app',
+					short_name: 'LosTodos',
 					description: 'PWA Todo app',
 					background_color: '#ffffff',
 					icons: [

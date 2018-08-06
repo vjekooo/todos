@@ -14,7 +14,9 @@ const ToDoDetails = (
 		: pathname.slice(1).toLocaleUpperCase()
 
 	return (
-		<div className={`todo-details ${overlayClass}`}>
+		<div
+			className={`todo-details ${overlayClass}`}
+		>
 			<div className="todo-details__head">
 				<img
 					onClick={() => {

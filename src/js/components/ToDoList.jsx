@@ -15,7 +15,7 @@ class ToDoList extends React.Component {
 		this.setState({
 			pathname: this.props.location.pathname
 		})
-		this.props.setPathname(this.props.location.pathname)
+		this.props.setPathname(this.props.location.pathname, this.props.location.param1)
 	}
 
 	componentWillReceiveProps (nextProps) {
@@ -23,7 +23,7 @@ class ToDoList extends React.Component {
 			this.setState({
 				pathname: nextProps.location.pathname
 			})
-			this.props.setPathname(nextProps.location.pathname)
+			this.props.setPathname(nextProps.location.pathname, nextProps.location.param1)
 			this.props.toggleMenu()
 		}
 	}

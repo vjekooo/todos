@@ -8,7 +8,10 @@ class EditForm extends React.Component {
 	render () {
 		const {input, handleChange, handleSubmit, removeToDo, currentTodo} = this.props
 		return (
-			<form className="todo-details__form" onSubmit={handleSubmit}>
+			<form
+				className="todo-details__form"
+				onSubmit={handleSubmit}
+			>
 				<input
 					className="todo-details__input"
 					type="text"

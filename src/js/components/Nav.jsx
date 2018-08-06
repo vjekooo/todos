@@ -1,7 +1,7 @@
 
 import React, { Fragment } from 'react'
-import { NavLink } from 'react-router-dom'
 import NavLinks from './NavLinks'
+import NavLinksFixed from './NavLinksFixed'
 import CurrentUser from './CurrentUser'
 import SignIn from './SignIn'
 import PropTypes from 'prop-types'
@@ -9,12 +9,10 @@ import Toggle from './Toggle'
 import Modal from './Modal'
 
 import AddListIcon from '../../assets/images/bx-plus.svg'
-import AllTodosIcon from '../../assets/images/bx-task.svg'
-import ShopingIcon from '../../assets/images/bx-shopping-bag-alt.svg'
 
 const Nav = (
 	{menuVisibility, currentUser, toggleMenu, menuButtonVisibility,
-		handleListChange, handleListSubmit, lists, removeList}
+		handleListChange, handleListSubmit, lists, setCurrentList}
 ) => {
 	const showUserButton = !currentUser
 		? <SignIn />
@@ -26,13 +24,34 @@ const Nav = (
 		? 'animate'
 		: ''
 
+	const fixedList = {
+		'list01': {
+			route: '/',
+			image: '../../assets/images/bx-collection.svg'
+		},
+		'list02': {
+			route: 'shopping',
+			image: '../../assets/images/bx-shopping-bag-alt.svg'
+		}
+	}
+
+	const renderFixedLists = Object.keys(fixedList).map(
+		(list, index) =>
+			<NavLinksFixed
+				key={index}
+				route={fixedList[list]}
+				listId={list}
+				setCurrentList={setCurrentList}
+			/>
+	)
+
 	const renderLists = Object.keys(lists).map(
 		(list, index) =>
 			<NavLinks
 				key={index}
 				route={lists[list]}
 				listId={list}
-				removeList={removeList}
+				setCurrentList={setCurrentList}
 			/>
 	)
 	return (
@@ -51,25 +70,9 @@ const Nav = (
 				</div>
 				<div className="navigation__content">
 					<ul className="navigation__content-list">
-						<li>
-							<img src={AllTodosIcon} alt="All todos"/>
-							<NavLink
-								exact={true}
-								to="/"
-								activeClassName="active"
-							>
-								All Todos
-							</NavLink>
-						</li>
-						<li>
-							<img src={ShopingIcon} alt="All todos"/>
-							<NavLink
-								to="/shoping"
-								activeClassName="active"
-							>
-								Shoping
-							</NavLink>
-						</li>
+						{
+							renderFixedLists
+						}
 					</ul>
 					<ul className="navigation__content-user-list">
 						{
@@ -117,7 +120,7 @@ Nav.propTypes = {
 	handleListChange: PropTypes.func,
 	handleListSubmit: PropTypes.func,
 	lists: PropTypes.object,
-	removeList: PropTypes.func
+	setCurrentList: PropTypes.func
 }
 
 export default Nav
