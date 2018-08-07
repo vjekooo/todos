@@ -5,7 +5,10 @@ import ListSettings from './ListSettings'
 import { getToday } from '../helpers'
 import settingsIcon from '../../assets/images/bx-dots-vertical-rounded.svg'
 
-const Header = ({toggleMenu, menuButtonVisibility, pathname, removeList, lists, currentList}) => {
+const Header = (
+	{toggleMenu, menuButtonVisibility, pathname, removeList,
+		lists, currentList, editList, input, handleChange, handleSubmit, setInput}
+) => {
 	const transitionClass = menuButtonVisibility ? 'animate' : ''
 	const listName = pathname === '/'
 		? 'All Todos'
@@ -34,6 +37,11 @@ const Header = ({toggleMenu, menuButtonVisibility, pathname, removeList, lists, 
 										toggle={toggle}
 										lists={lists}
 										currentList={currentList}
+										editList={editList}
+										input={input}
+										handleChange={handleChange}
+										handleSubmit={handleSubmit}
+										setInput={setInput}
 									/>
 								}
 							</Fragment>
@@ -53,10 +61,15 @@ const Header = ({toggleMenu, menuButtonVisibility, pathname, removeList, lists, 
 Header.propTypes = {
 	toggleMenu: PropTypes.func,
 	removeList: PropTypes.func,
+	editList: PropTypes.func,
+	handleChange: PropTypes.func,
+	handleSubmit: PropTypes.func,
+	setInput: PropTypes.func,
 	pathname: PropTypes.string,
 	menuButtonVisibility: PropTypes.bool,
 	lists: PropTypes.object,
-	currentList: PropTypes.string
+	currentList: PropTypes.string,
+	input: PropTypes.string
 }
 
 export default Header

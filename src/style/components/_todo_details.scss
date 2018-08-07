@@ -8,6 +8,7 @@
     right: 0;
     padding: 0 15px 0 15px;
     background-color: white;
+    z-index: 100;
     &__head {
         display: flex;
         flex-direction: row;
@@ -26,9 +27,6 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-    }
-    &__input {
-        font-size: 1rem;
     }
     &.visible {
 		display: block;
@@ -65,6 +63,8 @@
 		}
     }
     &__input {
+        font-size: 1rem;
+        width: 100%;
         border-bottom: 1px solid whitesmoke;
         margin-bottom: 1rem;
         height: 50px;

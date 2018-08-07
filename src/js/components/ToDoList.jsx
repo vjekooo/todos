@@ -2,7 +2,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import ToDo from './ToDo'
-import ToDoDetails from './ToDoDetails'
 
 class ToDoList extends React.Component {
 	constructor (props) {
@@ -30,9 +29,9 @@ class ToDoList extends React.Component {
 
 	render () {
 		const {
-			input, todos, isTodosEmpty, overlay, currentUser, currentTodo,
+			input, todos, isTodosEmpty, currentUser,
 			removeToDo, toggleToDo, editToDo, handleChange, handleSubmit,
-			todoDetailsToggle, details, pathname
+			details, pathname, setInput
 		} = this.props
 		const toDo = Object.keys(todos).map(todo => {
 			return (
@@ -41,7 +40,14 @@ class ToDoList extends React.Component {
 					todoId={todo}
 					todo={todos[todo]}
 					toggleToDo={toggleToDo}
-					todoDetailsToggle={todoDetailsToggle}
+					input={input}
+					removeToDo={removeToDo}
+					editToDo={editToDo}
+					handleChange={handleChange}
+					handleSubmit={handleSubmit}
+					details={details}
+					pathname={pathname}
+					setInput={setInput}
 				/>
 			)
 		}).sort((a, b) => {
@@ -61,11 +67,15 @@ class ToDoList extends React.Component {
 
 		const renderToDo = !isTodosEmpty
 			? filteredTodos
-			: <h3 className="no-todo">Such empty, do something</h3>
+			: <li>
+				<h3 className="no-todo">Such empty, do something</h3>
+			</li>
 
 		const signedUser = currentUser
 			? renderToDo
-			: <h3>Please sign in</h3>
+			: <li>
+				<h3>Please sign in</h3>
+			</li>
 
 		return (
 			<Fragment>
@@ -74,19 +84,6 @@ class ToDoList extends React.Component {
 						{signedUser}
 					</ul>
 				</div>
-				<ToDoDetails
-					input={input}
-					currentTodo={currentTodo}
-					overlay={overlay}
-					details={details}
-					pathname={pathname}
-					editToDo={editToDo}
-					handleChange={handleChange}
-					handleSubmit={handleSubmit}
-					removeToDo={removeToDo}
-					todoDetailsToggle={todoDetailsToggle}
-				>
-				</ToDoDetails>
 			</Fragment>
 		)
 	}
@@ -113,6 +110,7 @@ ToDoList.propTypes = {
 	handleChange: PropTypes.func,
 	handleSubmit: PropTypes.func,
 	setPathname: PropTypes.func,
+	setInput: PropTypes.func,
 	todoDetailsToggle: PropTypes.func
 }
 

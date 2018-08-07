@@ -13,11 +13,16 @@ class Form extends React.Component {
 	}
 
 	render () {
-		const { handleChange, handleSubmit, toggle } = this.props
+		const { handleChange, handleSubmit, toggle, type, action } = this.props
 		return (
 			<form
 				action="submit"
-				onSubmit={(event) => handleSubmit(event, toggle())}
+				onSubmit={
+					(event) => {
+						handleSubmit(type, action, event)
+						toggle()
+					}
+				}
 				className="form"
 			>
 				<input
@@ -48,7 +53,9 @@ class Form extends React.Component {
 Form.propTypes = {
 	handleChange: PropTypes.func,
 	handleSubmit: PropTypes.func,
-	toggle: PropTypes.func
+	toggle: PropTypes.func,
+	type: PropTypes.string,
+	action: PropTypes.string
 }
 
 export default Form

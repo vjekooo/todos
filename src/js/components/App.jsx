@@ -23,9 +23,7 @@ class App extends React.Component {
 			currentTodo: '',
 			currentList: '',
 			currentUser: null,
-			addButtonActive: false,
 			input: '',
-			listInput: '',
 			pathname: '',
 			menuVisibility: false,
 			menuButtonVisibility: false
@@ -81,35 +79,30 @@ class App extends React.Component {
 		})
 	}
 
-	handleListChange = (event) => {
-		this.setState({
-			listInput: event.target.value
-		})
-	}
-
-	handleSubmit = (event) => {
+	handleSubmit = (type, action, event) => {
 		event.preventDefault()
-		const { currentTodo } = this.state
-		if (!currentTodo) {
+		if (type === 'todo' && action === 'add') {
 			this.addToDo()
-		} else {
+		}
+		if (type === 'todo' && action === 'edit') {
 			this.editToDo()
+		}
+		if (type === 'list' && action === 'add') {
+			this.addList()
+		}
+		if (type === 'list' && action === 'edit') {
+			this.editList()
 		}
 	}
 
-	handleListSubmit = (event) => {
-		event.preventDefault()
-		this.addList()
-	}
-
 	addList = () => {
-		const { listInput } = this.state
-		if (listInput) {
+		const { input } = this.state
+		if (input) {
 			this.listsRef.push({
-				route: listInput.toLocaleLowerCase()
+				route: input.toLocaleLowerCase()
 			})
 			this.setState({
-				listInput: ''
+				input: ''
 			})
 		}
 	}
@@ -141,23 +134,34 @@ class App extends React.Component {
 	removeList = (listId) => {
 		this.listsRef.child(listId).remove()
 		this.setState({
-			listInput: ''
+			input: ''
 		})
 	}
 
 	editToDo = () => {
 		const { input, currentTodo } = this.state
 		const todos = { ...this.state.todos }
-		const currentItem = todos[currentTodo]
 		if (input) {
 			this.todosRef.child(currentTodo).update({
 				text: input,
-				list: currentItem.list,
-				checked: currentItem.checked,
-				timestamp: currentItem.timestamp
+				list: todos[currentTodo].list,
+				checked: todos[currentTodo].checked,
+				timestamp: todos[currentTodo].timestamp
 			})
 			this.setState({
 				currentTodo: ''
+			})
+		}
+	}
+
+	editList = () => {
+		const { input, currentList } = this.state
+		if (input) {
+			this.listsRef.child(currentList).update({
+				route: input
+			})
+			this.setState({
+				currentList: ''
 			})
 		}
 	}
@@ -190,6 +194,21 @@ class App extends React.Component {
 		}
 	}
 
+	setInput = (value, type) => {
+		const {todos, lists} = this.state
+		if (todos[value]) {
+			this.setState({
+				input: todos[value].text,
+				currentTodo: value
+			})
+		}
+		if (lists[value]) {
+			this.setState({
+				input: lists[value].route
+			})
+		}
+	}
+
 	toggleMenu = () => {
 		const { menuVisibility } = this.state
 		if (menuVisibility) {
@@ -210,7 +229,6 @@ class App extends React.Component {
 			todos,
 			overlay,
 			currentUser,
-			addButtonActive,
 			input,
 			currentTodo,
 			menuVisibility,
@@ -232,7 +250,6 @@ class App extends React.Component {
 					overlay={overlay}
 					details={details}
 					pathname={pathname}
-					addButtonActive={addButtonActive}
 					input={input}
 					currentTodo={currentTodo}
 					removeToDo={this.removeToDo}
@@ -243,7 +260,7 @@ class App extends React.Component {
 					handleSubmit={this.handleSubmit}
 					setPathname={this.setPathname}
 					toggleMenu={this.toggleMenu}
-					todoDetailsToggle={this.todoDetailsToggle}
+					setInput={this.setInput}
 				/>
 
 		const renderLists = Object.keys(lists).map(list => (
@@ -260,8 +277,8 @@ class App extends React.Component {
 					currentUser={currentUser}
 					toggleMenu={this.toggleMenu}
 					menuButtonVisibility={menuButtonVisibility}
-					handleListChange={this.handleListChange}
-					handleListSubmit={this.handleListSubmit}
+					handleChange={this.handleChange}
+					handleSubmit={this.handleSubmit}
 					lists={lists}
 					removeList={this.removeList}
 					setPathname={this.setPathname}
@@ -278,6 +295,11 @@ class App extends React.Component {
 						removeList={this.removeList}
 						lists={lists}
 						currentList={currentList}
+						editList={this.editList}
+						input={input}
+						handleChange={this.handleChange}
+						handleSubmit={this.handleSubmit}
+						setInput={this.setInput}
 					/>
 					<Switch>
 						<Route
@@ -309,9 +331,10 @@ class App extends React.Component {
 									<Modal
 										handleChange={this.handleChange}
 										handleSubmit={this.handleSubmit}
-										form="todo"
 										on={on}
 										toggle={toggle}
+										type="todo"
+										action="add"
 									/>
 								}
 							</Fragment>

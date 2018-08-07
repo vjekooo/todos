@@ -5,31 +5,42 @@ import saveIcon from '../../assets/images/bx-save.svg'
 import deleteIcon from '../../assets/images/bx-trash.svg'
 
 class EditForm extends React.Component {
+	constructor (props) {
+		super(props)
+		this.editInputRef = React.createRef()
+	}
+	componentDidMount () {
+		this.props.setInput(this.props.currentItem, this.props.type)
+	}
 	render () {
-		const {input, handleChange, handleSubmit, removeToDo, currentTodo} = this.props
+		const {
+			input, handleChange, handleSubmit, removeToDo,
+			currentItem, type, action
+		} = this.props
 		return (
 			<form
 				className="todo-details__form"
-				onSubmit={handleSubmit}
+				onSubmit={(event) => handleSubmit(type, action, event)}
 			>
 				<input
 					className="todo-details__input"
 					type="text"
-					placeholder="add task"
 					value={input}
 					onChange={handleChange}
+					ref={this.editInputRef}
 				/>
 				<div className="todo-details__icons">
 					<input
 						type="image"
 						src={saveIcon}
+						alt="Edit icon"
 					/>
 					<img
 						src={deleteIcon}
 						alt="Delete icon"
 						onClick={() => {
 							window.confirm('Are you sure you want to delete this todo?') &&
-								removeToDo(currentTodo)
+								removeToDo(currentItem)
 						}}
 					/>
 				</div>
@@ -43,7 +54,10 @@ EditForm.propTypes = {
 	handleChange: PropTypes.func,
 	handleSubmit: PropTypes.func,
 	removeToDo: PropTypes.func,
-	currentTodo: PropTypes.string
+	setInput: PropTypes.func,
+	currentItem: PropTypes.string,
+	type: PropTypes.string,
+	action: PropTypes.string
 }
 
 export default EditForm

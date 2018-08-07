@@ -5,24 +5,22 @@ import PropTypes from 'prop-types'
 import backarrowIcon from '../../assets/images/bx-arrow-back.svg'
 
 const ToDoDetails = (
-	{currentTodo, details, pathname, input, handleChange,
-		handleSubmit, removeToDo, todoDetailsToggle}
+	{currentTodo, pathname, input, handleChange,
+		handleSubmit, removeToDo, setInput, on, toggle}
 ) => {
-	const overlayClass = details ? 'visible' : 'hidden'
 	const backRoute = pathname === '/'
 		? 'ALL TODOS'
 		: pathname.slice(1).toLocaleUpperCase()
 
 	return (
 		<div
-			className={`todo-details ${overlayClass}`}
+			className="todo-details"
 		>
 			<div className="todo-details__head">
 				<img
-					onClick={() => {
-						todoDetailsToggle()
-					}}
+					onClick={toggle}
 					src={backarrowIcon}
+					alt="Back arrow"
 				/>
 				<div>
 					{backRoute}
@@ -33,8 +31,11 @@ const ToDoDetails = (
 					input={input}
 					handleChange={handleChange}
 					handleSubmit={handleSubmit}
+					setInput={setInput}
 					removeToDo={removeToDo}
-					currentTodo={currentTodo}
+					currentItem={currentTodo}
+					type="todo"
+					action="edit"
 				/>
 			</div>
 		</div>
@@ -50,7 +51,9 @@ ToDoDetails.propTypes = {
 	handleChange: PropTypes.func,
 	handleSubmit: PropTypes.func,
 	removeToDo: PropTypes.func,
-	todoDetailsToggle: PropTypes.func
+	setInput: PropTypes.func,
+	toggle: PropTypes.func,
+	on: PropTypes.bool
 }
 
 export default ToDoDetails

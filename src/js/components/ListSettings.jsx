@@ -1,12 +1,18 @@
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import Toggle from './Toggle'
+import EditForm from './EditForm'
+
 import deleteIcon from '../../assets/images/bx-trash.svg'
 import renameIcon from '../../assets/images/bx-edit.svg'
 import sortIcon from '../../assets/images/bx-sort-alt.svg'
 import hideIcon from '../../assets/images/bx-check-circle.svg'
 
-const ListSettings = ({toggle, removeList, lists, currentList}) => {
+const ListSettings = (
+	{toggle, removeList, currentList, editList, input,
+		handleChange, handleSubmit, setInput}
+) => {
 	return (
 		<div
 			className="list-settings-background"
@@ -17,14 +23,38 @@ const ListSettings = ({toggle, removeList, lists, currentList}) => {
 				onClick={(event) => event.stopPropagation()}
 			>
 				<ul>
-					<li className="list-settings__list">
-						<img
-							className="list-settings__list-image"
-							src={renameIcon}
-							alt="Delete list icon"
-						/>
-						Rename list
-					</li>
+					<Toggle>
+						{
+							({on, toggle}) => (
+								<Fragment>
+									<li
+										className="list-settings__list"
+										onClick={toggle}
+									>
+										<img
+											className="list-settings__list-image"
+											src={renameIcon}
+											alt="Rename list icon"
+										/>
+										Rename list
+									</li>
+									{
+										on &&
+										<EditForm
+											input={input}
+											handleChange={handleChange}
+											handleSubmit={handleSubmit}
+											setInput={setInput}
+											editList={editList}
+											currentItem={currentList}
+											type="list"
+											action="edit"
+										/>
+									}
+								</Fragment>
+							)
+						}
+					</Toggle>
 					<li className="list-settings__list">
 						<img
 							className="list-settings__list-image"
@@ -65,8 +95,13 @@ const ListSettings = ({toggle, removeList, lists, currentList}) => {
 ListSettings.propTypes = {
 	toggle: PropTypes.func,
 	removeList: PropTypes.func,
+	editList: PropTypes.func,
+	handleChange: PropTypes.func,
+	handleSubmit: PropTypes.func,
+	setInput: PropTypes.func,
 	lists: PropTypes.object,
-	currentList: PropTypes.string
+	currentList: PropTypes.string,
+	input: PropTypes.string
 }
 
 export default ListSettings

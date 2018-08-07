@@ -3,7 +3,7 @@ import React from 'react'
 import Form from './Form'
 import PropTypes from 'prop-types'
 
-const Modal = ({handleChange, handleSubmit, on, toggle, form}) => {
+const Modal = ({handleChange, handleSubmit, on, toggle, type, action}) => {
 	return (
 		<div
 			className="modal-background"
@@ -15,7 +15,7 @@ const Modal = ({handleChange, handleSubmit, on, toggle, form}) => {
 			>
 				<h3 className="modal__title">
 					{
-						`New ${form}`
+						`New ${type}`
 					}
 				</h3>
 				<Form
@@ -23,7 +23,8 @@ const Modal = ({handleChange, handleSubmit, on, toggle, form}) => {
 					handleSubmit={handleSubmit}
 					on={on}
 					toggle={toggle}
-					form={form}
+					type={type}
+					action={action}
 				/>
 			</div>
 		</div>
@@ -35,7 +36,8 @@ Modal.propTypes = {
 	handleSubmit: PropTypes.func,
 	on: PropTypes.bool,
 	toggle: PropTypes.func,
-	form: PropTypes.string
+	type: PropTypes.string,
+	action: PropTypes.string
 }
 
 export default Modal

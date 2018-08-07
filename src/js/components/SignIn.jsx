@@ -8,7 +8,10 @@ const SignIn = () => {
 			className="sign-in btn"
 			onClick={() => auth.signInWithPopup(googleAuthProvider)}
 		>
-			<img src={user} />
+			<img
+				src={user}
+				alt="Login image"
+			/>
 			Sign In
 		</button>
 	)

@@ -12,7 +12,7 @@ import AddListIcon from '../../assets/images/bx-plus.svg'
 
 const Nav = (
 	{menuVisibility, currentUser, toggleMenu, menuButtonVisibility,
-		handleListChange, handleListSubmit, lists, setCurrentList}
+		handleChange, handleSubmit, lists, setCurrentList}
 ) => {
 	const showUserButton = !currentUser
 		? <SignIn />
@@ -95,11 +95,12 @@ const Nav = (
 									{
 										on &&
 										<Modal
-											handleChange={handleListChange}
-											handleSubmit={handleListSubmit}
-											form="list"
+											handleChange={handleChange}
+											handleSubmit={handleSubmit}
 											on={on}
 											toggle={toggle}
+											type="list"
+											action="add"
 										/>
 									}
 								</Fragment>
@@ -117,8 +118,8 @@ Nav.propTypes = {
 	currentUser: PropTypes.object,
 	toggleMenu: PropTypes.func,
 	menuButtonVisibility: PropTypes.bool,
-	handleListChange: PropTypes.func,
-	handleListSubmit: PropTypes.func,
+	handleChange: PropTypes.func,
+	handleSubmit: PropTypes.func,
 	lists: PropTypes.object,
 	setCurrentList: PropTypes.func
 }
