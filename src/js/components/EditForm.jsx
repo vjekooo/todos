@@ -11,6 +11,7 @@ class EditForm extends React.Component {
 	}
 	componentDidMount () {
 		this.props.setInput(this.props.currentItem, this.props.type)
+		this.editInputRef.current.focus()
 	}
 	render () {
 		const {
@@ -35,14 +36,17 @@ class EditForm extends React.Component {
 						src={saveIcon}
 						alt="Edit icon"
 					/>
-					<img
-						src={deleteIcon}
-						alt="Delete icon"
-						onClick={() => {
-							window.confirm('Are you sure you want to delete this todo?') &&
-								removeToDo(currentItem)
-						}}
-					/>
+					{
+						type === 'todo' &&
+						<img
+							src={deleteIcon}
+							alt="Delete icon"
+							onClick={() => {
+								window.confirm('Are you sure you want to delete this todo?') &&
+									removeToDo(currentItem)
+							}}
+						/>
+					}
 				</div>
 			</form>
 		)

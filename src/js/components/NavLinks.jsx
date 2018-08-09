@@ -21,12 +21,16 @@ class NavLinks extends React.Component {
 		}
 		return (
 			<li className="flex-row flex-row--center">
-				<img src={UserListIcon} alt="User created list icon"/>
+				<img src={UserListIcon}
+					alt="List icon"
+				/>
 				<NavLink
 					to={newTo}
 					activeClassName="active"
 				>
-					{string[0].toUpperCase() + string.slice(1).toLowerCase()}
+					{
+						string[0].toUpperCase() + string.slice(1).toLowerCase()
+					}
 				</NavLink>
 			</li>
 		)

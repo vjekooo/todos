@@ -24,35 +24,28 @@ const Nav = (
 		? 'animate'
 		: ''
 
-	const fixedList = {
-		'list01': {
-			route: '/',
-			image: '../../assets/images/bx-collection.svg'
-		},
-		'list02': {
-			route: 'shopping',
-			image: '../../assets/images/bx-shopping-bag-alt.svg'
-		}
-	}
-
-	const renderFixedLists = Object.keys(fixedList).map(
+	const renderFixedLists = Object.keys(lists).map(
 		(list, index) =>
-			<NavLinksFixed
-				key={index}
-				route={fixedList[list]}
-				listId={list}
-				setCurrentList={setCurrentList}
-			/>
+			lists[list].route !== '/' && lists[list].route !== 'shopping'
+				? null
+				: <NavLinksFixed
+					key={index}
+					route={lists[list]}
+					listId={list}
+					setCurrentList={setCurrentList}
+				/>
 	)
 
 	const renderLists = Object.keys(lists).map(
 		(list, index) =>
-			<NavLinks
-				key={index}
-				route={lists[list]}
-				listId={list}
-				setCurrentList={setCurrentList}
-			/>
+			lists[list].route !== '/' && lists[list].route !== 'shopping'
+				? <NavLinks
+					key={index}
+					route={lists[list]}
+					listId={list}
+					setCurrentList={setCurrentList}
+				/>
+				: null
 	)
 	return (
 		<div

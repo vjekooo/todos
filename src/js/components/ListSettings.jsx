@@ -11,7 +11,7 @@ import hideIcon from '../../assets/images/bx-check-circle.svg'
 
 const ListSettings = (
 	{toggle, removeList, currentList, editList, input,
-		handleChange, handleSubmit, setInput}
+		handleChange, handleSubmit, setInput, toggleFilterByCompleted}
 ) => {
 	return (
 		<div
@@ -40,16 +40,18 @@ const ListSettings = (
 									</li>
 									{
 										on &&
-										<EditForm
-											input={input}
-											handleChange={handleChange}
-											handleSubmit={handleSubmit}
-											setInput={setInput}
-											editList={editList}
-											currentItem={currentList}
-											type="list"
-											action="edit"
-										/>
+										<li className="list-settings__list">
+											<EditForm
+												input={input}
+												handleChange={handleChange}
+												handleSubmit={handleSubmit}
+												setInput={setInput}
+												editList={editList}
+												currentItem={currentList}
+												type="list"
+												action="edit"
+											/>
+										</li>
 									}
 								</Fragment>
 							)
@@ -61,9 +63,12 @@ const ListSettings = (
 							src={sortIcon}
 							alt="Delete list icon"
 						/>
-						Sort
+						Sort - COMING SOON
 					</li>
-					<li className="list-settings__list">
+					<li
+						className="list-settings__list"
+						onClick={toggleFilterByCompleted}
+					>
 						<img
 							className="list-settings__list-image"
 							src={hideIcon}
@@ -99,6 +104,7 @@ ListSettings.propTypes = {
 	handleChange: PropTypes.func,
 	handleSubmit: PropTypes.func,
 	setInput: PropTypes.func,
+	toggleFilterByCompleted: PropTypes.func,
 	lists: PropTypes.object,
 	currentList: PropTypes.string,
 	input: PropTypes.string

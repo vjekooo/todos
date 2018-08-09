@@ -50,6 +50,22 @@ class App extends React.Component {
 					})
 				}
 			})
+			this.listsRef.once('value', (snapshot) => {
+				if (!snapshot.child('list01').exists() && !snapshot.child('list02').exists()) {
+					this.listsRef.child('list01').set({
+						route: '/',
+						filterByCompleted: false,
+						image: '/assets/images/bx-collection.svg',
+						fixed: true
+					})
+					this.listsRef.child('list02').set({
+						route: 'shopping',
+						filterByCompleted: false,
+						image: '/assets/images/bx-shopping-bag-alt.svg',
+						fixed: true
+					})
+				}
+			})
 			this.listsRef.on('value', (snapshot) => {
 				if (snapshot.exists()) {
 					this.setState({
@@ -99,7 +115,9 @@ class App extends React.Component {
 		const { input } = this.state
 		if (input) {
 			this.listsRef.push({
-				route: input.toLocaleLowerCase()
+				route: input.toLocaleLowerCase(),
+				filterByCompleted: false,
+				fixed: false
 			})
 			this.setState({
 				input: ''
@@ -155,10 +173,12 @@ class App extends React.Component {
 	}
 
 	editList = () => {
-		const { input, currentList } = this.state
+		const { input, lists, currentList } = this.state
 		if (input) {
 			this.listsRef.child(currentList).update({
-				route: input
+				route: input,
+				filterByCompleted: lists[currentList].filterByCompleted,
+				fixed: lists[currentList].fixed
 			})
 			this.setState({
 				currentList: ''
@@ -207,6 +227,10 @@ class App extends React.Component {
 				input: lists[value].route
 			})
 		}
+	}
+
+	toggleFilterByCompleted = () => {
+		console.log('filter')
 	}
 
 	toggleMenu = () => {
@@ -300,6 +324,7 @@ class App extends React.Component {
 						handleChange={this.handleChange}
 						handleSubmit={this.handleSubmit}
 						setInput={this.setInput}
+						toggleFilterByCompleted={this.toggleFilterByCompleted}
 					/>
 					<Switch>
 						<Route
