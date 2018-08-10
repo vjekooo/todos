@@ -29,9 +29,9 @@ class ToDoList extends React.Component {
 
 	render () {
 		const {
-			input, todos, isTodosEmpty, currentUser,
+			input, todos, isTodosEmpty, currentUser, currentList,
 			removeToDo, toggleToDo, editToDo, handleChange, handleSubmit,
-			details, pathname, setInput
+			details, pathname, setInput, lists
 		} = this.props
 		const toDo = Object.keys(todos).map(todo => {
 			return (
@@ -57,10 +57,18 @@ class ToDoList extends React.Component {
 		})
 
 		const filteredTodos = toDo.filter(item => {
-			if (this.state.pathname === '/') {
+			if (
+				this.state.pathname === '/' &&
+				lists[currentList].filterByCompleted === true &&
+				!item.props.todo.checked
+			) {
 				return item
 			}
-			if (item.props.todo.list === this.state.pathname) {
+			if (
+				item.props.todo.listId === currentList &&
+				lists[currentList].filterByCompleted === true &&
+				!item.props.todo.checked
+			) {
 				return item
 			}
 		})
@@ -71,7 +79,7 @@ class ToDoList extends React.Component {
 				<h3 className="no-todo">Such empty, do something</h3>
 			</li>
 
-		const signedUser = currentUser
+		const userToDos = currentUser
 			? renderToDo
 			: <li>
 				<h3>Please sign in</h3>
@@ -81,7 +89,7 @@ class ToDoList extends React.Component {
 			<Fragment>
 				<div className="todo">
 					<ul>
-						{signedUser}
+						{userToDos}
 					</ul>
 				</div>
 			</Fragment>
@@ -91,9 +99,11 @@ class ToDoList extends React.Component {
 
 ToDoList.propTypes = {
 	todos: PropTypes.object,
+	lists: PropTypes.object,
 	isTodosEmpty: PropTypes.bool,
 	currentUser: PropTypes.object,
 	input: PropTypes.string,
+	currentList: PropTypes.string,
 	filter: PropTypes.string,
 	overlay: PropTypes.bool,
 	details: PropTypes.bool,

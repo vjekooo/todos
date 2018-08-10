@@ -10,7 +10,7 @@ import sortIcon from '../../assets/images/bx-sort-alt.svg'
 import hideIcon from '../../assets/images/bx-check-circle.svg'
 
 const ListSettings = (
-	{toggle, removeList, currentList, editList, input,
+	{toggle, removeList, currentList, editList, input, pathname,
 		handleChange, handleSubmit, setInput, toggleFilterByCompleted}
 ) => {
 	return (
@@ -27,17 +27,20 @@ const ListSettings = (
 						{
 							({on, toggle}) => (
 								<Fragment>
-									<li
-										className="list-settings__list"
-										onClick={toggle}
-									>
-										<img
-											className="list-settings__list-image"
-											src={renameIcon}
-											alt="Rename list icon"
-										/>
-										Rename list
-									</li>
+									{
+										pathname !== '/' && pathname !== 'shopping' &&
+										<li
+											className="list-settings__list"
+											onClick={toggle}
+										>
+											<img
+												className="list-settings__list-image"
+												src={renameIcon}
+												alt="Rename list icon"
+											/>
+											Rename list
+										</li>
+									}
 									{
 										on &&
 										<li className="list-settings__list">
@@ -72,25 +75,28 @@ const ListSettings = (
 						<img
 							className="list-settings__list-image"
 							src={hideIcon}
-							alt="Delete list icon"
+							alt="Hide list icon"
 						/>
 						Hide completed to-dos
 					</li>
-					<li
-						className="list-settings__list"
-						onClick={() => {
-							window.confirm('Are you sure?') &&
-								removeList(currentList)
-							toggle()
-						}}
-					>
-						<img
-							className="list-settings__list-image"
-							src={deleteIcon}
-							alt="Delete list icon"
-						/>
-						Delete list
-					</li>
+					{
+						pathname !== '/' && pathname !== 'shopping' &&
+						<li
+							className="list-settings__list"
+							onClick={() => {
+								window.confirm('Are you sure?') &&
+									removeList(currentList)
+								toggle()
+							}}
+						>
+							<img
+								className="list-settings__list-image"
+								src={deleteIcon}
+								alt="Delete list icon"
+							/>
+							Delete list
+						</li>
+					}
 				</ul>
 			</div>
 		</div>
@@ -107,7 +113,8 @@ ListSettings.propTypes = {
 	toggleFilterByCompleted: PropTypes.func,
 	lists: PropTypes.object,
 	currentList: PropTypes.string,
-	input: PropTypes.string
+	input: PropTypes.string,
+	pathname: PropTypes.string
 }
 
 export default ListSettings

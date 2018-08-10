@@ -55,13 +55,11 @@ class App extends React.Component {
 					this.listsRef.child('list01').set({
 						route: '/',
 						filterByCompleted: false,
-						image: '/assets/images/bx-collection.svg',
 						fixed: true
 					})
 					this.listsRef.child('list02').set({
 						route: 'shopping',
 						filterByCompleted: false,
-						image: '/assets/images/bx-shopping-bag-alt.svg',
 						fixed: true
 					})
 				}
@@ -126,11 +124,11 @@ class App extends React.Component {
 	}
 
 	addToDo = () => {
-		const { input, pathname } = this.state
+		const { input, currentList } = this.state
 		if (input) {
 			this.todosRef.push({
 				text: input,
-				list: pathname,
+				listId: currentList,
 				checked: false,
 				timestamp: getDate()
 			})
@@ -162,7 +160,7 @@ class App extends React.Component {
 		if (input) {
 			this.todosRef.child(currentTodo).update({
 				text: input,
-				list: todos[currentTodo].list,
+				listId: todos[currentTodo].listId,
 				checked: todos[currentTodo].checked,
 				timestamp: todos[currentTodo].timestamp
 			})
@@ -190,7 +188,7 @@ class App extends React.Component {
 		const todos = { ...this.state.todos }
 		this.todosRef.child(todoId).update({
 			text: todos[todoId].text,
-			list: todos[todoId].list,
+			listId: todos[todoId].listId,
 			checked: !todos[todoId].checked,
 			timestamp: todos[todoId].timestamp
 		})
@@ -230,7 +228,12 @@ class App extends React.Component {
 	}
 
 	toggleFilterByCompleted = () => {
-		console.log('filter')
+		const { lists, currentList } = this.state
+		this.listsRef.child(currentList).update({
+			route: lists[currentList].route,
+			filterByCompleted: !lists[currentList].filterByCompleted,
+			fixed: lists[currentList].fixed
+		})
 	}
 
 	toggleMenu = () => {
@@ -269,12 +272,14 @@ class App extends React.Component {
 				<ToDoList
 					{...props}
 					todos={todos}
+					lists={lists}
 					isTodosEmpty={isTodosEmpty}
 					currentUser={currentUser}
 					overlay={overlay}
 					details={details}
 					pathname={pathname}
 					input={input}
+					currentList={currentList}
 					currentTodo={currentTodo}
 					removeToDo={this.removeToDo}
 					toggleToDo={this.toggleToDo}

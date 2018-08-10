@@ -44,6 +44,7 @@ const Header = (
 										handleSubmit={handleSubmit}
 										setInput={setInput}
 										toggleFilterByCompleted={toggleFilterByCompleted}
+										pathname={pathname}
 									/>
 								}
 							</Fragment>
