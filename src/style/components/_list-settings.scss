@@ -19,7 +19,7 @@
 	margin: 0 auto;
 	width: 80vw;
 	background-color: white;
-	padding: 1rem;
+	padding: 1.5rem;
 	&__list {
 		display: flex;
 		flex-direction: row;
@@ -27,6 +27,9 @@
 		color: gray;
 		margin-bottom: 2rem;
 		text-transform: none;
+	}
+	&__list:last-child {
+		margin-bottom: 0;
 	}
 	&__list--active {
 		color: blueviolet;
