@@ -55,13 +55,13 @@ class App extends React.Component {
 					this.listsRef.child('list01').set({
 						route: '/',
 						filterByCompleted: false,
-						sort: 0,
+						sort: '0',
 						fixed: true
 					})
 					this.listsRef.child('list02').set({
 						route: 'shopping',
 						filterByCompleted: false,
-						sort: 0,
+						sort: '0',
 						fixed: true
 					})
 				}
@@ -117,7 +117,7 @@ class App extends React.Component {
 			this.listsRef.push({
 				route: input.toLocaleLowerCase(),
 				filterByCompleted: false,
-				sort: 0,
+				sort: '0',
 				fixed: false
 			})
 			this.setState({

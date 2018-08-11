@@ -31,6 +31,9 @@
         align-items: center;
         margin-bottom: 1rem;
     }
+    &__list--active {
+        color: blueviolet;
+    }
     &__img {
         margin-right: 1rem;
     }

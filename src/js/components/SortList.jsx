@@ -6,7 +6,11 @@ import completedIcon from '../../assets/images/bx-check-circle.svg'
 import aplhaIcon from '../../assets/images/bx-alpha.svg'
 import dateIcon from '../../assets/images/bx-watch.svg'
 
-const SortList = ({on, toggle, toggleSort}) => {
+const SortList = ({on, toggle, toggleSort, lists, currentList}) => {
+	const listExists = lists[currentList]
+		? lists[currentList]
+		: []
+	console.log(listExists.sort)
 	return (
 		<div
 			className="sort-list-background"
@@ -19,8 +23,12 @@ const SortList = ({on, toggle, toggleSort}) => {
 				<h3 className="sort-list__title">Sort list</h3>
 				<ul>
 					<li
-						className="sort-list__list"
-						data-sort={0}
+						className={
+							listExists.sort === '0'
+								? 'sort-list__list sort-list__list--active'
+								: 'sort-list__list'
+						}
+						data-sort="0"
 						onClick={(event) => {
 							toggleSort(event)
 							toggle()
@@ -30,8 +38,12 @@ const SortList = ({on, toggle, toggleSort}) => {
 						Completed
 					</li>
 					<li
-						className="sort-list__list"
-						data-sort={1}
+						className={
+							listExists.sort === '1'
+								? 'sort-list__list sort-list__list--active'
+								: 'sort-list__list'
+						}
+						data-sort="1"
 						onClick={(event) => {
 							toggleSort(event)
 							toggle()
@@ -41,8 +53,12 @@ const SortList = ({on, toggle, toggleSort}) => {
 						Alphabetically
 					</li>
 					<li
-						className="sort-list__list"
-						data-sort={2}
+						className={
+							listExists.sort === '2'
+								? 'sort-list__list sort-list__list--active'
+								: 'sort-list__list'
+						}
+						data-sort="2"
 						onClick={(event) => {
 							toggleSort(event)
 							toggle()
@@ -60,7 +76,9 @@ const SortList = ({on, toggle, toggleSort}) => {
 SortList.propTypes = {
 	on: PropTypes.bool,
 	toggle: PropTypes.func,
-	toggleSort: PropTypes.func
+	toggleSort: PropTypes.func,
+	currentList: PropTypes.string,
+	lists: PropTypes.object
 }
 
 export default SortList

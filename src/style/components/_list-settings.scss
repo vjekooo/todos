@@ -28,6 +28,9 @@
 		margin-bottom: 2rem;
 		text-transform: none;
 	}
+	&__list--active {
+		color: blueviolet;
+	}
 	&__list-image {
 		margin-right: .5rem;
 	}

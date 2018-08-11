@@ -12,8 +12,14 @@ import hideIcon from '../../assets/images/bx-check-circle.svg'
 
 const ListSettings = (
 	{toggle, removeList, currentList, editList, input, pathname, toggleSort,
-		handleChange, handleSubmit, setInput, toggleFilterByCompleted}
+		handleChange, handleSubmit, setInput, toggleFilterByCompleted, lists}
 ) => {
+	const listExists = lists[currentList]
+		? lists[currentList]
+		: []
+	const active = listExists.filterByCompleted
+		? 'list-settings__list--active'
+		: ''
 	return (
 		<div
 			className="list-settings-background"
@@ -82,6 +88,8 @@ const ListSettings = (
 											toggleSort={toggleSort}
 											on={on}
 											toggle={toggle}
+											lists={lists}
+											currentList={currentList}
 										/>
 									}
 								</Fragment>
@@ -89,7 +97,7 @@ const ListSettings = (
 						}
 					</Toggle>
 					<li
-						className="list-settings__list"
+						className={`list-settings__list ${active}`}
 						onClick={() => {
 							toggleFilterByCompleted()
 							toggle()
