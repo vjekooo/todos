@@ -29,7 +29,7 @@ const ListSettings = (
 							({on, toggle}) => (
 								<Fragment>
 									{
-										pathname !== '/' && pathname !== 'shopping' &&
+										pathname !== '/' && pathname !== '/shopping' &&
 										<li
 											className="list-settings__list"
 											onClick={toggle}
@@ -103,7 +103,7 @@ const ListSettings = (
 						Hide completed to-dos
 					</li>
 					{
-						pathname !== '/' && pathname !== 'shopping' &&
+						pathname !== '/' && pathname !== '/shopping' &&
 						<li
 							className="list-settings__list"
 							onClick={() => {
