@@ -56,10 +56,14 @@ class ToDoList extends React.Component {
 			return a.props.todo.checked > b.props.todo.checked
 		})
 
+		const listExists = lists[currentList]
+			? lists[currentList]
+			: []
+
 		const filteredTodos = toDo.filter(item => {
 			if (
 				this.state.pathname === '/' &&
-				lists[currentList].filterByCompleted === true &&
+				listExists.filterByCompleted === true &&
 				!item.props.todo.checked
 			) {
 				return item
