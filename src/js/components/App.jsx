@@ -55,11 +55,13 @@ class App extends React.Component {
 					this.listsRef.child('list01').set({
 						route: '/',
 						filterByCompleted: false,
+						sort: 0,
 						fixed: true
 					})
 					this.listsRef.child('list02').set({
 						route: 'shopping',
 						filterByCompleted: false,
+						sort: 0,
 						fixed: true
 					})
 				}
@@ -115,6 +117,7 @@ class App extends React.Component {
 			this.listsRef.push({
 				route: input.toLocaleLowerCase(),
 				filterByCompleted: false,
+				sort: 0,
 				fixed: false
 			})
 			this.setState({
@@ -176,6 +179,7 @@ class App extends React.Component {
 			this.listsRef.child(currentList).update({
 				route: input,
 				filterByCompleted: lists[currentList].filterByCompleted,
+				sort: lists[currentList].sort,
 				fixed: lists[currentList].fixed
 			})
 			this.setState({
@@ -232,6 +236,17 @@ class App extends React.Component {
 		this.listsRef.child(currentList).update({
 			route: lists[currentList].route,
 			filterByCompleted: !lists[currentList].filterByCompleted,
+			sort: !lists[currentList].sort,
+			fixed: lists[currentList].fixed
+		})
+	}
+
+	toggleSort = (event) => {
+		const { lists, currentList } = this.state
+		this.listsRef.child(currentList).update({
+			route: lists[currentList].route,
+			filterByCompleted: lists[currentList].filterByCompleted,
+			sort: event.target.getAttribute('data-sort'),
 			fixed: lists[currentList].fixed
 		})
 	}
@@ -330,6 +345,7 @@ class App extends React.Component {
 						handleSubmit={this.handleSubmit}
 						setInput={this.setInput}
 						toggleFilterByCompleted={this.toggleFilterByCompleted}
+						toggleSort={this.toggleSort}
 					/>
 					<Switch>
 						<Route

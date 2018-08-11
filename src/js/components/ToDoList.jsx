@@ -54,31 +54,43 @@ class ToDoList extends React.Component {
 			return a.props.todo.timestamp < b.props.todo.timestamp
 		}).sort((a, b) => {
 			return a.props.todo.checked > b.props.todo.checked
+		}).sort((a, b) => {
+			const listExists = lists[currentList]
+				? lists[currentList]
+				: []
+			if (listExists.sort === '0') {
+				return a.props.todo.checked < b.props.todo.checked
+			}
+			if (listExists.sort === '1') {
+				return a.props.todo.text > b.props.todo.text
+			}
+			if (listExists.sort === '2') {
+				return a.props.todo.timestamp < b.props.todo.timestamp
+			}
 		})
 
 		const listExists = lists[currentList]
 			? lists[currentList]
 			: []
 
-		const filteredTodos = toDo.filter(item => {
-			if (
-				this.state.pathname === '/' &&
-				listExists.filterByCompleted === true &&
-				!item.props.todo.checked
-			) {
+		const filterByList = toDo.filter(item => {
+			if (this.state.pathname === '/') {
 				return item
+			} else {
+				return item.props.todo.listId === currentList
 			}
-			if (
-				item.props.todo.listId === currentList &&
-				lists[currentList].filterByCompleted === true &&
-				!item.props.todo.checked
-			) {
+		})
+
+		const filterByChecked = filterByList.filter(item => {
+			if (listExists.filterByCompleted) {
+				return !item.props.todo.checked
+			} else {
 				return item
 			}
 		})
 
 		const renderToDo = !isTodosEmpty
-			? filteredTodos
+			? filterByChecked
 			: <li>
 				<h3 className="no-todo">Such empty, do something</h3>
 			</li>

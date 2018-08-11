@@ -8,7 +8,7 @@ import settingsIcon from '../../assets/images/bx-dots-vertical-rounded.svg'
 const Header = (
 	{toggleMenu, menuButtonVisibility, pathname, removeList,
 		lists, currentList, editList, input, handleChange,
-		handleSubmit, setInput, toggleFilterByCompleted}
+		handleSubmit, setInput, toggleFilterByCompleted, toggleSort}
 ) => {
 	const transitionClass = menuButtonVisibility ? 'animate' : ''
 	const listName = pathname === '/'
@@ -44,6 +44,7 @@ const Header = (
 										handleSubmit={handleSubmit}
 										setInput={setInput}
 										toggleFilterByCompleted={toggleFilterByCompleted}
+										toggleSort={toggleSort}
 										pathname={pathname}
 									/>
 								}
@@ -69,6 +70,7 @@ Header.propTypes = {
 	handleSubmit: PropTypes.func,
 	setInput: PropTypes.func,
 	toggleFilterByCompleted: PropTypes.func,
+	toggleSort: PropTypes.func,
 	pathname: PropTypes.string,
 	menuButtonVisibility: PropTypes.bool,
 	lists: PropTypes.object,

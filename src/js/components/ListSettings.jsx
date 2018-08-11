@@ -3,6 +3,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Toggle from './Toggle'
 import EditForm from './EditForm'
+import SortList from './SortList'
 
 import deleteIcon from '../../assets/images/bx-trash.svg'
 import renameIcon from '../../assets/images/bx-edit.svg'
@@ -10,7 +11,7 @@ import sortIcon from '../../assets/images/bx-sort-alt.svg'
 import hideIcon from '../../assets/images/bx-check-circle.svg'
 
 const ListSettings = (
-	{toggle, removeList, currentList, editList, input, pathname,
+	{toggle, removeList, currentList, editList, input, pathname, toggleSort,
 		handleChange, handleSubmit, setInput, toggleFilterByCompleted}
 ) => {
 	return (
@@ -60,17 +61,39 @@ const ListSettings = (
 							)
 						}
 					</Toggle>
-					<li className="list-settings__list">
-						<img
-							className="list-settings__list-image"
-							src={sortIcon}
-							alt="Delete list icon"
-						/>
-						Sort - COMING SOON
-					</li>
+					<Toggle>
+						{
+							({on, toggle}) => (
+								<Fragment>
+									<li
+										className="list-settings__list"
+										onClick={toggle}
+									>
+										<img
+											className="list-settings__list-image"
+											src={sortIcon}
+											alt="Delete list icon"
+										/>
+										Sort
+									</li>
+									{
+										on &&
+										<SortList
+											toggleSort={toggleSort}
+											on={on}
+											toggle={toggle}
+										/>
+									}
+								</Fragment>
+							)
+						}
+					</Toggle>
 					<li
 						className="list-settings__list"
-						onClick={toggleFilterByCompleted}
+						onClick={() => {
+							toggleFilterByCompleted()
+							toggle()
+						}}
 					>
 						<img
 							className="list-settings__list-image"
@@ -111,6 +134,7 @@ ListSettings.propTypes = {
 	handleSubmit: PropTypes.func,
 	setInput: PropTypes.func,
 	toggleFilterByCompleted: PropTypes.func,
+	toggleSort: PropTypes.func,
 	lists: PropTypes.object,
 	currentList: PropTypes.string,
 	input: PropTypes.string,
