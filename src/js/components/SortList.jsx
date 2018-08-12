@@ -10,7 +10,6 @@ const SortList = ({on, toggle, toggleSort, lists, currentList}) => {
 	const listExists = lists[currentList]
 		? lists[currentList]
 		: []
-	console.log(listExists.sort)
 	return (
 		<div
 			className="sort-list-background"

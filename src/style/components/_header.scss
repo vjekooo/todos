@@ -2,15 +2,15 @@
 .header {
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: auto 2fr 1fr;
+	grid-template-rows: auto 2fr auto;
 	justify-items: center;
-	align-items: center;
+	align-items: flex-start;
 	color: whitesmoke;
-	height: 30vh;
-	padding: 1rem 1rem 0 1rem;
+	height: 35vh;
+	padding: 1rem 1rem .5rem 1rem;
 	text-transform: uppercase;
-	background-image: url("../assets/images/image_header.png");
-	background-position: 10% 25%;
+	background-image: url("../assets/images/header__img.png");
+	background-position: -120px -30px;
 	&__toolbar {
 		display: flex;
 		flex-direction: row;
@@ -19,6 +19,7 @@
 	}
 	&__app-name {
 		font: 100 2rem 'Roboto', Helvetica, sans-serif;
+		padding-top: 1rem;
 	}
 	&__info {
 		display: flex;
