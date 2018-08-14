@@ -4,25 +4,13 @@ import PropTypes from 'prop-types'
 import ToDo from './ToDo'
 
 class ToDoList extends React.Component {
-	constructor (props) {
-		super(props)
-		this.state = {
-			pathname: ''
-		}
-	}
 	componentDidMount () {
-		this.setState({
-			pathname: this.props.location.pathname
-		})
 		this.props.setPathname(this.props.location.pathname, this.props.location.param1)
 	}
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.location.pathname !== nextProps.location.pathname) {
-			this.setState({
-				pathname: nextProps.location.pathname
-			})
-			this.props.setPathname(nextProps.location.pathname, nextProps.location.param1)
+	componentDidUpdate (prevProps) {
+		if (this.props.location.pathname !== prevProps.location.pathname) {
+			this.props.setPathname(this.props.location.pathname, this.props.location.param1)
 			this.props.toggleMenu()
 		}
 	}
@@ -59,7 +47,7 @@ class ToDoList extends React.Component {
 				? lists[currentList]
 				: []
 			if (listExists.sort === '0') {
-				return a.props.todo.checked < b.props.todo.checked
+				return a.props.todo.checked > b.props.todo.checked
 			}
 			if (listExists.sort === '1') {
 				return a.props.todo.text > b.props.todo.text
@@ -74,19 +62,15 @@ class ToDoList extends React.Component {
 			: []
 
 		const filterByList = toDo.filter(item => {
-			if (this.state.pathname === '/') {
-				return item
-			} else {
-				return item.props.todo.listId === currentList
-			}
+			return pathname === '/'
+				? item
+				: item.props.todo.listId === currentList
 		})
 
 		const filterByChecked = filterByList.filter(item => {
-			if (listExists.filterByCompleted) {
-				return !item.props.todo.checked
-			} else {
-				return item
-			}
+			return listExists.filterByCompleted
+				? !item.props.todo.checked
+				: item
 		})
 
 		const renderToDo = !isTodosEmpty

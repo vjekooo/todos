@@ -31,6 +31,9 @@ class App extends React.Component {
 	}
 
 	componentDidMount () {
+		this.setState({
+			currentList: 'list01'
+		})
 		auth.onAuthStateChanged(currentUser => {
 			this.setState({
 				currentUser: currentUser
@@ -76,10 +79,38 @@ class App extends React.Component {
 		})
 	}
 
+	componentDidUpdate (prevProps, prevState) {
+		// const { lists, pathname } = this.state
+		// const pathnameSliced = !pathname === '/'
+		// 	? pathname.slice(1)
+		// 	: '/'
+		// console.log({pathname})
+		// if (!this.state.currentList) {
+		// 	console.log('asasasa')
+		// 	const currentList = Object.keys(lists).map(list => {
+		// 		if (lists[list].route === pathnameSliced) {
+		// 			return list
+		// 		}
+		// 	}).filter(item => {
+		// 		if (item !== 'undefined') {
+		// 			return item
+		// 		}
+		// 	})
+		// 	console.log(currentList)
+		// 	this.setState({
+		// 		currentList: currentList[0]
+		// 	})
+		// }
+	}
+
 	setPathname = (pathname, listId) => {
+		if (listId) {
+			this.setState({
+				currentList: listId
+			})
+		}
 		this.setState({
-			pathname: pathname,
-			currentList: listId
+			pathname: pathname
 		})
 	}
 
@@ -236,7 +267,7 @@ class App extends React.Component {
 		this.listsRef.child(currentList).update({
 			route: lists[currentList].route,
 			filterByCompleted: !lists[currentList].filterByCompleted,
-			sort: !lists[currentList].sort,
+			sort: lists[currentList].sort,
 			fixed: lists[currentList].fixed
 		})
 	}
@@ -269,7 +300,6 @@ class App extends React.Component {
 	render () {
 		const {
 			todos,
-			overlay,
 			currentUser,
 			input,
 			currentTodo,
@@ -290,7 +320,6 @@ class App extends React.Component {
 					lists={lists}
 					isTodosEmpty={isTodosEmpty}
 					currentUser={currentUser}
-					overlay={overlay}
 					details={details}
 					pathname={pathname}
 					input={input}
@@ -299,7 +328,6 @@ class App extends React.Component {
 					removeToDo={this.removeToDo}
 					toggleToDo={this.toggleToDo}
 					editToDo={this.editToDo}
-					modalToggle={this.modalToggle}
 					handleChange={this.handleChange}
 					handleSubmit={this.handleSubmit}
 					setPathname={this.setPathname}
